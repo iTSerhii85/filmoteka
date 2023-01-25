@@ -1,0 +1,35 @@
+body {
+  font-family: "Roboto";
+  text-decoration: none;
+  height: 100%;
+
+  // background-color: #ffffff;
+  // background-image: url('../images/bg-body/ice_cream.jpg');
+  // background-size: cover;
+  // background-attachment: fixed;
+  // background-position: 0 0;
+  // background-repeat: no-repeat;
+
+  // cursor: url("/src/images/cursor.png") 4 12, auto;
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
