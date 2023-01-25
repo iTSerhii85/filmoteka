@@ -1,0 +1,55 @@
+.footer-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    //   padding: 93px 15px 94px 7px;
+      
+    overflow-y: scroll;
+  }
+
+  .footer-modal {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    min-height: 100%;
+    background-color: #ffffff;
+
+    padding: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+
+    @media screen and (min-width: 768px) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-height: 609px;
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @media screen and (min-width: 1200px) {
+      max-width: 528px;
+      min-height: 581px;
+    }
+  }
+
+  .footer-modal-close-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 0;
+    cursor: pointer;
+  }

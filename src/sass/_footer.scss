@@ -1,5 +1,8 @@
-.footer-container {
+footer {
     background-color: #F7F7F7;
+}
+
+.footer-container {
     padding-top: 29px;
     padding-bottom: 29px;
 
@@ -41,3 +44,27 @@
 .students-text {
     margin: 0;
 }
+
+ @media screen and (min-width: 768px) {
+    .footer-wrapper {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 79px;
+    }
+
+    .text-wrapper {
+        margin: 0 0 0 4px;
+    }
+
+    .footer-container {
+        font-size: 16px;
+        line-height: 1.18;
+    }
+ }
+
+ @media screen and (min-width: 1200px) {
+    .footer-wrapper {
+        height: 77px;
+    }
+ }
