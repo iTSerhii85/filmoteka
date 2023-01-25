@@ -2,6 +2,11 @@
     background-color: #F7F7F7;
     padding-top: 29px;
     padding-bottom: 29px;
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.14;
+    color: #545454;
 }
 
 .footer-wrapper {
@@ -9,8 +14,30 @@
     flex-direction: column;
     height: 100px;
     align-items: center;
+    justify-content: center;
 }
 
 .text-wrapper {
     display: flex;
+    align-items: center;
+    margin-top: 10px;
+    
+}
+
+.footer-open-modal_link {
+    cursor: pointer;
+    padding: 8px 0;
+    text-decoration: underline;
+}
+
+.rights-text {
+    margin: 0;
+}
+
+.dew-text {
+    margin: 0 10px 0 0;
+}
+
+.students-text {
+    margin: 0;
 }
