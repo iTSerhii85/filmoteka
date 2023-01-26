@@ -1,0 +1,17 @@
+.pagination {
+  width: 100%;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+.pagination-value {
+  cursor: pointer;
+}
+.dots {
+  cursor: default;
+}
+.targetPage {
+  color: darkslategrey;
+  font-weight: bold;
+  text-decoration: underline;
+}
