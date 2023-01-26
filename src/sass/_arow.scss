@@ -1,0 +1,16 @@
+.arow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(36, 26, 26);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+
+.svg {
+  fill: rgb(180, 7, 7);
+}
