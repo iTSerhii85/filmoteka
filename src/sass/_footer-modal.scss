@@ -17,6 +17,8 @@
     max-width: 450px;
     min-height: 100%;
     background-color: #ffffff;
+    text-align: center;
+    overflow-y: scroll;
 
     padding: 40px;
     margin-left: auto;
@@ -35,6 +37,7 @@
     @media screen and (min-width: 1200px) {
       max-width: 528px;
       min-height: 581px;
+      max-height: 650px;
     }
   }
 
@@ -52,4 +55,37 @@
     background-color: #fff;
     padding: 0;
     cursor: pointer;
+  }
+
+  .our-team{
+    margin: 0;
+  }
+
+  .developer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .photo {
+    width: 100px;
+    height: 140px;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
+  .about {
+    max-width: 250px;
+    height: 100px;
+    border: 2px solid black;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-left: none;
+    margin: 0;
+    padding: 8px;
+  }
+
+  .dev-name {
+    margin: 0;
   }
