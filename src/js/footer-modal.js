@@ -7,14 +7,24 @@ openModal.addEventListener('click', openModalWindow);
 
 const developerMarkup = developers.map(obj =>`
 <div class="developer">
-  <div class="photo">${obj.img}</div>
-    <div class="border">
-      <div class="about">
-        <h4 class="dev-name">${obj.name}</h4>
-        <p class="about-dev">${obj.text}</p>
-      </div>
+<div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+      ${obj.img}
     </div>
-  </div>`).join('');
+    <div class="flip-card-back">
+        <p class="title">BACK</p>
+        <p>Leave Me</p>
+    </div>
+</div>
+</div>
+  <div class="border">
+    <div class="about">
+      <h4 class="dev-name">${obj.name}</h4>
+      <p class="about-dev">${obj.text}</p>
+    </div>
+  </div>
+</div>`).join('');
 
 const markup = `
 <div class="footer-modal-backdrop">
