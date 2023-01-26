@@ -3,14 +3,7 @@
 
   padding-top: 40px;
 
-  background-image: url(../images/bg1x.jpeg);
-
-  @media (min-device-pixel-ratio: 2),
-    (-webkit-min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
-    background-image: url('../images/bg2x.jpeg');
-  }
+  background-image: url(../images/header-home-desktop.jpg);
 }
 
 .header-home__logo {
