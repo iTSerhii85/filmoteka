@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
 
     //   padding: 93px 15px 94px 7px;
       
@@ -12,11 +12,28 @@
   }
 
   .footer-modal {
-    position: relative;
+   
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
     width: 100%;
     max-width: 450px;
-    min-height: 100%;
-    background-color: #ffffff;
+    max-height: 610px;
+    // min-height: 100%;
+    background-color: #f9f9d1;
+
+    background-image: url(../images/desktop.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-origin: padding-box;
+    background-clip: padding-box;
+
+    text-align: center;
+    overflow-y: scroll;
 
     padding: 40px;
     margin-left: auto;
@@ -27,14 +44,16 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      min-height: 609px;
+      min-height: 610px;
+      max-height: 630px;
       transform: translate(-50%, -50%) scale(1);
       transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     @media screen and (min-width: 1200px) {
       max-width: 528px;
-      min-height: 581px;
+      min-height: 630px;
+      max-height: 650px;
     }
   }
 
@@ -45,11 +64,59 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    width: 30px;
+    width: 50px;
     height: 30px;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    background-color: #fff;
+    border-radius: 15px;
+    background-color: #275efe;
     padding: 0;
     cursor: pointer;
+  }
+
+  .our-team{
+    margin: 0;
+    color: #ffffff;
+    // font-weight: 500;
+    font-size: 40px;
+    // line-height: 24px;
+  }
+
+  .developer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .photo {
+    width: 110px;
+    height: 140px;
+    // border: 1px solid black;
+    // border-radius: 10px;
+    background-color: rgba(183, 183, 183, 0.863);
+  }
+
+  .about {
+    max-width: 250px;
+    height: 100px;
+    // border: 1px solid black;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-left: none;
+    margin: 0;
+    padding: 8px;
+    background-color: #ffffff;
+  }
+
+  .dev-name {
+    margin: 0;
+  }
+
+  .border {
+    padding: 5px 5px 5px 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    // border: 1px solid black;
+    border-left: none;
+    background-color: #a920fd;
   }

@@ -14,8 +14,23 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <include src="./partials/preloader.html"></include>
+   
     <!-- ❗️❗️❗️ Add partials like so for every page -->
+
+    <div class="page-wrapper">
+      <header>
+        <include src="./partials/home_header.html"></include>
+      </header>
+      <main>
+        <div class="container">
+          <include src="./partials/home_main.html"></include>
+        </div>
+      </main>
+      <footer>
+        <include src="./partials/footer.html"></include>
+      </footer>
+    </div>
+
     <header>
       <include src="./partials/home_header.html"></include>
     </header>
@@ -29,7 +44,8 @@
     <footer>
       <include src="./partials/footer.html"></include>
     </footer>
-
+    
+ <include src="./partials/preloader.html"></include>
     <include src="./partials/modal.html"></include>
     <include src="./partials/footer_modal.html"></include>
   </body>
