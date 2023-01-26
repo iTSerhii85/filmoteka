@@ -13,7 +13,7 @@ const lastPage = document.querySelector('.lastPage');
 
 let currentPage = 1;
 
-let maxPage = 6;
+let maxPage = 5;
 
 function paginationMarkUp(currentPage, maxPage) {
   firstPage.textContent = '';
@@ -27,6 +27,39 @@ function paginationMarkUp(currentPage, maxPage) {
   afterDots.textContent = '';
   nextPage.textContent = '';
   lastPage.textContent = '';
+
+  //    TEST С ЖЕСТКОЙ ПРОПИСКОЙ
+
+  //   if (maxPage == '1') {
+  //     return;
+  //   }
+
+  //   if (maxPage == '2') {
+  //     afterPage.textContent = Number(currentPage) + 1;
+  //     return;
+  //   }
+
+  //   if (maxPage == '3') {
+  //     preCurPage.textContent = currentPage - 1;
+  //     afterPage.textContent = Number(currentPage) + 1;
+  //     return;
+  //   }
+
+  //   if (maxPage == '4') {
+  //     preCurPage.textContent = currentPage - 1;
+  //     afterPage.textContent = Number(currentPage) + 1;
+  //     nextAfterPage.textContent = Number(currentPage) + 2;
+  //     return;
+  //   }
+
+  //   if (maxPage == '5') {
+  //     preCurPage.textContent = currentPage - 1;
+  //     prePreCurPage.textContent = currentPage - 2;
+  //     afterPage.textContent = Number(currentPage) + 1;
+  //     nextAfterPage.textContent = Number(currentPage) + 2;
+  //     return;
+  //   }
+  //  ***************
 
   //   if (currentPage == '1' && maxPage == '3') {
   //     afterPage.textContent = Number(currentPage) + 1;
