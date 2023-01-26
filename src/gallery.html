@@ -8,20 +8,21 @@
     <script type="module" src="./gallery.js"></script>
   </head>
   <body>
+    <include src="./partials/preloader.html"></include>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <header>
-        <include src="./partials/gallery_header.html"></include>
-    </header>
-
-    <main>
-        <div class="container">
-          <include src="./partials/gallery_main.html"></include>
-        </div>
-    </main>
-
-    <footer>
-        <include src="./partials/footer.html"></include>
-    </footer>
+    <div class="page-wrapper">
+      <header>
+          <include src="./partials/gallery_header.html"></include>
+      </header>
+      <main>
+          <div class="container">
+            <include src="./partials/gallery_main.html"></include>
+          </div>
+      </main>
+      <footer>
+          <include src="./partials/footer.html"></include>
+      </footer>
+    </div>
     
     <include src="./partials/modal.html"></include>
     <include src="./partials/footer_modal.html"></include>

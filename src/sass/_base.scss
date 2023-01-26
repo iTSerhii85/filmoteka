@@ -1,4 +1,4 @@
-body {
+html ,body {
   font-family: "Roboto";
   text-decoration: none;
   height: 100%;
@@ -11,6 +11,16 @@ body {
   // background-repeat: no-repeat;
 
   // cursor: url("/src/images/cursor.png") 4 12, auto;
+}
+
+.page-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 1 auto;
 }
 
 img {

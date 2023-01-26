@@ -1,0 +1,150 @@
+// <div class="card-wraper">
+//       <img class="card-img" src="#" alt="#" />
+//       <div class="card-title">title</div>
+//       <div class="wraper">
+//         <div class="card-genre-wraper">
+//           <div class="card-genre">genre</div>
+//         </div>
+//         <div class="card-year">year</div>
+//         <div class="card-rating-wraper"><div class="card-rating">rating</div></div>
+//       </div>
+//     </div>
+
+.card-wraper {
+  flex-wrap: wrap;
+
+  @media screen and (min-width: 320px) {
+    width: 280px;
+    height: 438px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 336px;
+    height: 495px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 395px;
+    height: 634px;
+  }
+}
+.card-img {
+  @media screen and (min-width: 320px) {
+    width: 100%;
+    height: 398px;
+    margin-bottom: 8px;
+  }
+
+  @media screen and (min-width: 768px) {
+    height: 455px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    height: 574px;
+    margin-bottom: 12px;
+  }
+}
+.card-title {
+  @media screen and (min-width: 320px) {
+    color: #000;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+.wraper {
+  display: flex;
+  align-items: center;
+
+  @media screen and (min-width: 320px) {
+    color: #ff6b08;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+
+.card-genre-wraper {
+  position: relative;
+}
+
+.card-genre::after {
+  position: absolute;
+  content: '';
+  border-radius: 2px;
+  background-color: #ff6b08;
+
+  @media screen and (min-width: 320px) {
+    width: 1px;
+    height: 10px;
+    right: -9px;
+    top: 4px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 2px;
+    height: 15px;
+    top: 5px;
+    right: -10px;
+  }
+}
+
+.card-year {
+  margin-left: 16px;
+}
+
+.card-rating-wraper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+
+  @media screen and (min-width: 320px) {
+    background-color: #ff6b08;
+    border-radius: 5px;
+    width: 36px;
+    height: 16px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 40px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+.card-rating {
+  color: #fff;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (min-width: 320px) {
+    width: 24px;
+    height: 14px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 17px;
+    height: 14px;
+  }
+}

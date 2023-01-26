@@ -1,8 +1,33 @@
-<article class="example" id="uk">
-
-  <!--
-    ❗️❗️❗️ The path to images from the HTML partial
-    is the same as from the index.html file
-  -->
- 
-</article>
+<div class="header-background">
+  <div class="container header-home">
+    <nav class="nav">
+      <a class="header-home__logo" href="">
+        <svg class="header-home__icon" width="24" height="24">
+          <use href="./images/svg/sprite.svg#icon-svg-film"></use>
+        </svg>
+        Filmoteka
+      </a>
+      <ul class="header-home__menu">
+        <li class="header-home__menu--to-right"><a href="">Home</a></li>
+        <li><a href="./gallery.html">My Library</a></li>
+      </ul>
+    </nav>
+    <div class="header-form">
+      <form class="js-header-form">
+        <input
+          class="header-form__input"
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Movie search"
+        />
+        <button class="search-btn" type="submit">
+          <svg class="header-home__search" width="12" height="12">
+            <use href="./images/svg/sprite.svg#icon-svg-search"></use>
+          </svg>
+        </button>
+      </form>
+      <p class="header-form__message"></p>
+    </div>
+  </div>
+</div>
