@@ -8,22 +8,29 @@
     <script type="module" src="./gallery.js"></script>
   </head>
   <body>
+    <div class="arow">
+      <a href=""
+        ><svg class="svg" width="20px" height="20px">
+          <use href="./images/svg/sprite.svg#icon-arrow-up"></use>
+        </svg>
+      </a>
+    </div>
     <include src="./partials/preloader.html"></include>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
     <div class="page-wrapper">
       <header>
-          <include src="./partials/gallery_header.html"></include>
+        <include src="./partials/gallery_header.html"></include>
       </header>
       <main>
-          <div class="container">
-            <include src="./partials/gallery_main.html"></include>
-          </div>
+        <div class="container">
+          <include src="./partials/gallery_main.html"></include>
+        </div>
       </main>
       <footer>
-          <include src="./partials/footer.html"></include>
+        <include src="./partials/footer.html"></include>
       </footer>
     </div>
-    
+
     <include src="./partials/modal.html"></include>
     <include src="./partials/footer_modal.html"></include>
   </body>
