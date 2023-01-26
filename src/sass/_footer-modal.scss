@@ -25,7 +25,7 @@
     // min-height: 100%;
     background-color: #f9f9d1;
 
-    background-image: url(../images/desktop.jpg);
+    background-image: url(../images/modal_bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -34,6 +34,10 @@
 
     text-align: center;
     overflow-y: scroll;
+
+    overflow: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
 
     padding: 40px;
     margin-left: auto;
@@ -57,6 +61,11 @@
     }
   }
 
+  .footer-modal::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
   .footer-modal-close-button {
     display: flex;
     align-items: center;
@@ -68,14 +77,19 @@
     height: 30px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 15px;
-    background-color: #275efe;
+    background-color: #FF6B08;
     padding: 0;
     cursor: pointer;
+
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   }
 
   .our-team{
     margin: 0;
-    color: #ffffff;
+    color: #FF6B08;
+    text-shadow: 4px 4px 2px rgba(0,0,0,0.6);
     // font-weight: 500;
     font-size: 40px;
     // line-height: 24px;
@@ -92,7 +106,7 @@
     width: 110px;
     height: 140px;
     // border: 1px solid black;
-    // border-radius: 10px;
+    border-radius: 5px;
     background-color: rgba(183, 183, 183, 0.863);
   }
 
@@ -118,5 +132,9 @@
     border-bottom-right-radius: 10px;
     // border: 1px solid black;
     border-left: none;
-    background-color: #a920fd;
+    background-color: #FF6B08;
+
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   }
