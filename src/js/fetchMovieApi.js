@@ -6,9 +6,8 @@ const KEY = '7c6a11c2d8e8524ccfd41d8aedf2bd73';
 export default class MovieApiService {
     constructor() {
         this.inputValue = '';
-        // this.page = 1;
-        // this.perPage = 40;
-    }
+        this.currentPage = 1;
+     }
     
     async getGenres() {
         try {
@@ -24,7 +23,7 @@ export default class MovieApiService {
     
     async getTrendingMovies() {
         try {
-            const response = await axios.get(`${BASE_URL}trending/all/day?api_key=${KEY}`);
+            const response = await axios.get(`${BASE_URL}trending/movie/day?api_key=${KEY}&page=${this.currentPage}`);
           
             return response.data;
         } catch (error) {
@@ -34,7 +33,7 @@ export default class MovieApiService {
 
        async searchMovies() {
         try {
-            const response = await axios.get(`${BASE_URL}search/movie?api_key=${KEY}&language=en-US&page=${this.page}1&include_adult=false&query=${this.inputValue}`);
+            const response = await axios.get(`${BASE_URL}search/movie?api_key=${KEY}&language=en-US&page=${this.currentPage}&include_adult=false&query=${this.inputValue}`);
             console.log(response.data);
             // Збільшуємо значення this.page += 1
             // this.incrementPage();
@@ -43,13 +42,13 @@ export default class MovieApiService {
             console.error(error);
         }
     }
-     // Функція збільшення значення this.page
-    incrementPage() {
-        this.page += 1;
-    }
+    //  // Функція збільшення значення this.page
+    // incrementPage() {
+    //     this.page += 1;
+    // }
     // Функція оновлення значення this.page
-    resetPage() {
-        this.page = 1
+    resetCurrentPage() {
+        this.currentPage = 1
     }
 
     get value() {
@@ -58,6 +57,14 @@ export default class MovieApiService {
 
     set value(newValue) {
         this.inputValue = newValue
+    }
+
+    get newCurrentPage() {
+        return this.currentPage
+    }
+
+    set newCurrentPage(newPage) {
+        this.currentPage = newPage
     }
 }
  
