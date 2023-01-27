@@ -1,2 +1,11 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
+.accent-underline::after {
+  display: block;
+  content: '';
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 0;
+  background-color: #ff001b;
+}

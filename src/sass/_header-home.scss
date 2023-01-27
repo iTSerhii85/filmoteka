@@ -1,5 +1,11 @@
 .header-background {
-  background-color: url(../images/header-home-desktop.jpg);
+  height: 216px;
+  // min-width: 1680px;
+
+  background-image: url(../images/header-background-maxwidth1.jpg);
+  background-position: center;
+  background-size: cover;
+  // background-repeat: no-repeat;
 }
 
 .header-home {
@@ -39,6 +45,9 @@ nav {
 }
 
 .header-home__menu {
+  // position: absolute;
+  right: 0;
+
   display: flex;
   text-transform: uppercase;
 }
@@ -121,5 +130,5 @@ nav {
   font-family: 'Roboto';
 
   font-size: 14px;
-  line-height: 1.1 4;
+  line-height: 1.14;
 }
