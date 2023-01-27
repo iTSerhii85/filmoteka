@@ -12,25 +12,25 @@ const movieApiService = new MovieApiService();
 
 refs.formEl.addEventListener('submit', onSearch);
 
-
 saveGenresToLocalStorage();
 
 // console.log(parseGenresData) 
 
 movieApiService.getTrendingMovies().then(data => {
-  
-  saveTrendingToLocalStorage();
+  movieApiService.resetCurrentPage();
+  saveTrendingToLocalStorage(data);
   createMarkup(data.results)
   
 })
 
 function onSearch(evt) {
   evt.preventDefault();
+  movieApiService.resetCurrentPage();
   clearMarkup();
   movieApiService.value = evt.currentTarget.elements.searchQuery.value;
   movieApiService.searchMovies().then(data => {
     // console.log(data);
-    saveSearchResultToLocalStorage();
+    saveSearchResultToLocalStorage(data);
     createMarkup(data.results);
   })
 }
@@ -42,9 +42,9 @@ function createMarkup(dataArray) {
     // Записуємо дані рейтингу
     const ratingValue = obj.vote_average.toFixed(1);
     // Записуємо дату випуску
-    const year = obj.release_date || obj.first_air_date
+    const year = obj.release_date || obj.first_air_date || ''
            
-    return ` <div class="card-wraper">
+    return ` <li class="card-wraper" id="${obj.id}">
        <img class="card-img" src="${START_URL}${obj.poster_path}" alt="#" />
        <div class="card-title">${obj.title || obj.name}</div>
       <div class="wraper">
@@ -54,13 +54,12 @@ function createMarkup(dataArray) {
          <div class="card-year">${year.slice(0,4)}</div>
          <div class="card-rating-wraper"><div class="card-rating">${ratingValue}</div></div>
        </div>
-     </div>`;
+     </li>`;
   }
 
   const markup = dataArray.map(oneMarkup).join('');
   refs.divEl.insertAdjacentHTML('beforeend', markup);
 }
-
 
 function saveGenresToLocalStorage() {
   movieApiService.getGenres().then(data => {
@@ -69,18 +68,12 @@ function saveGenresToLocalStorage() {
   })
 }
 
-function saveTrendingToLocalStorage() {
-  movieApiService.getTrendingMovies().then(data => {
-    // console.log(data.genres)
-    localStorage.setItem('TRENDING_DATA_KEY', JSON.stringify(data.results))
-  })
+function saveTrendingToLocalStorage(data) {
+ localStorage.setItem('TRENDING_DATA_KEY', JSON.stringify(data.results))
 }
 
-function saveSearchResultToLocalStorage() {
-  movieApiService.searchMovies().then(data => {
-    localStorage.setItem('SEARCH_RESULT_DATA_KEY', JSON.stringify(data.results))
- 
-  })
+function saveSearchResultToLocalStorage(data) {
+  localStorage.setItem('SEARCH_RESULT_DATA_KEY', JSON.stringify(data.results))
 }
 
 function checkGenresById(obj) {
@@ -96,11 +89,13 @@ function checkGenresById(obj) {
         genresArr.push(parseGenre.name)
       }
       
-      // console.log(genresArr)
     }
-    
-    let genresStr = ''
-    if (genresArr.length <= 2) {
+    // console.log(genresArr)  
+  
+  let genresStr = '';
+    if (genresArr.length === 0) {
+        genresStr = 'Unknown genre'
+    } else if (genresArr.length <= 2) {
         genresStr = genresArr.join(', ')
     } else {
       genresArr.splice(2, genresArr.length)
@@ -111,8 +106,4 @@ function checkGenresById(obj) {
 
 function clearMarkup() {
     refs.divEl.innerHTML = ''
-}
-
-const rounded = function(number){
-    return number.toFixed(1);
 }
