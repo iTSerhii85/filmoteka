@@ -10,7 +10,7 @@ const developerMarkup = developers.map(obj =>`
 <div class="flip-card">
   <div class="flip-card-inner">
     <div class="flip-card-front">
-      ${obj.img}
+    <img class="dev_photo" src="${obj.img}" alt="developer ${obj.name}">
     </div>
     <div class="flip-card-back">
         <p class="title">BACK</p>

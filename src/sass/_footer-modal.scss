@@ -176,8 +176,7 @@
   }
   
   .flip-card-back {
-    background: linear-gradient(120deg, rgb(255, 174, 145) 30%, coral 88%,
-       bisque 40%, rgb(255, 185, 160) 78%);
+    background-color: rgba(170, 27, 34, 0.6);
     color: white;
 
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -220,4 +219,11 @@
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  }
+
+  .dev_photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
