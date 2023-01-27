@@ -1,9 +1,19 @@
+.header-background {
+  background-color: url(../images/header-home-desktop.jpg);
+}
+
 .header-home {
   height: 216px;
+
+  // width: 1280px;
 
   padding-top: 40px;
 
   background-image: url(../images/header-home-desktop.jpg);
+  // background-position: center;
+  // background-size: contain;
+  // object-fit: cover;
+  // background-repeat: no-repeat;
 }
 
 .header-home__logo {
@@ -11,7 +21,8 @@
   align-items: center;
   text-align: center;
 
-  font-style: normal;
+  // font-family: 'Roboto';
+  // font-style: normal;
   font-weight: 500;
   font-size: 30px;
   line-height: 1.17;
@@ -50,20 +61,27 @@ nav {
 .header-form__input {
   width: 394px;
   height: 20px;
-
+  font-size: 14px;
+  line-height: 1.14;
+  color: #fff;
   background-color: transparent;
-  border: 0;
+  border: 0 solid;
   border-bottom: 0.5px solid #ffffff;
 
   &::placeholder {
-    // font-family: inherit;
-    font-style: normal;
-    font-weight: 400;
+    // font-family: 'Roboto';
+    // font-style: normal;
+    // font-weight: 400;
     font-size: 14px;
     line-height: 1.14;
 
     color: #fff;
   }
+}
+
+.header-form:focus,
+.header-form__input:focus {
+  outline: none;
 }
 
 .header-form form {
@@ -92,4 +110,16 @@ nav {
 .main-gallery {
   display: flex;
   flex-wrap: wrap;
+}
+
+.header-form__message {
+  position: absolute;
+
+  top: 20px;
+  color: #ff001b;
+
+  font-family: 'Roboto';
+
+  font-size: 14px;
+  line-height: 1.1 4;
 }
