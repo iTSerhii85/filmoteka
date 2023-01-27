@@ -2,7 +2,7 @@ export const developers = [
     {
       name: 'Serphii Prokip',
       text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
-      img: '../images/haker.jpg',
+      img: './images/haker.jpg',
     },
     {
       name: 'Yulia Safonova',
