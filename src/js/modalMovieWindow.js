@@ -4,16 +4,11 @@ const backdrop = document.querySelector('.backdrop-modal');
 const closeModalBtn = document.querySelector('.button-close');
 const movieCard = document.querySelector('.modal-movie-card');
 
-const START_URL = 'https://image.tmdb.org/t/p/w500'
-
 cardList.addEventListener('click', event => {
-    if (event.target.nodeName !== 'BUTTON') {
+    if (event.target.nodeName === 'IMG') {
         renderModal(event);
-        console.log('hello')
     }
 });
-
-// cardList.addEventListener('click', openModal);
 
 function openModal(event) {
   closeModalBtn.addEventListener('click', closeModal);
@@ -51,53 +46,65 @@ function closeModalEsc(event) {
 }
 
 const renderModal = event => {
-    if (event.target.nodeName === 'BUTTON') {
-        return
-    }
     const cardId = event.target.closest('li');
     const idMovie = cardId.id;
-    const data = getFilmDetails(idMovie) //----- Невиходить повернути об'єкти з відповідним id.
-    console.log(data)
-
-    
+    const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
+    const arrayMovies = JSON.parse(savedTrendingFilms);
+    const data = arrayMovies.find(arr => arr.id === Number(idMovie));
     
     if (data) {
         currentId = data.id;
-        // renderMovieCard(data);
+        renderMovieCard(data);
         openModal(event);
     }
-    
 };
 
 
-function checkGenresById(obj) {
-  const savedGenresData = localStorage.getItem('GENRES_DATA_KEY')
-  const parseGenresData = JSON.parse(savedGenresData)
-  let genresArr = [];
-
-    const genresIds = obj.genre_ids
-
-    for (const parseGenre of parseGenresData) {
-      
-      if (genresIds.includes(parseGenre.id)) {
-        genresArr.push(parseGenre.name)
-      }
-      
+function renderMovieCard(obj) {
+     
+    const backdropImage = obj.backdrop_path;
+    if (backdropImage !== null) {
+    const background = `https://image.tmdb.org/t/p/original/${obj.backdrop_path}`;
+    backdrop.style.backgroundImage = `url('${background}')`;
+    backdrop.style.backgroundSize = 'cover';
+    backdrop.style.backgroundPosition = '50% 50%';
     }
-    // console.log(genresArr)  
-  
-  const genresStr = genresArr.join(', ');
-  return genresStr;
-}
 
-function getFilmDetails(idMovie) {
-  const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
-  const arrayMovies = JSON.parse(savedTrendingFilms);
-  for (const arr of arrayMovies) {
-    if (arr.id === idMovie) {
-      return arr;
-      break
-    }   
-    console.log(arr)
+    mark(obj)
   }
-}
+
+   function mark (obj){
+    const markup = `
+    <div>
+      <div>
+        <img id="${obj.id}" class="card-img" src="https://image.tmdb.org/t/p/w500${obj.poster_path}" alt="#" />
+      </div>
+      <div >${obj.title || obj.name}</div>
+      <div> 
+      <div><p>Vote / Votes</p><p>${obj.vote}</p></div>
+      <div><p>Popularity</p><p>${obj.popularity}</p></div>
+      <div><p>Original Title</p><p>${obj.original_title}</p></div>
+      <div><p>Genre</p><p></p></div>
+      </div>
+      <h3 class='modal-movie-data__about_title'>About</h3>
+      <div>${obj.overview}</div>
+      <div class='modal-movie-btn-wrapper' style='clear: both'>
+        <button class='button-modal btn-to-watched' type='button' data-action='${obj.id}'>
+            ADD TO WATCHED
+        </button>
+        <button class='button-modal btn-to-queue' type='button' data-action='${obj.id}'>
+            ADD TO QUEUE
+        </button>
+        <button class='button-modal btn-to-watched' type='button' data-action='${obj.id}'>
+            REMOVE FROM WATCHED
+        </button>
+        <button class='button-modal btn-to-queue' type='button' data-action='${obj.id}'>
+            REMOVE FROM QUEUE
+        </button>
+      </div>
+    </div>`
+
+    movieCard.innerHTML = markup;
+   }
+
+ 
