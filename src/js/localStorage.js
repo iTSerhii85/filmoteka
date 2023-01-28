@@ -3,7 +3,6 @@ const refs = {
     searchBtn: document.querySelector('.search-btn'),
     input: document.querySelector('.header-form__input')
 }
-    // import { getTrendingMovies, createMarkup } from './markup_mainGallery.js'
 
 refs.input.addEventListener('input', onInputEmpty)
 
@@ -17,29 +16,31 @@ function onInputEmpty(evt) {
             refs.searchBtn.style.display = 'none';
             refs.input.value = '';
             return
-        } )
+        });
     }
 }
 //  функція яка викликається якщо нічого не введено або нема результату
 
-// function emptyNoResultInput() {
-//     refs.formMessage.insertAdjacentHTML('beforeend',
-//         '<p class="header-form__message">Search result not successfull.Enter the correct movie name</p>');
-//     setTimeout(() => {
-//         refs.formMessage.innerHTML = '';
-//     }, 3000);
+function emptyNoResultInput() {
+    refs.formMessage.insertAdjacentHTML('beforeend',
+        '<p class="header-form__message">Search result not successfull.Enter the correct movie name</p>');
+    
+    setTimeout(() => {
+        refs.formMessage.innerHTML = '';
+    }, 3000);
 
-//     refs.divEl.innerHTML = '';
+    refs.divEl.innerHTML = '';
 
-//    movieApiService.getTrendingMovies().then(data => {
+   movieApiService.searchMovies().then(data => {
+      saveSearchResultToLocalStorage(data);
+      createMainMarkup(data.results);
+      console.log(data);
+      paginationMarkUp(currentPage, data.total_pages);
   
-//   saveTrendingToLocalStorage();
-//   createMarkup(data.results)
-  
-// })
-// }
+})
+}
 
-// викликається у функції onSearch(evt), якщо інпут пустий 
+// викликається всередині функції onSearch(evt), якщо інпут пустий
 // if (!movieApiService.value) {
 //       emptyNoResultInput();
 //       return
@@ -50,35 +51,37 @@ function onInputEmpty(evt) {
 
 
 
-const save = (key, value) => {
+
+// localStorage Service
+// const save = (key, value) => {
     
-    try {
-        const serializedState = JSON.stringify(value);
-        localStorage.setItem(key, serializedState);
-    }
-    catch (error){
-        console.log("Set state error: ", error.message);
-    }
-}
+//     try {
+//         const serializedState = JSON.stringify(value);
+//         localStorage.setItem(key, serializedState);
+//     }
+//     catch (error){
+//         console.log("Set state error: ", error.message);
+//     }
+// }
 
-const load = key => {
-    try {
-        const serializedState = localStorage.getItem(key);
-        return serializedState === null ? undefined : JSON.parse(serializedState);
-    }
-    catch (error){
-        console.error("Get state error: ", error.message);
-}
-}
+// const load = key => {
+//     try {
+//         const serializedState = localStorage.getItem(key);
+//         return serializedState === null ? undefined : JSON.parse(serializedState);
+//     }
+//     catch (error){
+//         console.error("Get state error: ", error.message);
+// }
+// }
 
-const remove = key => {
-    try {
-        localStorage.removeItem(key);
-}
-    catch (error) {
-        console.error("Get state error: ", error.message);
-}
-}
-export {
-    save, load, remove
-};
+// const remove = key => {
+//     try {
+//         localStorage.removeItem(key);
+// }
+//     catch (error) {
+//         console.error("Get state error: ", error.message);
+// }
+// }
+// export {
+//     save, load, remove
+// };
