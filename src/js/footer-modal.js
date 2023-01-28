@@ -51,9 +51,22 @@ function openModalWindow(){
     modal.innerHTML = markup;
     const closeModalBtn = document.querySelector('.footer-modal-close-button');
     closeModalBtn.addEventListener('click', closeModalWindow);
+    const backdrop = document.querySelector('.footer-modal-backdrop');
+    backdrop.addEventListener('click', closeModalBackdrop);
+    document.addEventListener('keydown', closeModalWindow);
+    document.body.style.overflow = "hidden";
+}
+
+function closeModalBackdrop(event) {
+  if (event.target.classList.value !== 'footer-modal-backdrop') {
+    return;
+  }
+  closeModalWindow();
 }
 
 function closeModalWindow(){
     modal.innerHTML = ``;
+    document.removeEventListener('keydown', closeModalWindow);
+    document.body.style.overflow = ""; 
 }
 
