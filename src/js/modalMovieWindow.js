@@ -1,4 +1,4 @@
-const cardList = document.querySelector('.cards__list');
+const cardList = document.querySelector('.js-main-gallery');
 const backdrop = document.querySelector('.backdrop-modal');
 const closeModalBtn = document.querySelector('.button-close');
 const movieCard = document.querySelector('.modal-movie-card');
