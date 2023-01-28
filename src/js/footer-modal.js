@@ -1,3 +1,5 @@
+import git from '../images/svg/sprite.svg'
+
 import { developers } from "./developers";
 
 const modal = document.querySelector('.js-footer-modal');
@@ -7,14 +9,32 @@ openModal.addEventListener('click', openModalWindow);
 
 const developerMarkup = developers.map(obj =>`
 <div class="developer">
-  <div class="photo">${obj.img}</div>
-    <div class="border">
-      <div class="about">
-        <h4 class="dev-name">${obj.name}</h4>
-        <p class="about-dev">${obj.text}</p>
-      </div>
+<div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+      <img src="${obj.img}" alt="Developer ${obj.name}" class="dev_photo" loading="lazy">
     </div>
-  </div>`).join('');
+    <div class="flip-card-back">
+      <a href="${obj.linkedin}" class="icon-github">
+        <svg width="50" height="50">
+          <use href="${git}#icon-github"></use>
+        </svg>
+      </a>
+      <a href="${obj.linkedin}" class="icon-linkedin">
+        <svg width="50" height="50">
+          <use href="${git}#icon-linkedin"></use>
+        </svg>
+      </a>
+    </div>
+</div>
+</div>
+  <div class="border">
+    <div class="about">
+     <h4 class="dev-name">${obj.name}</h4>
+      <p class="about-dev">${obj.text}</p>
+    </div>
+  </div>
+</div>`).join('');
 
 const markup = `
 <div class="footer-modal-backdrop">
