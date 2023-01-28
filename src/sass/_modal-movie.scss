@@ -218,3 +218,34 @@ body.modal-open {
         }
     }
 }
+
+
+// Button //
+
+
+.button-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+
+    transition: all 0.05s;
+}
+
+.button-close:hover,
+.button-close:focus {
+    transform: scale(1.1);
+    background-color: var(--accent-color);
+}
+
+.card-wraper {
+    cursor: pointer;
+}
