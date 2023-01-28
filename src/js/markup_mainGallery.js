@@ -30,7 +30,7 @@ function Onclick(evt) {
   }
   clearMarkup();
   console.log(evt.target.textContent);
-  currentPage = evt.target.textContent;
+  let currentPage = evt.target.textContent;
   movieApiService.newCurrentPage = currentPage;
 
           // перевіряємо, що ми шукаємо при натисканні на кнопки пагінації по МАЯКУ. 
