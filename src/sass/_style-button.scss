@@ -55,15 +55,29 @@
   @media screen and (min-width: 1200px) {
     width: 136px;
   }
+
+    &:hover,
+    &:focus {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      color: var(--first-text-color);
+    }
+  
+    &.active {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      color: var(--first-text-color);
+      transform: scale(1.05);
+    }
 }
 
-.button-modal-to-watched {
-  border: none;
-  color: #fff;
-  background-color: #ff6b02;
-}
+// .button-modal-to-watched {
+//   border: none;
+//   color: #fff;
+//   background-color: #ff6b02;
+// }
 
-.button-modal-to-queue {
-  border: 1px solid #000;
-  background-color: #fff;
-}
+// .button-modal-to-queue {
+//   border: 1px solid #000;
+//   background-color: #fff;
+// }

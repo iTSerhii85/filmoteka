@@ -1,5 +1,6 @@
 import image1 from '../images/haker.jpg';
 import tarasBogun from '../images/developers/taras_bogun.jpg';
+import yulia from '../images/developers/yulia.jpg';
 
 export const developers = [
     {
@@ -12,9 +13,9 @@ export const developers = [
     {
       name: 'Yulia Safonova',
       text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
-      img: image1,
+      img: yulia,
       linkedin: '',
-      github: '',
+      github: 'https://github.com/Yulia-Safonova-85',
     },
     {
       name: 'Roman Korzun',
