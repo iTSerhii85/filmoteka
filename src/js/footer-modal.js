@@ -1,4 +1,4 @@
-import git from '../images/svg/sprite.svg'
+import ico from '../images/svg/sprite.svg'
 
 import { developers } from "./developers";
 
@@ -15,14 +15,14 @@ const developerMarkup = developers.map(obj =>`
       <img src="${obj.img}" alt="Developer ${obj.name}" class="dev_photo" loading="lazy">
     </div>
     <div class="flip-card-back">
-      <a href="${obj.linkedin}" class="icon-github">
+      <a href="${obj.github}" class="icon-github" target="_blank">
         <svg width="50" height="50">
-          <use href="${git}#icon-github"></use>
+          <use href="${ico}#icon-github"></use>
         </svg>
       </a>
-      <a href="${obj.linkedin}" class="icon-linkedin">
+      <a href="${obj.linkedin}" class="icon-linkedin" target="_blank">
         <svg width="50" height="50">
-          <use href="${git}#icon-linkedin"></use>
+          <use href="${ico}#icon-linkedin"></use>
         </svg>
       </a>
     </div>
