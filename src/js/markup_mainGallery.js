@@ -49,16 +49,13 @@ function Onclick(evt) {
     movieApiService.getTrendingMovies().then(data => {
       saveTrendingToLocalStorage(data);
       createMainMarkup(data.results);
-      console.log(data);
-      console.log(data.page);
       paginationMarkUp(currentPage, data.total_pages);
     });
   }
   if (searchMarkPagination === 'search') {
     movieApiService.searchMovies().then(data => {
-      saveSearchResultToLocalStorage(data);
+      saveTrendingToLocalStorage(data);
       createMainMarkup(data.results);
-      console.log(data);
       paginationMarkUp(currentPage, data.total_pages);
     });
   }
@@ -84,7 +81,7 @@ function onSearch(evt) {
   movieApiService.value = evt.currentTarget.elements.searchQuery.value;
   movieApiService.searchMovies().then(data => {
     // console.log(data);
-    saveSearchResultToLocalStorage(data);
+    saveTrendingToLocalStorage(data);
     createMainMarkup(data.results);
     // При пошуку фільмів малюємо пагінацію
     paginationMarkUp(1, data.total_pages);
@@ -137,10 +134,10 @@ function saveTrendingToLocalStorage(data) {
   localStorage.setItem('TRENDING_DATA_KEY', JSON.stringify(data.results));
 }
 
-// Функція збереження отриманих даних фільмів по ПОШУКУ в локалсторадж
-function saveSearchResultToLocalStorage(data) {
-  localStorage.setItem('SEARCH_RESULT_DATA_KEY', JSON.stringify(data.results));
-}
+// // Функція збереження отриманих даних фільмів по ПОШУКУ в локалсторадж
+// function saveSearchResultToLocalStorage(data) {
+//   localStorage.setItem('SEARCH_RESULT_DATA_KEY', JSON.stringify(data.results));
+// }
 // Функція вибору потрібних жанрів  + умову на кількість жанрів
 export function checkGenresById(obj) {
   const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
