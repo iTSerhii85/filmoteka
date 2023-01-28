@@ -22,18 +22,15 @@ refs.paginationBox.addEventListener('click', Onclick);
 // Функція натискання на кнопки  пагінації
 function Onclick(evt) {
   if (evt.target.textContent == '...') {
-    // console.log(`get...`);
     return;
   }
   if (evt.target.nodeName !== 'P') {
-    // console.log(`MISS`);
     return;
   }
   clearMarkup();
   console.log(evt.target.textContent);
   let currentPage = evt.target.textContent;
 
-  // btnPaginationValue = data.page;
   if (evt.target.textContent == '>>') {
     currentPage = Number(targetPage.textContent);
     currentPage += 1;
