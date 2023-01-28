@@ -1,6 +1,7 @@
 import image1 from '../images/haker.jpg';
 import tarasBogun from '../images/developers/taras_bogun.jpg';
 import yulia from '../images/developers/yulia.jpg';
+import evgeniy from '../images/developers/evgeniy.jpg';
 
 export const developers = [
     {
@@ -41,8 +42,8 @@ export const developers = [
     {
       name: 'Evgeniy',
       text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
-      img: image1,
-      linkedin: '',
-      github: '',
+      img: evgeniy,
+      linkedin: 'https://www.linkedin.com/in/%D1%94%D0%B2%D0%B3%D0%B5%D0%BD%D1%96%D0%B9-%D0%BA%D0%BB%D0%B8%D1%81%D0%B0%D0%BA-72a5978a/',
+      github: 'https://github.com/Simon507?tab=repositories',
     }
   ];
