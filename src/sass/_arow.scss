@@ -11,6 +11,15 @@
   right: 30px;
 }
 
+.a {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+}
+
 .svg {
   fill: rgb(180, 7, 7);
 }
