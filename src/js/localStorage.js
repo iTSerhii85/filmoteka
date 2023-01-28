@@ -3,11 +3,12 @@ const refs = {
     searchBtn: document.querySelector('.search-btn'),
     input: document.querySelector('.header-form__input')
 }
-    
+    // import { getTrendingMovies, createMarkup } from './markup_mainGallery.js'
+
 refs.input.addEventListener('input', onInputEmpty)
 
 function onInputEmpty(evt) {
-    const inputValue = refs.input.value;
+    const inputValue = evt.currentTarget.elements.searchQuery.value.trim();
 
     if (inputValue) {
         refs.searchBtn.style.display = 'block';
@@ -20,17 +21,29 @@ function onInputEmpty(evt) {
     }
 }
 //  функція яка викликається якщо нічого не введено або нема результату
-function emptyNoResultInput() {
-    refs.formMessage.insertAdjacentHTML('beforeend', '<p class="header-form__message">Search result not successfull.Enter the correct movie name</p>');
-    setTimeout(() => {
-        refs.formMessage.innerHTML = '';
-    }, 3000);
 
-    getTrendingMovies().then(data => {
-  createMarkup(data.results)
+// function emptyNoResultInput() {
+//     refs.formMessage.insertAdjacentHTML('beforeend',
+//         '<p class="header-form__message">Search result not successfull.Enter the correct movie name</p>');
+//     setTimeout(() => {
+//         refs.formMessage.innerHTML = '';
+//     }, 3000);
+
+//     refs.divEl.innerHTML = '';
+
+//    movieApiService.getTrendingMovies().then(data => {
   
-})
-}
+//   saveTrendingToLocalStorage();
+//   createMarkup(data.results)
+  
+// })
+// }
+
+// викликається у функції onSearch(evt), якщо інпут пустий 
+// if (!movieApiService.value) {
+//       emptyNoResultInput();
+//       return
+//     }
 
 
 
