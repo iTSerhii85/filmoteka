@@ -7,14 +7,16 @@ const movieCard = document.querySelector('.modal-movie-card');
 const START_URL = 'https://image.tmdb.org/t/p/w500'
 
 cardList.addEventListener('click', event => {
-    if (event.target.nodeName !== 'BUTTON') {
-        renderModal(event);
+  if (event.target.nodeName !== 'BUTTON') {
+      console.log(event);
+      renderModal(event);
     }
 });
 
 // cardList.addEventListener('click', openModal);
 
 function openModal(event) {
+   renderModal(event);
   closeModalBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', event => closeModalBackdrop(event));
   document.addEventListener('keydown', event => closeModalEsc(event));
@@ -50,6 +52,7 @@ function closeModalEsc(event) {
 }
 
 const renderModal = event => {
+   renderModal(event);
     if (event.target.nodeName === 'BUTTON') {
         return
     }
@@ -70,6 +73,7 @@ const renderModal = event => {
 
 
 function renderMovieCard(data) {
+   renderModal(data);
 
   // checkGenresById(data)
      
