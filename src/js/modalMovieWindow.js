@@ -5,14 +5,15 @@ const closeModalBtn = document.querySelector('.button-close');
 const movieCard = document.querySelector('.modal-movie-card');
 
 cardList.addEventListener('click', event => {
-  if (event.target.nodeName !== 'BUTTON') {
-      console.log(event);
-      renderModal(event);
+    if (event.target.nodeName === 'IMG') {
+        renderModal(event);
     }
 });
 
 function openModal(event) {
-   renderModal(event);
+
+    // renderModal(event);
+
   closeModalBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', event => closeModalBackdrop(event));
   document.addEventListener('keydown', event => closeModalEsc(event));
@@ -31,6 +32,7 @@ function closeModal(event) {
   backdrop.removeEventListener('click', closeModal);
   document.removeEventListener('keydown', event => closeModalEsc(event));
   document.body.classList.remove('modal-open');
+  backdrop.style.background = '';
 }
 
 function closeModalBackdrop(event) {
@@ -133,7 +135,7 @@ function renderMovieCard(data) {
                     <button class='modal-movie-data__btn modal-movie-data__btn-watched' type='button' data-action='${obj.id}'>
                         ADD TO WATCHED
                     </button>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-watched is-hidden-btn' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-watched active is-hidden-btn' type='button' data-action='${obj.id}'>
                         REMOVE FROM WATCHED
                     </button>
                 </li>
@@ -141,7 +143,7 @@ function renderMovieCard(data) {
                     <button class='modal-movie-data__btn modal-movie-data__btn-queue' type='button' data-action='${obj.id}'>
                         ADD TO QUEUE
                     </button>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-queue is-hidden-btn' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-queue active is-hidden-btn' type='button' data-action='${obj.id}'>
                         REMOVE FROM QUEUE
                     </button>
                 </li>

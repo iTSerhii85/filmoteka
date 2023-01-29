@@ -1,44 +1,44 @@
-const refs = {
-    formMessage: document.querySelector('.header-form__message'),
-    searchBtn: document.querySelector('.search-btn'),
-    input: document.querySelector('.header-form__input')
-}
+// const refs = {
+//     formMessage: document.querySelector('.header-form__message'),
+//     searchBtn: document.querySelector('.search-btn'),
+//     input: document.querySelector('.header-form__input')
+// }
 
-refs.input.addEventListener('input', onInputEmpty)
+// refs.input.addEventListener('input', onInputEmpty)
 
-function onInputEmpty(evt) {
-    const inputValue = evt.currentTarget.elements.searchQuery.value.trim();
+// function onInputEmpty(evt) {
+//     const inputValue = evt.currentTarget.elements.searchQuery.value.trim();
 
-    if (inputValue) {
-        refs.searchBtn.style.display = 'block';
+//     if (inputValue) {
+//         refs.searchBtn.style.display = 'block';
 
-        refs.searchBtn.addEventListener('click', () => {
-            refs.searchBtn.style.display = 'none';
-            refs.input.value = '';
-            return
-        });
-    }
-}
-//  функція яка викликається якщо нічого не введено або нема результату
+//         refs.searchBtn.addEventListener('click', () => {
+//             refs.searchBtn.style.display = 'none';
+//             refs.input.value = '';
+//             return
+//         });
+//     }
+// }
+// //  функція яка викликається якщо нічого не введено або нема результату
 
-function emptyNoResultInput() {
-    refs.formMessage.insertAdjacentHTML('beforeend',
-        '<p class="header-form__message">Search result not successfull.Enter the correct movie name</p>');
+// function emptyNoResultInput() {
+//     refs.formMessage.insertAdjacentHTML('beforeend',
+//         '<p class="header-form__message">Search result not successfull.Enter the correct movie name</p>');
     
-    setTimeout(() => {
-        refs.formMessage.innerHTML = '';
-    }, 3000);
+//     setTimeout(() => {
+//         refs.formMessage.innerHTML = '';
+//     }, 3000);
 
-    refs.divEl.innerHTML = '';
+//     refs.divEl.innerHTML = '';
 
-   movieApiService.searchMovies().then(data => {
-      saveSearchResultToLocalStorage(data);
-      createMainMarkup(data.results);
-      console.log(data);
-      paginationMarkUp(currentPage, data.total_pages);
+//    movieApiService.searchMovies().then(data => {
+//       saveSearchResultToLocalStorage(data);
+//       createMainMarkup(data.results);
+//       console.log(data);
+//       paginationMarkUp(currentPage, data.total_pages);
   
-})
-}
+// })
+// }
 
 // викликається всередині функції onSearch(evt), якщо інпут пустий
 // if (!movieApiService.value) {

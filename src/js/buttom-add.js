@@ -2,7 +2,6 @@ import { watched } from './watched-list';
 import { queue } from './queue-list';
 
 const toWatchedBtn = document.querySelector('.btn-to-watched');
-const toQueueBtn = document.querySelector('.btn-to-queue');
 const removeWatchedBtn = document.querySelector('.btn-from-watched');
 const removeQueueBtn = document.querySelector('.btn-from-queue');
 
