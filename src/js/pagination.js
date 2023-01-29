@@ -302,52 +302,52 @@ export function paginationMarkUp(currentPage, maxPage) {
 // paginationMarkUp(currentPage, maxPage);
 
 // paginationWatched(currentPage, maxPage);
-paginationWatched();
-export function paginationWatched() {
-  // ЗАМЕНИТЬ КЛЮЧ!!!
+// paginationWatched();
+// export function paginationWatched() {
+//   // ЗАМЕНИТЬ КЛЮЧ!!!
 
-  let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
-  let parsedArr = JSON.parse(arr);
-  console.log(parsedArr);
-  maxPage = parsedArr.length / 20;
-  console.log(maxPage);
-  currentPage = targetPage.textContent;
-  // paginationMarkUp(currentPage, maxLibraryPage);
-  // paginationMarkUp(currentPage, maxPage);
-}
+//   let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
+//   let parsedArr = JSON.parse(arr);
+//   console.log(parsedArr);
+//   maxPage = parsedArr.length / 20;
+//   console.log(maxPage);
+//   currentPage = targetPage.textContent;
+//   // paginationMarkUp(currentPage, maxLibraryPage);
+//   // paginationMarkUp(currentPage, maxPage);
+// }
 
-export function paginationQueue(currentPage, maxPage) {
-  // ЗАМЕНИТЬ КЛЮЧ!!!
+// export function paginationQueue(currentPage, maxPage) {
+//   // ЗАМЕНИТЬ КЛЮЧ!!!
 
-  let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
-  let parsedArr = JSON.parse(arr);
-  console.log(parsedArr);
-  maxPage = parsedArr.length / 20;
-  console.log(maxLibraryPage);
-  // paginationMarkUp(currentPage, maxPage);
-}
+//   let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
+//   let parsedArr = JSON.parse(arr);
+//   console.log(parsedArr);
+//   maxPage = parsedArr.length / 20;
+//   console.log(maxLibraryPage);
+//   // paginationMarkUp(currentPage, maxPage);
+// }
 
-paginationBox.addEventListener('click', OnPaginationclick);
+// paginationBox.addEventListener('click', OnPaginationclick);
 
-function OnPaginationclick(evt) {
-  if (evt.target.textContent == '...') {
-    return;
-  }
-  if (evt.target.nodeName !== 'P') {
-    return;
-  }
+// function OnPaginationclick(evt) {
+//   if (evt.target.textContent == '...') {
+//     return;
+//   }
+//   if (evt.target.nodeName !== 'P') {
+//     return;
+//   }
 
-  currentPage = evt.target.textContent;
+//   currentPage = evt.target.textContent;
 
-  if (evt.target.textContent == '>>') {
-    currentPage = Number(targetPage.textContent) + 1;
-  }
+//   if (evt.target.textContent == '>>') {
+//     currentPage = Number(targetPage.textContent) + 1;
+//   }
 
-  if (evt.target.textContent == '<<') {
-    currentPage = Number(targetPage.textContent) - 1;
-  }
+//   if (evt.target.textContent == '<<') {
+//     currentPage = Number(targetPage.textContent) - 1;
+//   }
 
-  // paginationMarkUp(currentPage, maxPage);
-  paginationWatched();
-  //   // paginationQueue();
-}
+// paginationMarkUp(currentPage, maxPage);
+// paginationWatched();
+//   // paginationQueue();
+// }
