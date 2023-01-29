@@ -1,11 +1,11 @@
 // Variables //
-
 :root {
     // colors
     --first-text-color: #ffffff;
     --second-text-color: #000000;
     --third-text-color: #8c8c8c;
     --accent-color: #ff6b01;
+    --bg-modal-color: rgba(255, 255, 255, 0.85);
     --card-set-gap: 30px;
 }
 
@@ -57,7 +57,7 @@ body.modal-open {
 
 .modal-movie {
     animation: Opacity 1.5s ease alternate;
-    background-color: var(--first-text-color);
+    background-color: var(--bg-modal-color);
     z-index: 1000;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -78,7 +78,7 @@ body.modal-open {
 
     @media screen and(min-width: $tablet) {
         width: 704px;
-        height: 568px;
+        // height: 100;
         left: 50%;
         top: 50%;
 
@@ -131,6 +131,7 @@ body.modal-open {
         display: block;
         width: 100%;
         height: 100%;
+        border-radius: 5px;
     }
 }
 
@@ -161,12 +162,11 @@ body.modal-open {
         }
     }
 
-    &__vote {
+    &__list {
         @extend %modal-font;
         line-height: 1.33;
         flex-basis: content;
         color: var(--third-text-color);
-
 
         &>li:not(:last-child) {
             margin-bottom: 8px;
@@ -186,10 +186,6 @@ body.modal-open {
             @media screen and(min-width: $desktop) {
                 margin-left: 83px;
                 flex-basis: calc(100% - 152px);
-
-                &_uk {
-                    margin-left: 43px;
-                }
             }
         }
     }
@@ -217,35 +213,180 @@ body.modal-open {
             margin-bottom: 8px;
         }
     }
-}
 
+    &__btn-item {
+        flex-basis: calc((100% / 2) - 10px);
+
+        @media screen and(min-width: $tablet) {
+            flex-basis: calc((100% / 2) - 7px);
+        }
+
+        @media screen and (min-width: $desktop) {
+            flex-basis: content;
+        }
+
+        &:not(:last-child) {
+            margin-right: 12px;
+
+            @media screen and(min-width: $tablet) {
+                margin-right: 15px;
+            }
+        }
+    }
+
+    &__btn-list {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0;
+
+        @media screen and (min-width: $desktop) {
+            justify-content: flex-start;
+        }
+    }
+
+    &__btn {
+        @extend %modal-font;
+        line-height: 1.33;
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 5px;
+
+
+
+        &-watched {
+            // color: var(--first-text-color);
+            // background-color: var(--accent-color);
+            border: 1px solid var(--second-text-color);
+            height: 50px;
+            width: 114px;
+
+            @media screen and(min-width: $tablet) {
+                height: 50px;
+                width: 170px;                
+            }
+
+            @media screen and(min-width: $desktop) {
+                // padding: 14px 18px;
+            }
+        }
+
+        &-queue {
+            height: 50px;
+            width: 114px;
+            border: 1px solid var(--second-text-color);
+
+            @media screen and(min-width: $tablet) {
+                height: 50px;
+                width: 170px;
+            }
+
+            @media screen and(min-width: $desktop) {
+                // padding: 14px 26px;
+            }
+        }
+
+        &-active {
+            color: var(--first-text-color);
+            background-color: var(--accent-color);
+        }
+
+        &.is-hidden-btn {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+            display:none;
+        }
+    }
+}
 
 // Button //
 
-
 .button-close {
     position: absolute;
-    right: 10px;
-    top: 10px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     width: 30px;
     height: 30px;
-    border: none;
-    border-radius: 50%;
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    top: 0;
+    right: 0;
     background-color: transparent;
-    cursor: pointer;
+    border-radius: 50%;
+    margin-top: 8px;
+    margin-right: 8px;
+    transform: scale(1);
+    transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+        transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
-    transition: all 0.05s;
-}
+    &:hover,
+    &:focus {
+        transform: scale(1.2);
+        border-color: var(--accent-color);
+    }
 
-.button-close:hover,
-.button-close:focus {
-    transform: scale(1.1);
-    background-color: var(--accent-color);
+    &__icon-close {
+        stroke: var(--second-text-color);
+        transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+        &_dark {
+            stroke: var(--accent-color);
+        }
+    }
+
+    &:hover &__icon-close,
+    &:focus &__icon-close {
+        stroke: var(--accent-color);
+    }
 }
 
 .card-wraper {
     cursor: pointer;
+}
+
+.modal-movie-data-table {
+    margin-bottom: 20px;
+    @extend %modal-font;
+    line-height: 1.33;
+
+    &__row>td:first-child {
+        white-space: nowrap;
+        border-right: 39px solid transparent;
+        color: var(--third-text-color);
+
+        @media screen and(min-width: $desktop) {
+            border-right: 83px solid transparent;
+        }
+    }
+
+    &__row:not(:last-child)>td {
+        border-bottom: 8px solid transparent;
+        background-clip: padding-box;
+    }
+
+    &__row_uk>td:first-child {
+        white-space: normal;
+        border-right: 17px solid transparent;
+        color: var(--third-text-color);
+
+        @media screen and(min-width: $tablet) {
+            border-right: 10px solid transparent;
+        }
+
+        @media screen and(min-width: $tablet) {
+            white-space: nowrap;
+            border-right: 33px solid transparent;
+        }
+    }
+
+    &__row>td {
+        vertical-align: top;
+    }
+
+    & p {
+            margin: 0;
+            padding: 0;
+        }
+
 }
