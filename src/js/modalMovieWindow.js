@@ -120,7 +120,9 @@ function renderMovieCard(obj) {
                     }'>
                         ADD TO WATCHED
                     </button>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-watched is-hidden-btn' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-watched is-hidden-btn js-btn-from-watched' type='button' data-action='${
+                      obj.id
+                    }'>
                         REMOVE FROM WATCHED
                     </button>
                 </li>
@@ -130,11 +132,13 @@ function renderMovieCard(obj) {
                     }'>
                         ADD TO QUEUE
                     </button>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-queue is-hidden-btn' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-queue is-hidden-btn js-btn-from-queu' type='button' data-action='${
+                      obj.id
+                    }'>
                         REMOVE FROM QUEUE
                     </button>
                 </li>
             </ul>
-            </div>`
+            </div>`;
     movieCard.innerHTML = markup;
    }
