@@ -1,9 +1,11 @@
 import { watched } from './watched-list';
 import { queue } from './queue-list';
 
-const toWatchedBtn = document.querySelector('.btn-to-watched');
-const removeWatchedBtn = document.querySelector('.btn-from-watched');
-const removeQueueBtn = document.querySelector('.btn-from-queue');
+const toWatchedBtn = document.querySelector('.js-btn-to-watched');
+const removeWatchedBtn = document.querySelector('.js-btn-from-watched');
+
+const toQueueBtn = document.querySelector('.js-btn-to-queue');
+const removeQueueBtn = document.querySelector('.js-btn-from-queue');
 
 btmToWatched.addEventListener('click', onToWatchedBtn);
 btmToQueue.addEventListener('click', onToQueueBtn);

@@ -88,19 +88,26 @@ function renderMovieCard(data) {
    function mark (obj){
     const markup = `    
       <div class='modal-movie-card__wrappe-img'>
-                <img id="${obj.id}" class="modal-movie-card__image" src="https://image.tmdb.org/t/p/w500${obj.poster_path}"
+                <img id="${
+                  obj.id
+                }" class="modal-movie-card__image" src="https://image.tmdb.org/t/p/w500${
+      obj.poster_path
+    }"
                     alt="#" />
             </div>
             <div class='modal-movie-data'>
-                <h2 class='modal-movie-data__title'>${obj.title || obj.name}</h2>
+                <h2 class='modal-movie-data__title'>${
+                  obj.title || obj.name
+                }</h2>
             <table class='modal-movie-data-table'>
                 <tr class='modal-movie-data-table__row'>
                     <td>
                         <p class='modal-movie-data__attribute'>Vote / Votes</p>
                     </td>
                     <td>
-                        <p><span class='modal-movie-data__vote'>${obj.vote_average
-                                }</span> / ${obj.vote_count}</p>
+                        <p><span class='modal-movie-data__vote'>${
+                          obj.vote_average
+                        }</span> / ${obj.vote_count}</p>
                     </td>
                 </tr>
                 <tr class='modal-movie-data-table__row'>
@@ -132,23 +139,31 @@ function renderMovieCard(data) {
             <p class='modal-movie-data__about'>${obj.overview}</p>
             <ul class='modal-movie-data__btn-list'>
                 <li class='modal-movie-data__btn-item'>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-watched' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-watched js-btn-to-watched' type='button' data-action='${
+                      obj.id
+                    }'>
                         ADD TO WATCHED
                     </button>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-watched active is-hidden-btn' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-watched active is-hidden-btn js-btn-from-watched' type='button' data-action='${
+                      obj.id
+                    }'>
                         REMOVE FROM WATCHED
                     </button>
                 </li>
                 <li class='modal-movie-data__button-item'>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-queue' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-queue js-btn-to-queue' type='button' data-action='${
+                      obj.id
+                    }'>
                         ADD TO QUEUE
                     </button>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-queue active is-hidden-btn' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-queue active is-hidden-btn js-btn-from-queue' type='button' data-action='${
+                      obj.id
+                    }'>
                         REMOVE FROM QUEUE
                     </button>
                 </li>
             </ul>
-            </div>`
+            </div>`;
 
     movieCard.innerHTML = markup;
    }
