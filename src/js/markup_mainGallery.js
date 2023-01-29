@@ -119,7 +119,8 @@ function onSearch(evt) {
     // При пошуку фільмів малюємо пагінацію
     paginationMarkUp(1, data.total_pages);
     // Через те, що запит прийшов З ДАНИМИ, можемо перезаписувати lastInput вдалим значенням інпута
-    lastInput = evt.target.elements.searchQuery.value
+    lastInput = evt.target.elements.searchQuery.value;
+    evt.target.elements.searchQuery.value = '';
   });
 
 }
