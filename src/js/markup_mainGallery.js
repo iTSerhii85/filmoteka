@@ -29,7 +29,7 @@ function Onclick(evt) {
   clearMarkup();
   console.log(evt.target.textContent);
   let currentPage = evt.target.textContent;
-
+  
   if (evt.target.textContent == '>>') {
     currentPage = Number(refs.targetPage.textContent);
     currentPage += 1;
@@ -168,3 +168,5 @@ export function checkGenresById(obj) {
 export function clearMarkup() {
   refs.divEl.innerHTML = '';
 }
+
+
