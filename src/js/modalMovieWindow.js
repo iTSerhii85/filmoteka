@@ -7,6 +7,7 @@ const movieCard = document.querySelector('.modal-movie-card');
 cardList.addEventListener('click', event => {
     if (event.target.nodeName === 'IMG') {
         renderModal(event);
+    }
 });
 
 function openModal(event) {
