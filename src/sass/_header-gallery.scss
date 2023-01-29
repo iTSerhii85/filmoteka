@@ -1,18 +1,33 @@
 .gallery-background {
   width: 100%;
-  height: 216px;
+  height: 230px;
+
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-  url(../images/header-gallery-desktop.jpg);
+    url(../images/header-gallery-mobile.jpg);
+
   background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-origin: padding-box;
-    background-clip: padding-box;
+  background-position: center;
+  background-size: cover;
+  background-origin: padding-box;
+  background-clip: padding-box;
+
+  @media screen and (min-width: 768px) and (max-width: 1200px) {
+    height: 219px;
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+      url(../images/header-gallery-tablet.jpg);
+  }
+
+  @media screen and (min-width: 1200px) {
+    height: 216px;
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+      url(../images/header-gallery-desktop.jpg);
+  }
 }
 
 .header-gallery {
   height: 100%;
-
   padding-top: 40px;
 }
 
@@ -29,6 +44,12 @@
 
 .header-gallery__icon {
   margin-right: 10px;
+}
+
+.header-gallery__logo span {
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    display: none;
+  }
 }
 
 nav {
@@ -51,14 +72,22 @@ nav {
 }
 
 .header-gallery__btns {
-  margin-top: 40px;
-
   display: flex;
   justify-content: center;
+
+  margin-top: 40px;
 }
 
 .header-gallery__btns .item:last-child {
-  margin-left: 16px;
+  margin-left: 20px;
+
+  @media screen and (min-width: 768px) and (max-width: 1200px) {
+    margin-left: 32px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    margin-left: 16px;
+  }
 }
 
 // .header-form__input {
