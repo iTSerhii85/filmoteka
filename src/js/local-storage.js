@@ -4,27 +4,26 @@ const libraryBox = document.querySelector('.js-library-gallery');
 const emptyGalleryBox = document.querySelector('.info-notify-box');
 const emptyGalleryText = document.querySelector('.info-notify-text');
 
-
+// Функція розпарсить об'єкти з localStorage
 function localStorageObject(key) {
   const getObjectFromLs = localStorage.getItem(key);
   const parseObjectFromLs = JSON.parse(getObjectFromLs);
   console.log(parseObjectFromLs);
   return parseObjectFromLs;
 }
+// ключі від localStorage
 const watchedArray = localStorageObject('TRENDING_DATA_KEY');
 const queueArray = localStorageObject('SEARCH_RESULT_DATA_KEY');
 
+// Рендерить розмітку у бібліотеці по дефолту
+renderLibrary(watchedArray);
+watchedLibBtn.classList.add('btn-is-active');
 
+// Функція для рендуру розмітки
 function renderLibrary(arrayMovies) {
-
   if (arrayMovies.length === 0) {
     clearMarkup();
-
-    return libraryBox.insertAdjacentHTML(
-      'beforeend',
-      `<div class="info-notify-box">
-    <p class="info-notify-text">There is nothing in this section!</p></div>`
-    );
+    return emptyGalleryBox.classList.remove('is-hidden');
   }
 
   const markupOneCard = obj => {
@@ -54,6 +53,7 @@ function renderLibrary(arrayMovies) {
   libraryBox.insertAdjacentHTML('beforeend', libraryMarkup);
 }
 
+// Функція для генерації жанрів по id
 function checkGenresById(obj) {
   const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
   const parseGenresData = JSON.parse(savedGenresData);
@@ -83,11 +83,17 @@ watchedLibBtn.addEventListener('click', onClickWatched);
 queueLibBtn.addEventListener('click', onClickQueue);
 
 function onClickWatched() {
-    renderLibrary(watchedArray);
+  watchedLibBtn.classList.add('btn-is-active');
+  queueLibBtn.classList.remove('btn-is-active');
+  emptyGalleryBox.classList.add('is-hidden');
+  renderLibrary(watchedArray);
 }
 
 function onClickQueue() {
-    renderLibrary(queueArray);
+  emptyGalleryBox.classList.add('is-hidden');
+  queueLibBtn.classList.add('btn-is-active');
+  watchedLibBtn.classList.remove('btn-is-active');
+  renderLibrary(queueArray);
 }
 
 function clearMarkup() {
