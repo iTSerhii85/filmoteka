@@ -4,16 +4,11 @@ const backdrop = document.querySelector('.backdrop-modal');
 const closeModalBtn = document.querySelector('.button-close');
 const movieCard = document.querySelector('.modal-movie-card');
 
-const START_URL = 'https://image.tmdb.org/t/p/w500'
-
 cardList.addEventListener('click', event => {
-    if (event.target.nodeName !== 'BUTTON') {
+    if (event.target.nodeName === 'IMG') {
         renderModal(event);
-        console.log('hello')
     }
 });
-
-// cardList.addEventListener('click', openModal);
 
 function openModal(event) {
   closeModalBtn.addEventListener('click', closeModal);
@@ -51,53 +46,99 @@ function closeModalEsc(event) {
 }
 
 const renderModal = event => {
-    if (event.target.nodeName === 'BUTTON') {
-        return
-    }
     const cardId = event.target.closest('li');
     const idMovie = cardId.id;
-    const data = getFilmDetails(idMovie) //----- Невиходить повернути об'єкти з відповідним id.
+    const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
+    const arrayMovies = JSON.parse(savedTrendingFilms);
+    const data = arrayMovies.find(arr => arr.id === Number(idMovie));
     console.log(data)
-
-    
     
     if (data) {
         currentId = data.id;
-        // renderMovieCard(data);
+        renderMovieCard(data);
         openModal(event);
     }
-    
 };
 
 
-function checkGenresById(obj) {
-  const savedGenresData = localStorage.getItem('GENRES_DATA_KEY')
-  const parseGenresData = JSON.parse(savedGenresData)
-  let genresArr = [];
-
-    const genresIds = obj.genre_ids
-
-    for (const parseGenre of parseGenresData) {
-      
-      if (genresIds.includes(parseGenre.id)) {
-        genresArr.push(parseGenre.name)
-      }
-      
+function renderMovieCard(obj) {
+     
+    const backdropImage = obj.backdrop_path;
+    if (backdropImage !== null) {
+    const background = `https://image.tmdb.org/t/p/original/${obj.backdrop_path}`;
+    backdrop.style.backgroundImage = `url('${background}')`;
+    backdrop.style.backgroundSize = 'cover';
+    backdrop.style.backgroundPosition = '50% 50%';
     }
-    // console.log(genresArr)  
-  
-  const genresStr = genresArr.join(', ');
-  return genresStr;
-}
 
-function getFilmDetails(idMovie) {
-  const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
-  const arrayMovies = JSON.parse(savedTrendingFilms);
-  for (const arr of arrayMovies) {
-    if (arr.id === idMovie) {
-      return arr;
-      break
-    }   
-    console.log(arr)
+    mark(obj)
   }
-}
+
+   function mark (obj){
+    const markup = `    
+      <div class='modal-movie-card__wrappe-img'>
+                <img id="${obj.id}" class="modal-movie-card__image" src="https://image.tmdb.org/t/p/w500${obj.poster_path}"
+                    alt="#" />
+            </div>
+            <div class='modal-movie-data'>
+                <h2 class='modal-movie-data__title'>${obj.title || obj.name}</h2>
+            <table class='modal-movie-data-table'>
+                <tr class='modal-movie-data-table__row'>
+                    <td>
+                        <p class='modal-movie-data__attribute'>Vote / Votes</p>
+                    </td>
+                    <td>
+                        <p><span class='modal-movie-data__vote'>${obj.vote_average
+                                }</span> / ${obj.vote_count}</p>
+                    </td>
+                </tr>
+                <tr class='modal-movie-data-table__row'>
+                    <td>
+                        <p>Popularity</p>
+                    </td>
+                    <td>
+                        <p>${obj.popularity}</p>
+                    </td>
+                </tr>
+                <tr class='modal-movie-data-table__row'>
+                    <td>
+                        <p>Original Title</p>
+                    </td>
+                    <td>
+                        <p>${obj.original_title}</p>
+                    </td>
+                </tr>
+                <tr class='modal-movie-data-table__row'>
+                    <td>
+                        <p>Genre</p>
+                    </td>
+                    <td>
+                        <p>підставити жанри замість id: ${obj.genre_ids}</p>
+                    </td>
+                </tr>
+            </table>
+            <h3 class='modal-movie-data__about_title'>About</h3>
+            <p class='modal-movie-data__about'>${obj.overview}</p>
+            <ul class='modal-movie-data__btn-list'>
+                <li class='modal-movie-data__btn-item'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-watched' type='button' data-action='${obj.id}'>
+                        ADD TO WATCHED
+                    </button>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-watched is-hidden-btn' type='button' data-action='${obj.id}'>
+                        REMOVE FROM WATCHED
+                    </button>
+                </li>
+                <li class='modal-movie-data__button-item'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-queue' type='button' data-action='${obj.id}'>
+                        ADD TO QUEUE
+                    </button>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-queue is-hidden-btn' type='button' data-action='${obj.id}'>
+                        REMOVE FROM QUEUE
+                    </button>
+                </li>
+            </ul>
+            </div>`
+
+    movieCard.innerHTML = markup;
+   }
+
