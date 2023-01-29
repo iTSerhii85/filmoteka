@@ -5,7 +5,8 @@ const refs = {
   formEl: document.querySelector('.js-header-form'),
   divEl: document.querySelector('.js-main-gallery'),
   paginationBox: document.querySelector('.pagination'),
-  targetPage: document.querySelector('.targetPage')
+  targetPage: document.querySelector('.targetPage'),
+  formMessage: document.querySelector('.header-form__message')
 };
 
 // МАЯК для кнопок пагінації, щоб знати, який фетч запускати: на тренти, чи по пошуку
@@ -59,6 +60,7 @@ function Onclick(evt) {
       paginationMarkUp(currentPage, data.total_pages);
     });
   }
+  
 }
 
 movieApiService.getTrendingMovies().then(data => {
@@ -72,20 +74,59 @@ movieApiService.getTrendingMovies().then(data => {
 
 function onSearch(evt) {
   evt.preventDefault();
-  // Змінюємо маяк на "пошук", щоб при натисканні на пагінацію, запит йшов по пошуку
-  searchMarkPagination = 'search';
-  // Оновлюємо значення поточної сторінки через сетер класу MovieApiService
-  movieApiService.resetCurrentPage();
-  // Очищаємо розмітку
-  clearMarkup();
+  // 1.OKKKKK Спочатку тексту нема. OK
+  // 1. OKKKKK Якщо натиснути кнопки при пустому інпуті запит НЕ відправляється,
+  //   а додається текст "Треба щось ввести"
+  // 2. Зроблено СЕТТАЙМУТОМ    Коли щось починаємо вводити, текст зникає(треба додати слухача
+  // на інпут, щоб при вписуванні текст зникав)
+  // 3.Яещо запит прийшов пустим, не очищпємо сторінку, а виводимо текст
+  // "Нема результатів"
+  if (evt.currentTarget.elements.searchQuery.value.trim() === '') {
+    refs.formMessage.insertAdjacentHTML('beforeend',
+    '<p class="header-form__message">Sorry, you need to enter something</p>');
+    setTimeout(() => {
+        refs.formMessage.innerHTML = '';
+    }, 2000);
+    return;
+  }
+
+
+  
+
+  // Оновлюємо значення поточної сторінки через сетер класу MovieApiService ????????????????
+  movieApiService.resetCurrentPage(); 
+ 
+  
   movieApiService.value = evt.currentTarget.elements.searchQuery.value;
   movieApiService.searchMovies().then(data => {
-    // console.log(data);
+               // Варіант якщо запит прийшов пустим
+              if (data.results.length === 0) {
+                refs.formMessage.insertAdjacentHTML('beforeend',
+                  '<p class="header-form__message">Search result not successfull.Enter the correct movie name</p>');
+              
+              setTimeout(() => {
+                  refs.formMessage.innerHTML = '';
+              }, 2000);
+                if (searchMarkPagination === 'trending') {
+                  searchMarkPagination = 'trending';
+                  return
+                } if (searchMarkPagination === 'search') {
+                  searchMarkPagination = 'search';
+                  return  
+                }
+                
+              }
+    // Змінюємо маяк на "пошук", щоб при натисканні на пагінацію, запит йшов по пошуку ?????????????
+    searchMarkPagination = 'search';
+     // Очищаємо розмітку
+    clearMarkup();
     saveTrendingToLocalStorage(data);
     createMainMarkup(data.results);
     // При пошуку фільмів малюємо пагінацію
     paginationMarkUp(1, data.total_pages);
   });
+
+  
 }
 
 function createMainMarkup(dataArray) {
@@ -168,5 +209,3 @@ export function checkGenresById(obj) {
 export function clearMarkup() {
   refs.divEl.innerHTML = '';
 }
-
-
