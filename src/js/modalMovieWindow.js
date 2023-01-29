@@ -5,12 +5,14 @@ const closeModalBtn = document.querySelector('.button-close');
 const movieCard = document.querySelector('.modal-movie-card');
 
 cardList.addEventListener('click', event => {
-    if (event.target.nodeName === 'IMG') {
-        renderModal(event);
+  if (event.target.nodeName !== 'BUTTON') {
+      console.log(event);
+      renderModal(event);
     }
 });
 
 function openModal(event) {
+   renderModal(event);
   closeModalBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', event => closeModalBackdrop(event));
   document.addEventListener('keydown', event => closeModalEsc(event));
@@ -46,6 +48,11 @@ function closeModalEsc(event) {
 }
 
 const renderModal = event => {
+   renderModal(event);
+    if (event.target.nodeName === 'BUTTON') {
+        return
+    }
+
     const cardId = event.target.closest('li');
     const idMovie = cardId.id;
     const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
@@ -60,8 +67,10 @@ const renderModal = event => {
     }
 };
 
+function renderMovieCard(data) {
+   renderModal(data);
 
-function renderMovieCard(obj) {
+  // checkGenresById(data)
      
     const backdropImage = obj.backdrop_path;
     if (backdropImage !== null) {
