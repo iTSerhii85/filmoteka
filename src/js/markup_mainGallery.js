@@ -1,14 +1,13 @@
 import MovieApiService from './fetchMovieApi';
 import { paginationMarkUp } from './pagination.js';
+import no_image from '../images/no-image.jpg';
 const refs = {
   formEl: document.querySelector('.js-header-form'),
   divEl: document.querySelector('.js-main-gallery'),
   paginationBox: document.querySelector('.pagination'),
+  targetPage: document.querySelector('.targetPage')
 };
 
-const targetPage = document.querySelector('.targetPage');
-
-const START_URL = 'https://image.tmdb.org/t/p/w500';
 // МАЯК для кнопок пагінації, щоб знати, який фетч запускати: на тренти, чи по пошуку
 let searchMarkPagination = 'trending';
 
@@ -30,14 +29,14 @@ function Onclick(evt) {
   clearMarkup();
   console.log(evt.target.textContent);
   let currentPage = evt.target.textContent;
-
+  
   if (evt.target.textContent == '>>') {
-    currentPage = Number(targetPage.textContent);
+    currentPage = Number(refs.targetPage.textContent);
     currentPage += 1;
   }
 
   if (evt.target.textContent == '<<') {
-    currentPage = Number(targetPage.textContent);
+    currentPage = Number(refs.targetPage.textContent);
     currentPage -= 1;
   }
 
@@ -50,16 +49,13 @@ function Onclick(evt) {
     movieApiService.getTrendingMovies().then(data => {
       saveTrendingToLocalStorage(data);
       createMainMarkup(data.results);
-      console.log(data);
-      console.log(data.page);
       paginationMarkUp(currentPage, data.total_pages);
     });
   }
   if (searchMarkPagination === 'search') {
     movieApiService.searchMovies().then(data => {
-      saveSearchResultToLocalStorage(data);
+      saveTrendingToLocalStorage(data);
       createMainMarkup(data.results);
-      console.log(data);
       paginationMarkUp(currentPage, data.total_pages);
     });
   }
@@ -69,7 +65,7 @@ movieApiService.getTrendingMovies().then(data => {
   movieApiService.resetCurrentPage();
   saveTrendingToLocalStorage(data);
   createMainMarkup(data.results);
-  console.log(data);
+  // console.log(data);
   // При запуску сторіник малюємо пагінацію
   paginationMarkUp(1, data.total_pages);
 });
@@ -85,7 +81,7 @@ function onSearch(evt) {
   movieApiService.value = evt.currentTarget.elements.searchQuery.value;
   movieApiService.searchMovies().then(data => {
     // console.log(data);
-    saveSearchResultToLocalStorage(data);
+    saveTrendingToLocalStorage(data);
     createMainMarkup(data.results);
     // При пошуку фільмів малюємо пагінацію
     paginationMarkUp(1, data.total_pages);
@@ -100,9 +96,17 @@ function createMainMarkup(dataArray) {
     const ratingValue = obj.vote_average.toFixed(1);
     // Записуємо дату випуску
     const year = obj.release_date || obj.first_air_date || '';
+    // Постер
+    const START_URL = 'https://image.tmdb.org/t/p/w500';
+    let posterSrc = '';
+    if (obj.poster_path) {
+      posterSrc = `${START_URL}${obj.poster_path}`    
+    } else {
+      posterSrc = no_image;
+    }
 
     return ` <li class="card-wraper" id="${obj.id}">
-       <img class="card-img" src="${START_URL}${obj.poster_path}" alt="#" />
+       <img class="card-img" src="${posterSrc}" alt="${obj.title || obj.name}" />
        <div class="card-title">${obj.title || obj.name}</div>
       <div class="wraper">
          <div class="card-genre-wraper">
@@ -130,10 +134,10 @@ function saveTrendingToLocalStorage(data) {
   localStorage.setItem('TRENDING_DATA_KEY', JSON.stringify(data.results));
 }
 
-// Функція збереження отриманих даних фільмів по ПОШУКУ в локалсторадж
-function saveSearchResultToLocalStorage(data) {
-  localStorage.setItem('SEARCH_RESULT_DATA_KEY', JSON.stringify(data.results));
-}
+// // Функція збереження отриманих даних фільмів по ПОШУКУ в локалсторадж
+// function saveSearchResultToLocalStorage(data) {
+//   localStorage.setItem('SEARCH_RESULT_DATA_KEY', JSON.stringify(data.results));
+// }
 // Функція вибору потрібних жанрів  + умову на кількість жанрів
 export function checkGenresById(obj) {
   const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
@@ -164,3 +168,5 @@ export function checkGenresById(obj) {
 export function clearMarkup() {
   refs.divEl.innerHTML = '';
 }
+
+

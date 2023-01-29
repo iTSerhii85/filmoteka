@@ -1,4 +1,4 @@
-import git from '../images/svg/sprite.svg'
+import ico from '../images/svg/sprite.svg'
 
 import { developers } from "./developers";
 
@@ -15,14 +15,14 @@ const developerMarkup = developers.map(obj =>`
       <img src="${obj.img}" alt="Developer ${obj.name}" class="dev_photo" loading="lazy">
     </div>
     <div class="flip-card-back">
-      <a href="${obj.linkedin}" class="icon-github">
+      <a href="${obj.github}" class="icon-github" target="_blank">
         <svg width="50" height="50">
-          <use href="${git}#icon-github"></use>
+          <use href="${ico}#icon-github"></use>
         </svg>
       </a>
-      <a href="${obj.linkedin}" class="icon-linkedin">
+      <a href="${obj.linkedin}" class="icon-linkedin" target="_blank">
         <svg width="50" height="50">
-          <use href="${git}#icon-linkedin"></use>
+          <use href="${ico}#icon-linkedin"></use>
         </svg>
       </a>
     </div>
@@ -51,9 +51,22 @@ function openModalWindow(){
     modal.innerHTML = markup;
     const closeModalBtn = document.querySelector('.footer-modal-close-button');
     closeModalBtn.addEventListener('click', closeModalWindow);
+    const backdrop = document.querySelector('.footer-modal-backdrop');
+    backdrop.addEventListener('click', closeModalBackdrop);
+    document.addEventListener('keydown', closeModalWindow);
+    document.body.style.overflow = "hidden";
+}
+
+function closeModalBackdrop(event) {
+  if (event.target.classList.value !== 'footer-modal-backdrop') {
+    return;
+  }
+  closeModalWindow();
 }
 
 function closeModalWindow(){
     modal.innerHTML = ``;
+    document.removeEventListener('keydown', closeModalWindow);
+    document.body.style.overflow = ""; 
 }
 

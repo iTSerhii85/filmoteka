@@ -2,10 +2,75 @@
     <div class="modal-movie is-hidden">
         <button class='button-close' type='button' data-modal-close>
             <svg class='button-close__icon-close' width='30' height='30' viewBox='0 0 30 30'>
-                <path class='button-close__path' d='M8 8L22 22' stroke='black' stroke-width='2'></path>
-                <path class='button-close__path' d='M8 22L22 8' stroke='black' stroke-width='2'></path>
+                <use href="./images/svg/sprite.svg#icon-close"></use>
             </svg>
         </button>
         <div class="modal-movie-card"></div>
     </div>
 
+
+    <!-- <div class='modal-movie-card__wrappe-img'><img class='modal-movie-card__image' src='${START_URL}${{poster_path}}' alt='${{title}}'
+        loading='lazy' />
+</div>
+<div class='modal-movie-data'>
+    <h2 class='modal-movie-data__title'>${obj.title}</h2>
+
+    <table class='modal-movie-data-table'>
+        <tr class='modal-movie-data-table__row'>
+            <td>
+                <p class='modal-movie-data__attribute'>Vote / Votes</p>
+            </td>
+            <td>
+                <p><span class='modal-movie-data__vote'>${obj.vote}</span> / ${obj.votes}</p>
+            </td>
+<div><p></p><p></p></div>
+        </tr>
+        <tr class='modal-movie-data-table__row'>
+            <td>
+                <p>Popularity</p>
+            </td>
+            <td>
+                <p>${obj.popularity}</p>
+            </td>
+
+        </tr>
+        <tr class='modal-movie-data-table__row'>
+            <td>
+                <p>Original Title</p>
+            </td>
+            <td>
+                <p>${obj.original_title}</p>
+            </td>
+
+        </tr>
+        <tr class='modal-movie-data-table__row'>
+            <td>
+                <p>Genre</p>
+            </td>
+            <td>
+                // <p>{checkGenresById(data)}</p>
+            </td>
+
+        </tr>
+    </table>
+    <h3 class='modal-movie-data__about_title'>About</h3>
+    <p class='modal-movie-data__about'>
+        ${obj.overview}
+    </p>
+
+
+    <div class='modal-movie-btn-wrapper' style='clear: both'>
+        <button class='button-modal btn-to-watched' type='button' data-action='${obj.id}'>
+            ADD TO WATCHED
+        </button>
+        <button class='button-modal btn-to-queue' type='button' data-action='${obj.id}'>
+            ADD TO QUEUE
+        </button>
+        <button class='button-modal btn-to-watched' type='button' data-action='${obj.id}'>
+            REMOVE FROM WATCHED
+        </button>
+        <button class='button-modal btn-to-queue' type='button' data-action='${obj.id}'>
+            REMOVE FROM QUEUE
+        </button>
+    </div>
+</div>`; -->
