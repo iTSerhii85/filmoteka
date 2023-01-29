@@ -3,28 +3,21 @@ const cardList = document.querySelector('.js-main-gallery');
 const backdrop = document.querySelector('.backdrop-modal');
 const closeModalBtn = document.querySelector('.button-close');
 const movieCard = document.querySelector('.modal-movie-card');
-
 cardList.addEventListener('click', event => {
     if (event.target.nodeName === 'IMG') {
         renderModal(event);
     }
 });
-
 function openModal(event) {
-
-    // renderModal(event);
-
   closeModalBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', event => closeModalBackdrop(event));
   document.addEventListener('keydown', event => closeModalEsc(event));
   backdrop.classList.remove('is-hidden');
-
   setTimeout(() => {
     backdrop.firstElementChild.classList.remove('is-hidden');
   }, 350);
   document.body.classList.add('modal-open');
 }
-
 function closeModal(event) {
   backdrop.classList.add('is-hidden');
   backdrop.firstElementChild.classList.remove('is-hidden');
@@ -32,48 +25,33 @@ function closeModal(event) {
   backdrop.removeEventListener('click', closeModal);
   document.removeEventListener('keydown', event => closeModalEsc(event));
   document.body.classList.remove('modal-open');
-  backdrop.style.background = '';
 }
-
 function closeModalBackdrop(event) {
   if (event.target.classList.value !== 'backdrop-modal') {
     return;
   }
   closeModal();
 }
-
 function closeModalEsc(event) {
   if (event.key !== 'Escape') {
     return;
   }
   closeModal();
 }
-
 const renderModal = event => {
-   renderModal(event);
-    if (event.target.nodeName === 'BUTTON') {
-        return
-    }
-
     const cardId = event.target.closest('li');
     const idMovie = cardId.id;
     const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
     const arrayMovies = JSON.parse(savedTrendingFilms);
     const data = arrayMovies.find(arr => arr.id === Number(idMovie));
     console.log(data)
-    
     if (data) {
         currentId = data.id;
         renderMovieCard(data);
         openModal(event);
     }
 };
-
-function renderMovieCard(data) {
-   renderModal(data);
-
-  // checkGenresById(data)
-     
+function renderMovieCard(obj) {
     const backdropImage = obj.backdrop_path;
     if (backdropImage !== null) {
     const background = `https://image.tmdb.org/t/p/original/${obj.backdrop_path}`;
@@ -81,12 +59,10 @@ function renderMovieCard(data) {
     backdrop.style.backgroundSize = 'cover';
     backdrop.style.backgroundPosition = '50% 50%';
     }
-
     mark(obj)
   }
-
    function mark (obj){
-    const markup = `    
+    const markup = `
       <div class='modal-movie-card__wrappe-img'>
                 <img id="${obj.id}" class="modal-movie-card__image" src="https://image.tmdb.org/t/p/w500${obj.poster_path}"
                     alt="#" />
@@ -135,7 +111,7 @@ function renderMovieCard(data) {
                     <button class='modal-movie-data__btn modal-movie-data__btn-watched' type='button' data-action='${obj.id}'>
                         ADD TO WATCHED
                     </button>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-watched active is-hidden-btn' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-watched is-hidden-btn' type='button' data-action='${obj.id}'>
                         REMOVE FROM WATCHED
                     </button>
                 </li>
@@ -143,13 +119,11 @@ function renderMovieCard(data) {
                     <button class='modal-movie-data__btn modal-movie-data__btn-queue' type='button' data-action='${obj.id}'>
                         ADD TO QUEUE
                     </button>
-                    <button class='modal-movie-data__btn modal-movie-data__btn-queue active is-hidden-btn' type='button' data-action='${obj.id}'>
+                    <button class='modal-movie-data__btn modal-movie-data__btn-queue is-hidden-btn' type='button' data-action='${obj.id}'>
                         REMOVE FROM QUEUE
                     </button>
                 </li>
             </ul>
             </div>`
-
     movieCard.innerHTML = markup;
    }
-
