@@ -5,9 +5,13 @@ const closeModalBtn = document.querySelector('.button-close');
 const movieCard = document.querySelector('.modal-movie-card');
 
 cardList.addEventListener('click', event => {
+    if (event.target.nodeName === 'IMG') {
+        renderModal(event);
+        
   if (event.target.nodeName !== 'BUTTON') {
       console.log(event);
       renderModal(event);
+
     }
 });
 
