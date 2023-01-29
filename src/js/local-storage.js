@@ -1,3 +1,11 @@
+// !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
+
+import { paginationMarkUp } from './pagination.js';
+const paginationBox = document.querySelector('.pagination');
+let currentPage = 1;
+
+// -----------------------
+
 const watchedLibBtn = document.querySelector('.js-watched-lib-btn');
 const queueLibBtn = document.querySelector('.js-queue-lib-btn');
 const libraryBox = document.querySelector('.js-library-gallery');
@@ -39,9 +47,9 @@ function renderLibrary(arrayMovies) {
          <div class="card-genre-wraper">
            <div class="card-genre">${checkGenresById(obj)}</div>
          </div>
-         <div class="card-year">${
-           obj.release_date.slice(0, 4) || obj.first_air_date.slice(0, 4) || ''
-         }</div>
+         <div class="card-year">
+         ${obj.release_date.slice(0, 4) || obj.first_air_date.slice(0, 4) || ''}
+         </div>
          <div class="card-rating-wraper"><div class="card-rating">${obj.vote_average.toFixed(
            1
          )}</div></div>
@@ -51,6 +59,19 @@ function renderLibrary(arrayMovies) {
 
   const libraryMarkup = arrayMovies.map(markupOneCard).join('');
   libraryBox.insertAdjacentHTML('beforeend', libraryMarkup);
+
+  // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
+
+  currentPage = 1;
+  let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
+  let parsedArr = JSON.parse(arr);
+  console.log(parsedArr);
+  maxPage = parsedArr.length / 20;
+  paginationMarkUp(currentPage, maxPage);
+
+  // paginationMarkUp(currentPage, 30);
+
+  // -----------------------
 }
 
 // Функція для генерації жанрів по id
@@ -83,6 +104,15 @@ watchedLibBtn.addEventListener('click', onClickWatched);
 queueLibBtn.addEventListener('click', onClickQueue);
 
 function onClickWatched() {
+  // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
+
+  currentPage = 1;
+  let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
+  let parsedArr = JSON.parse(arr);
+  maxPage = parsedArr.length / 20;
+  paginationMarkUp(currentPage, maxPage);
+  // -----------------------
+
   watchedLibBtn.classList.add('btn-is-active');
   queueLibBtn.classList.remove('btn-is-active');
   emptyGalleryBox.classList.add('is-hidden');
@@ -90,6 +120,15 @@ function onClickWatched() {
 }
 
 function onClickQueue() {
+  // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
+
+  currentPage = 1;
+  let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
+  let parsedArr = JSON.parse(arr);
+  maxPage = parsedArr.length / 20;
+  paginationMarkUp(currentPage, maxPage);
+  // -----------------------
+
   emptyGalleryBox.classList.add('is-hidden');
   queueLibBtn.classList.add('btn-is-active');
   watchedLibBtn.classList.remove('btn-is-active');
@@ -99,3 +138,20 @@ function onClickQueue() {
 function clearMarkup() {
   libraryBox.innerHTML = '';
 }
+
+// !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
+
+paginationBox.addEventListener('click', Onclick);
+
+function Onclick(evt) {
+  if (evt.target.textContent == '...') {
+    return;
+  }
+  if (evt.target.nodeName !== 'P') {
+    return;
+  }
+  currentPage = evt.target.textContent;
+  paginationMarkUp(currentPage, maxPage);
+}
+
+// -----------------------
