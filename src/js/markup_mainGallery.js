@@ -148,7 +148,7 @@ function createMainMarkup(dataArray) {
     }
 
     return ` <li class="card-wraper" id="${obj.id}">
-       <img class="card-img" src="${posterSrc}" alt="${obj.title || obj.name}" />
+       <a class="card-wraper_link" href="#"><img class="card-img" src="${posterSrc}" alt="${obj.title || obj.name}" /></a>
        <div class="card-title">${obj.title || obj.name}</div>
       <div class="wraper">
          <div class="card-genre-wraper">
