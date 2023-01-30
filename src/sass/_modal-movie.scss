@@ -258,8 +258,6 @@ body.modal-open {
 
 
         &-watched {
-            // color: var(--first-text-color);
-            // background-color: var(--accent-color);
             border: 1px solid var(--second-text-color);
             height: 50px;
             width: 114px;
@@ -267,10 +265,6 @@ body.modal-open {
             @media screen and(min-width: $tablet) {
                 height: 50px;
                 width: 170px;
-            }
-
-            @media screen and(min-width: $desktop) {
-                // padding: 14px 18px;
             }
         }
 
@@ -283,11 +277,6 @@ body.modal-open {
                 height: 50px;
                 width: 170px;
             }
-
-            @media screen and(min-width: $desktop) {
-                // padding: 14px 26px;
-            }
-
         }
 
         &.is-hidden-btn {
@@ -298,13 +287,19 @@ body.modal-open {
         }
 
         &:hover,
-        &:focus {
+        &:focus {   
             color: var(--accent-color);
             ;
             transform: scale(1.1);
             border-radius: 15px;
             border-color: var(--accent-color);
         }
+
+        &:focus {
+            outline-width: thick;
+            outline-offset: 4px;
+            outline-color: rgba(255, 107, 1, .6);
+                 }        
 
         &.active {
             color: var(--first-text-color);
@@ -529,7 +524,6 @@ body.modal-open {
     }
 }
 
-
-.card-wraper {
-    cursor: pointer;
-}
+// .card-wraper {
+//     cursor: pointer;
+// }
