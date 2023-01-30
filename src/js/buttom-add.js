@@ -1,109 +1,105 @@
-import { watched } from './watched-list';
-import { queue } from './queue-list';
+let watched = new Array();
 
-const toWatchedBtn = document.querySelector('.btn-to-watched');
-const toQueueBtn = document.querySelector('.btn-to-queue');
-const removeWatchedBtn = document.querySelector('.btn-from-watched');
-const removeQueueBtn = document.querySelector('.btn-from-queue');
+function saveWatchedListToLocalStorage(data) {
+  localStorage.setItem('WATCHED_LIST_DATA_KEY', JSON.stringify(data.results));
+}
 
-btmToWatched.addEventListener('click', onToWatchedBtn);
-btmToQueue.addEventListener('click', onToQueueBtn);
+let queue = new Array();
+
+function saveQueueListToLocalStorage(data) {
+  localStorage.setItem('Queue_LIST_DATA_KEY', JSON.stringify(data.results));
+}
+
+const toWatchedBtn = document.querySelector('.js-btn-to-watched');
+const removeWatchedBtn = document.querySelector('.js-btn-from-watched');
+
+const toQueueBtn = document.querySelector('.js-btn-to-queue');
+const removeQueueBtn = document.querySelector('.js-btn-from-queue');
+
+toWatchedBtn.addEventListener('click', onToWatchedBtn);
 removeWatchedBtn.addEventListener('click', onRemoveWatchedBtn);
+
+toQueueBtn.addEventListener('click', onToQueueBtn);
 removeQueueBtn.addEventListener('click', onRemoveQueueBtn);
 
-// const catchModal = document.querySelector('.card-wraper');
-// catchModal.addEventListener('show', catchModalData);
+function onToWatchedBtn(event) {
+  const button = event.currentTarget;
 
-let watchedEl = watched.getElementById();
-let queueEl = queue.getElementById();
+  console.log(button);
+  const idMovie = button.id;
+  console.log(idMovie);
+  console.log('onToWatchedBt entered');
+  let alreadyExists = watched.find(watched => watched.id === idMovie);
 
-// function catchModalData() {
-// let movieId = Object.getElementById();
-    
-//     if (movieId === null) {
-//         toWatchedBtn.disabled = true;
-//         toQueueBtn.disabled = true;
-//         removeWatchedBtn.disabled = true;
-//         removeQueueBtn.disabled = true;
-//         return;
-//     }
-//     if (movieId !== watchedEl) {
-//       toWatchedBtn.disabled = false;
-//     }
+  if (typeof alreadyExists === 'undefined') {
+    watched.push(idMovie);
+    console.log(`${idMovie} added to watched`);
 
-//     if (movieId === watchedEl) {
-//         removeWatchedBtn.disabled = false;
-//     }
-
-//      if (movieId !== queueEl) {
-//        toQueueBtn.disabled = false;
-//      }
-
-//      if (movieId === queueEl) {
-//          removeQueueBtn.disabled = false;
-//      }
-// }
-
-function onToWatchedBtn() {
-    let alreadyExists = watched.find((watched) => watched.id === watchedEl.id);
-    
-    if (typeof alreadyExists === "undefined") {
-      watched.push(watchedEl);
-      // watched.unshift(watchedEl);
-      console.log(`${watchedEl} added to watched`);
-
-      toWatchedBtn.disabled = true;
-      removeWatchedBtn.disabled = false;
-      // toWatchedBtn.hide;
-      // removeWatchedBtn.show;
-       return;
-    }
-  return;
-}
-
-function onRemoveWatchedBtn() {
-  try {
-    alreadyExists === "fined";
-    watched.remove(watchedEl);
-    removeWatchedBtn.hide;
-    toWatchedBtn.show;
+    ('toWatchedBtn');
+    ('removeWatchedBtn');
 
     return;
   }
-  
-    catch (error) {
-    console.log(error);
-    alert ("Sorry, try again later");
-    }
-}
-
-function onToQueueBtn() {
-    let alreadyQueue = queue.find(queue => queue.id === queueEl.id);
-
-    if (typeof alreadyQueue === 'undefined') {
-      queue.push(queueEl);
-      console.log(`${queueEl} added to queue`);
-      btmToQueue.hide;
-      removeQueueBtn.show;
-      return;
-    
-  } 
   return;
 }
 
-function onRemoveQueueBtn() {
-try {
-  alreadyQueue === "fined";
-  queue.remove(queueEl);
-  
-  removeQueueBtn.hide;
-  btmToQueue.show;
+function onRemoveWatchedBtn(event) {
+  const button = event.currentTarget;
+
+  const idMovie = button.id;
+  console.log(idMovie);
+  console.log('onRemoveWatchedBtn entered');
+  let alreadyExists = watched.find(watched => watched.id === idMovie);
+
+  if (typeof alreadyExists === 'fined') {
+    watched.remove(idMovie);
+    console.log(`${idMovie} remove from watched`);
+
+    ('toWatchedBtn');
+    ('removeWatchedBtn');
 
     return;
   }
-  
-    catch (error) {
-    console.log(error);
-    alert ("Sorry, try again later");
-    }
+  return;
+}
+
+function onToQueueBtn(event) {
+  const button = event.currentTarget;
+
+  const idMovie = button.id;
+  console.log(idMovie);
+  console.log('onToQueueBtn entered');
+
+  let alreadyQueue = queue.find(queue => queue.id === idMovie);
+
+  if (typeof alreadyQueue === 'undefined') {
+    queue.push(idMovie);
+    console.log(`${idMovie} added to queue`);
+
+    ('toQueueBtn');
+    ('removeQueueBtn');
+
+    return;
+  }
+  return;
+}
+
+function onRemoveQueueBtn(event) {
+  const button = event.currentTarget;
+
+  const idMovie = button.id;
+  console.log(idMovie);
+  console.log('onRemoveQueueBtn entered');
+  let alreadyQueue = queue.find(queue => queue.id === idMovie);
+
+  if (typeof alreadyQueue === 'fined') {
+    queue.remove(idMovie);
+    console.log(`${idMovie} remove from queue`);
+
+    ('toQueueBtn');
+    ('removeQueueBtn');
+
+    return;
+  }
+  return;
 }
