@@ -57,7 +57,7 @@ body.modal-open {
 .modal-movie {
     position: relative;
     animation: Opacity 1.5s ease alternate;
-    background-color: var(--first-text-color);
+    background-color: rgba(255, 255, 255, 0.88);
     z-index: 1000;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
