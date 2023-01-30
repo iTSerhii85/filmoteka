@@ -1,10 +1,10 @@
-let watched = new Array();
+let watched = localStorageObject('WATCHED_LIST_DATA_KEY');
 
 function saveWatchedListToLocalStorage(data) {
   localStorage.setItem('WATCHED_LIST_DATA_KEY', JSON.stringify(data));
 }
 
-let queue = new Array();
+let queue = localStorageObject('QUEUE_LIST_DATA_KEY');
 
 function saveQueueListToLocalStorage(data) {
   localStorage.setItem('QUEUE_LIST_DATA_KEY', JSON.stringify(data));
@@ -20,18 +20,24 @@ cardList.addEventListener('click', event => {
     renderModal(event);
   }
 });
+
+function localStorageObject(key) {
+  const getObjectFromLs = localStorage.getItem(key);
+  const parseObjectFromLs = JSON.parse(getObjectFromLs);
+  console.log(parseObjectFromLs);
+  return parseObjectFromLs;
+}
+
 function openModal(event) {
   console.log('openModal');
 
-  let watchedListFromLocalStorage = localStorage.getItem('WATCHED_LIST_DATA_KEY');
-  if (watchedListFromLocalStorage != null) {
-    watched = JSON.parse(watchedListFromLocalStorage);
+  if (watched === null) {
+    watched = new Array();
   }
-
-   let queueListFromLocalStorage = localStorage.getItem('QUEUE_LIST_DATA_KEY');
-   if (queueListFromLocalStorage != null) {
-     queue = JSON.parse(queueListFromLocalStorage);
-   }
+  
+  if (queue === null) {
+    queue = new Array();
+  }
 
   const toWatchedBtn = document.querySelector('.js-btn-to-watched');
   const removeWatchedBtn = document.querySelector('.js-btn-from-watched');
@@ -62,15 +68,16 @@ function onToWatchedBtn(event) {
   const idMovie = button.id;
   console.log(idMovie);
   console.log('onToWatchedBt entered');
-  let alreadyExists = watched.find(element => element === idMovie);
+  const data = findMovieById(idMovie);
+  let alreadyExists = watched.find(element => element === JSON.stringify(data));
 
   if (typeof alreadyExists === 'undefined') {
-    watched.push(idMovie);
+    watched.push(JSON.stringify(data));
     saveWatchedListToLocalStorage(watched);
     console.log(`${idMovie} added to watched`);
 
-    // 'toWatchedBtn';
-    // 'removeWatchedBtn';
+ //   'toWatchedBtn'.classList.add('is-hidden-btn');
+    // 'removeWatchedBtn'.classList.remove('is-hidden-btn');
 
     return;
   }
@@ -85,12 +92,12 @@ function onRemoveWatchedBtn(event) {
   console.log('onRemoveWatchedBtn entered');
   let alreadyExists = watched.find(element => element === idMovie);
 
-  if (typeof alreadyExists === 'fined') {
+  if (typeof alreadyExists === 'find') {
     watched.remove(idMovie);
     console.log(`${idMovie} remove from watched`);
 
-    ('toWatchedBtn');
-    ('removeWatchedBtn');
+    // ('toWatchedBtn');
+    // ('removeWatchedBtn');
 
     return;
   }
@@ -104,10 +111,11 @@ function onToQueueBtn(event) {
   const idMovie = button.id;
   console.log(idMovie);
   console.log('onToQueueBtn entered');
-  let alreadyQueue = queue.find(element => element === idMovie);
+  const data = findMovieById(idMovie);
+  let alreadyQueue = queue.find(element => element === JSON.stringify(data));
 
   if (typeof alreadyQueue === 'undefined') {
-    queue.push(idMovie);
+    queue.push(JSON.stringify(data));
     saveQueueListToLocalStorage(queue);
     console.log(`${idMovie} added to queue`);
 
@@ -159,20 +167,26 @@ function closeModalEsc(event) {
   }
   closeModal();
 }
+
+
 const renderModal = event => {
-  console.log('renderModal');
   const cardId = event.target.closest('li');
   const idMovie = cardId.id;
-  const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
-  const arrayMovies = JSON.parse(savedTrendingFilms);
-  const data = arrayMovies.find(arr => arr.id === Number(idMovie));
-  console.log(data);
+  const data = findMovieById(idMovie);
   if (data) {
     currentId = data.id;
     renderMovieCard(data);
     openModal(event);
   }
 };
+
+function findMovieById(idMovie) {
+  const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
+  const arrayMovies = JSON.parse(savedTrendingFilms);
+  const data = arrayMovies.find(arr => arr.id === Number(idMovie));
+  return data;
+}
+
 function renderMovieCard(obj) {
   const backdropImage = obj.backdrop_path;
   if (backdropImage !== null) {
