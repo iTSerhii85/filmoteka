@@ -147,11 +147,11 @@ function onClick(evt) {
   movieApiService.newCurrentPage = currentPage;
 
   // перевіряємо, що ми шукаємо при натисканні на кнопки пагінації по МАЯКУ.
-  checkTargetByBtnPaginationClick();
+  checkTargetByBtnPaginationClick(currentPage);
 }
 
 // Функція перевірки, що ми шукаємо при натисканні на кнопки пагінації по МАЯКУ.
-function checkTargetByBtnPaginationClick() {
+function checkTargetByBtnPaginationClick(currentPage) {
     if (searchMarkPagination === 'trending') {
     movieApiService.getTrendingMovies().then(data => {
       saveMoviesToLocalStorage(data);
