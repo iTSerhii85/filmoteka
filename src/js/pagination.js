@@ -11,89 +11,6 @@ const afterDots = document.querySelector('.afterDots');
 const nextPage = document.querySelector('.nextPage');
 const lastPage = document.querySelector('.lastPage');
 
-// let maxLibraryPage = 0;
-// let maxPage = 1;
-// let currentPage = 1;
-
-let TESTARRAY = [
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-  { 1: 1 },
-];
-
 export function paginationMarkUp(currentPage, maxPage) {
   firstPage.textContent = '';
   perwPage.textContent = '';
@@ -106,11 +23,6 @@ export function paginationMarkUp(currentPage, maxPage) {
   afterDots.textContent = '';
   nextPage.textContent = '';
   lastPage.textContent = '';
-
-  // if (maxPage == '0') {
-  //   paginationWatched();
-  //   targetPage.textContent = '1';
-  // }
 
   if (currentPage == '1' && maxPage > '1') {
     afterPage.textContent = Number(currentPage) + 1;
@@ -298,56 +210,3 @@ export function paginationMarkUp(currentPage, maxPage) {
     firstPage.textContent = '';
   }
 }
-
-// paginationMarkUp(currentPage, maxPage);
-
-// paginationWatched(currentPage, maxPage);
-// paginationWatched();
-// export function paginationWatched() {
-//   // ЗАМЕНИТЬ КЛЮЧ!!!
-
-//   let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
-//   let parsedArr = JSON.parse(arr);
-//   console.log(parsedArr);
-//   maxPage = parsedArr.length / 20;
-//   console.log(maxPage);
-//   currentPage = targetPage.textContent;
-//   // paginationMarkUp(currentPage, maxLibraryPage);
-//   // paginationMarkUp(currentPage, maxPage);
-// }
-
-// export function paginationQueue(currentPage, maxPage) {
-//   // ЗАМЕНИТЬ КЛЮЧ!!!
-
-//   let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
-//   let parsedArr = JSON.parse(arr);
-//   console.log(parsedArr);
-//   maxPage = parsedArr.length / 20;
-//   console.log(maxLibraryPage);
-//   // paginationMarkUp(currentPage, maxPage);
-// }
-
-// paginationBox.addEventListener('click', OnPaginationclick);
-
-// function OnPaginationclick(evt) {
-//   if (evt.target.textContent == '...') {
-//     return;
-//   }
-//   if (evt.target.nodeName !== 'P') {
-//     return;
-//   }
-
-//   currentPage = evt.target.textContent;
-
-//   if (evt.target.textContent == '>>') {
-//     currentPage = Number(targetPage.textContent) + 1;
-//   }
-
-//   if (evt.target.textContent == '<<') {
-//     currentPage = Number(targetPage.textContent) - 1;
-//   }
-
-// paginationMarkUp(currentPage, maxPage);
-// paginationWatched();
-//   // paginationQueue();
-// }

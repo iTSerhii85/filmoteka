@@ -3,6 +3,7 @@
 import { paginationMarkUp } from './pagination.js';
 const paginationBox = document.querySelector('.pagination');
 let currentPage = 1;
+let maxPage = 1;
 
 // -----------------------
 
@@ -48,7 +49,9 @@ function renderLibrary(arrayMovies) {
            <div class="card-genre">${checkGenresById(obj)}</div>
          </div>
          <div class="card-year">
-         ${obj.release_date.slice(0, 4) || obj.first_air_date.slice(0, 4) || ''}
+
+         
+         
          </div>
          <div class="card-rating-wraper"><div class="card-rating">${obj.vote_average.toFixed(
            1
@@ -57,16 +60,19 @@ function renderLibrary(arrayMovies) {
      </li>`;
   };
 
+  // ${obj.release_date.slice(0, 4) || obj.first_air_date.slice(0, 4) || ''}
+
   const libraryMarkup = arrayMovies.map(markupOneCard).join('');
   libraryBox.insertAdjacentHTML('beforeend', libraryMarkup);
 
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
   currentPage = 1;
-  let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
+  let arr = localStorage.getItem('TRENDING_DATA_KEY');
   let parsedArr = JSON.parse(arr);
   console.log(parsedArr);
-  maxPage = parsedArr.length / 20;
+  maxPage = Math.ceil(parsedArr.length / 20);
+  console.log(maxPage);
   paginationMarkUp(currentPage, maxPage);
 
   // paginationMarkUp(currentPage, 30);
@@ -76,7 +82,7 @@ function renderLibrary(arrayMovies) {
 
 // Функція для генерації жанрів по id
 function checkGenresById(obj) {
-  const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
+  const savedGenresData = localStorage.getItem('TRENDING_DATA_KEY');
   const parseGenresData = JSON.parse(savedGenresData);
   let genresArr = [];
 
@@ -107,10 +113,11 @@ function onClickWatched() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
   currentPage = 1;
-  let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
+  let arr = localStorage.getItem('TRENDING_DATA_KEY');
   let parsedArr = JSON.parse(arr);
-  maxPage = parsedArr.length / 20;
+  maxPage = Math.ceil(parsedArr.length / 20);
   paginationMarkUp(currentPage, maxPage);
+
   // -----------------------
 
   watchedLibBtn.classList.add('btn-is-active');
@@ -125,7 +132,7 @@ function onClickQueue() {
   currentPage = 1;
   let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
   let parsedArr = JSON.parse(arr);
-  maxPage = parsedArr.length / 20;
+  maxPage = Math.ceil(parsedArr.length / 20);
   paginationMarkUp(currentPage, maxPage);
   // -----------------------
 
@@ -151,7 +158,21 @@ function Onclick(evt) {
     return;
   }
   currentPage = evt.target.textContent;
+
+  if (evt.target.textContent == '>>') {
+    currentPage = Number(targetPage.textContent) + 1;
+  }
+
+  if (evt.target.textContent == '<<') {
+    currentPage = Number(targetPage.textContent) - 1;
+  }
+
   paginationMarkUp(currentPage, maxPage);
+  for (i = (currentPage - 1) * 20; i < (currentPage - 1) * 20 + 20; i += 1) {
+    console.log(`i=${i}`);
+
+    // И вот тут отрисовываем карточки из массива по интексам   <<<<<-----------
+  }
 }
 
 // -----------------------
