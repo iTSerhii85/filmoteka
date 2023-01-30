@@ -1,3 +1,6 @@
+import { checkGenresById } from "./markup_mainGallery";
+
+
 let watched = localStorageObject('WATCHED_LIST_DATA_KEY');
 
 function saveWatchedListToLocalStorage(data) {
