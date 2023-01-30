@@ -63,8 +63,12 @@ nav {
   text-transform: uppercase;
 }
 
-.header-gallery__menu--to-right {
+.header-gallery__menu li:not(:last-child) {
   margin-right: 39px;
+}
+
+.header-gallery__menu--link {
+  padding: 10px 0;
 }
 
 .nav a {
@@ -90,44 +94,14 @@ nav {
   }
 }
 
-// .header-form__input {
-//   width: 394px;
-//   height: 20px;
+// Animations
 
-//   background-color: transparent;
-//   border: 0;
-//   border-bottom: 0.5px solid #ffffff;
+.header-gallery__logo,
+.header-gallery__menu {
+  animation: bounceInDown;
+  animation-duration: 1.8s;
+}
 
-//   &::placeholder {
-//     // font-family: inherit;
-//     font-style: normal;
-//     font-weight: 400;
-//     font-size: 14px;
-//     line-height: 1.14;
-
-//     color: #fff;
-//   }
-// }
-
-// .header-form form {
-//   position: relative;
-//   height: 20px;
-// }
-
-// .search-btn {
-//   position: absolute;
-//   right: 0;
-//   bottom: 0;
-
-//   padding: 0;
-
-//   width: 20px;
-//   height: 20px;
-
-//   background-color: transparent;
-//   border: 0;
-
-//   display: flex;
-//   justify-content: end;
-//   align-items: center;
+// .header-gallery__btns {
+//   animation: jackInTheBox;
 // }

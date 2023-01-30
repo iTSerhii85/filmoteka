@@ -4,6 +4,7 @@ import no_image from '../images/no-image.jpg';
 const refs = {
   formEl: document.querySelector('.js-header-form'),
   divEl: document.querySelector('.js-main-gallery'),
+  searchBtn: document.querySelector('.search-btn'),
   paginationBox: document.querySelector('.pagination'),
   targetPage: document.querySelector('.targetPage'),
   formMessage: document.querySelector('.header-form__message')
@@ -75,12 +76,14 @@ movieApiService.getTrendingMovies().then(data => {
 
 function onSearch(evt) {
   evt.preventDefault();
-  // Якщо нічого не введено, виводимо помилку і зупиняємо функцію
+  // Якщо нічого не введено, виводимо помилку, глушимо кнопку і зупиняємо функцію
   if (evt.currentTarget.elements.searchQuery.value.trim() === '') {
     refs.formMessage.insertAdjacentHTML('beforeend',
-    'Sorry, you need to enter something');
+      '<p>Sorry, you need to enter something</p>');
+       refs.searchBtn.disabled = true;
     setTimeout(() => {
-        refs.formMessage.innerHTML = '';
+      refs.formMessage.innerHTML = '';
+      refs.searchBtn.disabled = false;
     }, 2000);
     return;
   }
@@ -96,11 +99,13 @@ function onSearch(evt) {
               if (data.results.length === 0) {
                 refs.formMessage.insertAdjacentHTML('beforeend',
                   'Search result not successfull.Enter the correct movie name');
+                  refs.searchBtn.disabled = true;
                   // Очищуємо поле інпуту
                   evt.target.elements.searchQuery.value = ''
                 // Сет таймаут для повідомлення 
                 setTimeout(() => {
-                  refs.formMessage.innerHTML = '';
+                  refs.formMessage.innerHTML = ''
+                  refs.searchBtn.disabled = false;;
                 }, 2000);
                 // Через те, що запит прийшов ПОРОЖНІМ movieApiService.value перезаписуємо 
                 // значенням lastInput, щоб якщо після помилки натиснути на кнопки пагінації, 

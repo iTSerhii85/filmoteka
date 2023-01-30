@@ -1,6 +1,7 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
+
 body {
-  font-family: "Roboto";
+  font-family: 'Roboto';
   text-decoration: none;
   height: 100%;
 }
@@ -49,7 +50,7 @@ button {
 }
 
 footer {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
 }
 
 .footer-container {
@@ -165,4 +166,4 @@ footer {
   background-color: #fff;
   padding: 0;
   cursor: pointer;
-}/*# sourceMappingURL=index.css.map */
+} /*# sourceMappingURL=index.css.map */

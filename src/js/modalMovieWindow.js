@@ -218,7 +218,7 @@ function mark(obj) {
                     </td>
                     <td>
                         <p><span class='modal-movie-data__vote'>${
-                          obj.vote_average
+                          obj.vote_average.toFixed(1)
                         }</span> / ${obj.vote_count}</p>
                     </td>
                 </tr>
@@ -227,7 +227,7 @@ function mark(obj) {
                         <p>Popularity</p>
                     </td>
                     <td>
-                        <p>${obj.popularity}</p>
+                        <p>${obj.popularity.toFixed(1)}</p>
                     </td>
                 </tr>
                 <tr class='modal-movie-data-table__row'>
@@ -243,7 +243,7 @@ function mark(obj) {
                         <p>Genre</p>
                     </td>
                     <td>
-                        <p>підставити жанри замість id: ${obj.genre_ids}</p>
+                        <p>${checkGenresById(obj)}</p>
                     </td>
                 </tr>
             </table>
