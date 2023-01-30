@@ -42,6 +42,8 @@ function openModal(event) {
     queue = new Array();
   }
 
+
+
   const toWatchedBtn = document.querySelector('.js-btn-to-watched');
   const removeWatchedBtn = document.querySelector('.js-btn-from-watched');
 
@@ -54,6 +56,8 @@ function openModal(event) {
   toQueueBtn.addEventListener('click', onToQueueBtn);
   removeQueueBtn.addEventListener('click', onRemoveQueueBtn);
 
+
+
   closeModalBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', event => closeModalBackdrop(event));
   document.addEventListener('keydown', event => closeModalEsc(event));
@@ -64,91 +68,96 @@ function openModal(event) {
   document.body.classList.add('modal-open');
 }
 
+
+
 function onToWatchedBtn(event) {
   const button = event.currentTarget;
 
   console.log(button);
-  const idMovie = button.id;
-  console.log(idMovie);
+  const movieId = +button.id;
+  console.log(movieId);
   console.log('onToWatchedBt entered');
-  const data = findMovieById(idMovie);
-  let alreadyExists = watched.find(element => element === JSON.stringify(data));
+  const data = findMovieById(movieId);
+  const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
+  console.log(watchedFilms)
+  let alreadyExists = watchedFilms.find(item => item.id === movieId);
 
-  if (typeof alreadyExists === 'undefined') {
-    watched.push(JSON.stringify(data));
-    saveWatchedListToLocalStorage(watched);
-    console.log(`${idMovie} added to watched`);
-
+  if (!alreadyExists) {
+    watchedFilms.push(data);
+    saveWatchedListToLocalStorage(watchedFilms);
+    console.log(`${movieId} added to watched`);
  //   'toWatchedBtn'.classList.add('is-hidden-btn');
     // 'removeWatchedBtn'.classList.remove('is-hidden-btn');
-
-    return;
   }
-  return;
 }
+
+
 
 function onRemoveWatchedBtn(event) {
   const button = event.currentTarget;
 
-  const idMovie = button.id;
-  console.log(idMovie);
+  const movieId = +button.id;
+  console.log(movieId);
   console.log('onRemoveWatchedBtn entered');
-  let alreadyExists = watched.find(element => element === idMovie);
+  let isExist = watchedFilms.find(item => item.id === movieId);
 
-  if (typeof alreadyExists === 'find') {
-    watched.remove(idMovie);
-    console.log(`${idMovie} remove from watched`);
+  const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
 
-    // ('toWatchedBtn');
-    // ('removeWatchedBtn');
-
-    return;
+  if (isExist) {
+    watched.remove();
+    const updatedFilms = watchedFilms.filter(item => item.id !== movieId);
+    saveWatchedListToLocalStorage(updatedFilms);
+    console.log(`${movieId} remove from watched`);
   }
-  return;
 }
+
+
+
 
 function onToQueueBtn(event) {
   const button = event.currentTarget;
 
   console.log(button);
-  const idMovie = button.id;
-  console.log(idMovie);
+  const movieId = +button.id;
+  console.log(movieId);
   console.log('onToQueueBtn entered');
-  const data = findMovieById(idMovie);
-  let alreadyQueue = queue.find(element => element === JSON.stringify(data));
+  const data = findMovieById(movieId);
+  const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
+  const alreadyOnQueue = queuedFilms.find(item => item.id === movieId);
 
-  if (typeof alreadyQueue === 'undefined') {
-    queue.push(JSON.stringify(data));
-    saveQueueListToLocalStorage(queue);
-    console.log(`${idMovie} added to queue`);
+  if (!alreadyOnQueue) {
+    queuedFilms.push(data);
+    saveQueueListToLocalStorage(queuedFilms);
+    console.log(`${movieId} added to queue`);
 
     // ('toQueueBtn');
     // ('removeQueueBtn');
-
-    return;
   }
-  return;
 }
+
+
 
 function onRemoveQueueBtn(event) {
   const button = event.currentTarget;
-
-  const idMovie = button.id;
+  const movieId = +button.id;
   console.log(idMovie);
   console.log('onRemoveQueueBtn entered');
-  let alreadyQueue = queue.find(element => element === idMovie);
+  const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
+  const isExist = queuedFilms.find(item => item.id === movieId);
 
-  if (typeof alreadyQueue === 'fined') {
-    queue.remove(idMovie);
-    console.log(`${idMovie} remove from queue`);
+  if (isExist) {
+    queue.remove(movieId);
+    const updatedFilms = watchedFilms.filter(item => item.id !== movieId);
+    saveQueueListToLocalStorage(updatedFilms);
+    console.log(`${movieId} remove from queue`);
 
-    ('toQueueBtn');
-    ('removeQueueBtn');
-
-    return;
+    // ('toQueueBtn');
+    // ('removeQueueBtn');
   }
-  return;
 }
+
+
+
 
 function closeModal(event) {
   backdrop.classList.add('is-hidden');
@@ -159,6 +168,7 @@ function closeModal(event) {
   document.body.classList.remove('modal-open');
   backdrop.style.background = '';
 }
+
 function closeModalBackdrop(event) {
   if (event.target.classList.value !== 'backdrop-modal') {
     return;
@@ -173,6 +183,8 @@ function closeModalEsc(event) {
 }
 
 
+
+
 const renderModal = event => {
   const cardId = event.target.closest('li');
   const idMovie = cardId.id;
@@ -184,12 +196,16 @@ const renderModal = event => {
   }
 };
 
+
+
 function findMovieById(idMovie) {
   const savedTrendingFilms = localStorage.getItem('TRENDING_DATA_KEY');
   const arrayMovies = JSON.parse(savedTrendingFilms);
   const data = arrayMovies.find(arr => arr.id === Number(idMovie));
   return data;
 }
+
+
 
 function renderMovieCard(obj) {
   const backdropImage = obj.backdrop_path;
