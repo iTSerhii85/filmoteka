@@ -16,7 +16,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <script type="module" src="./index.js"></script>
   </head>
   <body>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
@@ -41,9 +40,29 @@
         <include src="./partials/footer.html"></include>
       </footer>
     </div>
+    <div class="backdrop-modal-trailer is-hidden">
+      <iframe
+        class="trailer-player"
+        width="700"
+        height="420"
+        src="https://www.youtube.com/embed"
+        title=""
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
 
+      <button class="btnClose" type="button">
+        <svg class="button-close__icon-close" width="30" height="30">
+          <use href="./images/svg/sprite.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
     <include src="./partials/preloader.html"></include>
     <include src="./partials/modal.html"></include>
+    <!-- <include src="./partials/trailer.html"></include> -->
     <include src="./partials/footer_modal.html"></include>
+
+    <script type="module" src="./index.js"></script>
   </body>
 </html>
