@@ -157,6 +157,7 @@ function closeModal(event) {
   backdrop.removeEventListener('click', closeModal);
   document.removeEventListener('keydown', event => closeModalEsc(event));
   document.body.classList.remove('modal-open');
+  backdrop.style.background = '';
 }
 function closeModalBackdrop(event) {
   if (event.target.classList.value !== 'backdrop-modal') {
@@ -263,7 +264,7 @@ function mark(obj) {
                     </button>
                     <button  id='${
                       obj.id
-                    }' class='modal-movie-data__btn modal-movie-data__btn-watched is-hidden-btn js-btn-from-watched' type='button' data-action='${
+                    }' class='modal-movie-data__btn modal-movie-data__btn-watched active is-hidden-btn js-btn-from-watched' type='button' data-action='${
     obj.id
   }'>
                         REMOVE FROM WATCHED
@@ -279,13 +280,22 @@ function mark(obj) {
                     </button>
                     <button id='${
                       obj.id
-                    }' class='modal-movie-data__btn modal-movie-data__btn-queue is-hidden-btn js-btn-from-queue' type='button' data-action='${
+                    }' class='modal-movie-data__btn modal-movie-data__btn-queue active is-hidden-btn js-btn-from-queue' type='button' data-action='${
     obj.id
   }'>
                         REMOVE FROM QUEUE
                     </button>
                 </li>
             </ul>
+            <div class="trailer-btn-wrapper">
+            <button  id='${
+                      obj.id
+                    }' class='trailer-btn' type='button' data-action='${
+    obj.id
+  }'>
+                        watch trailer
+                    </button>
+            </div>
             </div>`;
   movieCard.innerHTML = markup;
 }
