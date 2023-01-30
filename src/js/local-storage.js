@@ -1,9 +1,11 @@
+import no_image from '../images/no-image.jpg';
+
 // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-import { paginationMarkUp } from './pagination.js';
-const paginationBox = document.querySelector('.pagination');
-let currentPage = 1;
-let maxPage = 1;
+// import { paginationMarkUp } from './pagination.js';
+// const paginationBox = document.querySelector('.pagination');
+// let currentPage = 1;
+// let maxPage = 1;
 
 // -----------------------
 
@@ -18,11 +20,20 @@ function localStorageObject(key) {
   const getObjectFromLs = localStorage.getItem(key);
   const parseObjectFromLs = JSON.parse(getObjectFromLs);
   console.log(parseObjectFromLs);
+
+  // currentPage = 1;
+  // if (parseObjectFromLs === null) {
+  //   return
+  // } else { maxPage = Math.ceil(parseObjectFromLs.length / 20);
+
+  // paginationMarkUp(currentPage, maxPage)}
+
   return parseObjectFromLs;
 }
+
 // ключі від localStorage
-const watchedArray = localStorageObject('TRENDING_DATA_KEY');
-const queueArray = localStorageObject('SEARCH_RESULT_DATA_KEY');
+const watchedArray = localStorageObject('WATCHED_LIST_DATA_KEY');
+const queueArray = localStorageObject('QUEUE_LIST_DATA_KEY');
 
 // Рендерить розмітку у бібліотеці по дефолту
 renderLibrary(watchedArray);
@@ -30,7 +41,7 @@ watchedLibBtn.classList.add('btn-is-active');
 
 // Функція для рендуру розмітки
 function renderLibrary(arrayMovies) {
-  if (arrayMovies.length === 0) {
+  if (arrayMovies === null) {
     clearMarkup();
     return emptyGalleryBox.classList.remove('is-hidden');
   }
@@ -39,10 +50,17 @@ function renderLibrary(arrayMovies) {
     clearMarkup();
     checkGenresById(obj);
 
+    let posterSrc = '';
+    if (obj.poster_path) {
+      posterSrc = `https://image.tmdb.org/t/p/w500${obj.poster_path}`;
+    } else {
+      posterSrc = no_image;
+    }
+
     return ` <li class="card-wraper" id="${obj.id}">
-       <img class="card-img" src="https://image.tmdb.org/t/p/w500${
-         obj.poster_path
-       }" alt="#" />
+       <a class="card-wraper_link" href="#"><img class="card-img" src="${posterSrc}" alt="${
+      obj.title || obj.name
+    }"/></a>
        <div class="card-title">${obj.title || obj.name}</div>
       <div class="wraper">
          <div class="card-genre-wraper">
@@ -51,7 +69,7 @@ function renderLibrary(arrayMovies) {
          <div class="card-year">
 
          ${obj.release_date.slice(0, 4) || obj.first_air_date.slice(0, 4) || ''}
-         
+
          </div>
          <div class="card-rating-wraper"><div class="card-rating">${obj.vote_average.toFixed(
            1
@@ -65,20 +83,20 @@ function renderLibrary(arrayMovies) {
 
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-  currentPage = 1;
-  let arr = localStorage.getItem('TRENDING_DATA_KEY');
-  let parsedArr = JSON.parse(arr);
-  console.log(parsedArr);
-  maxPage = Math.ceil(parsedArr.length / 20);
-  console.log(maxPage);
-  paginationMarkUp(currentPage, maxPage);
+  // currentPage = 1;
+  // let arr = localStorage.getItem('TRENDING_DATA_KEY');
+  // let parsedArr = JSON.parse(arr);
+  // console.log(parsedArr);
+  // maxPage = Math.ceil(parsedArr.length / 20);
+  // console.log(maxPage);
+  // paginationMarkUp(currentPage, maxPage);
 
   // -----------------------
 }
 
 // Функція для генерації жанрів по id
 function checkGenresById(obj) {
-  const savedGenresData = localStorage.getItem('TRENDING_DATA_KEY');
+  const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
   const parseGenresData = JSON.parse(savedGenresData);
   let genresArr = [];
 
@@ -108,11 +126,11 @@ queueLibBtn.addEventListener('click', onClickQueue);
 function onClickWatched() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-  currentPage = 1;
-  let arr = localStorage.getItem('TRENDING_DATA_KEY');
-  let parsedArr = JSON.parse(arr);
-  maxPage = Math.ceil(parsedArr.length / 20);
-  paginationMarkUp(currentPage, maxPage);
+  // currentPage = 1;
+  // let arr = localStorage.getItem('TRENDING_DATA_KEY');
+  // let parsedArr = JSON.parse(arr);
+  // maxPage = Math.ceil(parsedArr.length / 20);
+  // paginationMarkUp(currentPage, maxPage);
 
   // -----------------------
 
@@ -125,11 +143,11 @@ function onClickWatched() {
 function onClickQueue() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-  currentPage = 1;
-  let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
-  let parsedArr = JSON.parse(arr);
-  maxPage = Math.ceil(parsedArr.length / 20);
-  paginationMarkUp(currentPage, maxPage);
+  // currentPage = 1;
+  // let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
+  // let parsedArr = JSON.parse(arr);
+  // maxPage = Math.ceil(parsedArr.length / 20);
+  // paginationMarkUp(currentPage, maxPage);
   // -----------------------
 
   emptyGalleryBox.classList.add('is-hidden');
@@ -144,31 +162,31 @@ function clearMarkup() {
 
 // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-paginationBox.addEventListener('click', Onclick);
+// paginationBox.addEventListener('click', Onclick);
 
-function Onclick(evt) {
-  if (evt.target.textContent == '...') {
-    return;
-  }
-  if (evt.target.nodeName !== 'P') {
-    return;
-  }
-  currentPage = evt.target.textContent;
+// function Onclick(evt) {
+//   if (evt.target.textContent == '...') {
+//     return;
+//   }
+//   if (evt.target.nodeName !== 'P') {
+//     return;
+//   }
+//   currentPage = evt.target.textContent;
 
-  if (evt.target.textContent == '>>') {
-    currentPage = Number(targetPage.textContent) + 1;
-  }
+//   if (evt.target.textContent == '>>') {
+//     currentPage = Number(targetPage.textContent) + 1;
+//   }
 
-  if (evt.target.textContent == '<<') {
-    currentPage = Number(targetPage.textContent) - 1;
-  }
+//   if (evt.target.textContent == '<<') {
+//     currentPage = Number(targetPage.textContent) - 1;
+//   }
 
-  paginationMarkUp(currentPage, maxPage);
-  for (i = (currentPage - 1) * 20; i < (currentPage - 1) * 20 + 20; i += 1) {
-    console.log(`i=${i}`);
+//   paginationMarkUp(currentPage, maxPage);
+//   for (i = (currentPage - 1) * 20; i < (currentPage - 1) * 20 + 20; i += 1) {
+//     console.log(`i=${i}`);
 
-    // И вот тут отрисовываем карточки из массива по интексам   <<<<<-----------
-  }
-}
+//     // И вот тут отрисовываем карточки из массива по интексам   <<<<<-----------
+//   }
+// }
 
 // -----------------------
