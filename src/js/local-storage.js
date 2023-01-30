@@ -50,7 +50,7 @@ function renderLibrary(arrayMovies) {
          </div>
          <div class="card-year">
 
-         
+         ${obj.release_date.slice(0, 4) || obj.first_air_date.slice(0, 4) || ''}
          
          </div>
          <div class="card-rating-wraper"><div class="card-rating">${obj.vote_average.toFixed(
@@ -59,8 +59,6 @@ function renderLibrary(arrayMovies) {
        </div>
      </li>`;
   };
-
-  // ${obj.release_date.slice(0, 4) || obj.first_air_date.slice(0, 4) || ''}
 
   const libraryMarkup = arrayMovies.map(markupOneCard).join('');
   libraryBox.insertAdjacentHTML('beforeend', libraryMarkup);
@@ -74,8 +72,6 @@ function renderLibrary(arrayMovies) {
   maxPage = Math.ceil(parsedArr.length / 20);
   console.log(maxPage);
   paginationMarkUp(currentPage, maxPage);
-
-  // paginationMarkUp(currentPage, 30);
 
   // -----------------------
 }
