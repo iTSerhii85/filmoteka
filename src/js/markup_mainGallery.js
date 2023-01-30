@@ -1,6 +1,7 @@
 import MovieApiService from './fetchMovieApi';
 import { paginationMarkUp } from './pagination.js';
 import no_image from '../images/no-image.jpg';
+
 const refs = {
   formEl: document.querySelector('.js-header-form'),
   divEl: document.querySelector('.js-main-gallery'),
@@ -9,68 +10,23 @@ const refs = {
   targetPage: document.querySelector('.targetPage'),
   formMessage: document.querySelector('.header-form__message')
 };
-
+const movieApiService = new MovieApiService();
 // МАЯК для кнопок пагінації, щоб знати, який фетч запускати: на тренти, чи по пошуку
 let searchMarkPagination = 'trending';
 // Змінна для ситуації, коли після пошуку воддиться недійсне значення і натискаються кнопки пагінації
 let lastInput = ''
-const movieApiService = new MovieApiService();
+
+refs.formEl.addEventListener('submit', onSearch);
+refs.paginationBox.addEventListener('click', onClick);
 
 saveGenresToLocalStorage();
 
-refs.formEl.addEventListener('submit', onSearch);
-refs.paginationBox.addEventListener('click', Onclick);
-
-// Функція натискання на кнопки  пагінації
-function Onclick(evt) {
-  if (evt.target.textContent == '...') {
-    return;
-  }
-  if (evt.target.nodeName !== 'P') {
-    return;
-  }
-  clearMarkup();
-  console.log(evt.target.textContent);
-  let currentPage = evt.target.textContent;
-  
-  if (evt.target.textContent == '>>') {
-    currentPage = Number(refs.targetPage.textContent);
-    currentPage += 1;
-  }
-
-  if (evt.target.textContent == '<<') {
-    currentPage = Number(refs.targetPage.textContent);
-    currentPage -= 1;
-  }
-
-  movieApiService.newCurrentPage = currentPage;
-
-  // перевіряємо, що ми шукаємо при натисканні на кнопки пагінації по МАЯКУ.
-  // В майбутньому вивести в окрему функцію
-
-  if (searchMarkPagination === 'trending') {
-    movieApiService.getTrendingMovies().then(data => {
-      saveTrendingToLocalStorage(data);
-      createMainMarkup(data.results);
-      paginationMarkUp(currentPage, data.total_pages);
-    });
-  }
-  if (searchMarkPagination === 'search') {
-    movieApiService.searchMovies().then(data => {
-      saveTrendingToLocalStorage(data);
-      createMainMarkup(data.results);
-      paginationMarkUp(currentPage, data.total_pages);
-    });
-  }
-  
-}
-
 movieApiService.getTrendingMovies().then(data => {
   movieApiService.resetCurrentPage();
-  saveTrendingToLocalStorage(data);
+  saveMoviesToLocalStorage(data);
   createMainMarkup(data.results);
  
-  // При запуску сторіник малюємо пагінацію
+  // При запуску сторіник малюємо пагінацію з макс. к-стю сторінок data.total_pages
   paginationMarkUp(1, data.total_pages);
 });
 
@@ -115,11 +71,11 @@ function onSearch(evt) {
                 return;
               }
     // ЗАПИТ ПРИЙШОВ НЕ ПОРОЖНІМ
-    // Змінюємо маяк на "пошук", щоб при натисканні на пагінацію, запит йшов по пошуку
+    // Змінюємо маяк на "пошук", щоб в мабутньому при натисканні на пагінацію, запит йшов по пошуку
     searchMarkPagination = 'search';
      // Очищаємо розмітку
     clearMarkup();
-    saveTrendingToLocalStorage(data);
+    saveMoviesToLocalStorage(data);
     createMainMarkup(data.results);
     // При пошуку фільмів малюємо пагінацію
     paginationMarkUp(1, data.total_pages);
@@ -127,7 +83,6 @@ function onSearch(evt) {
     lastInput = evt.target.elements.searchQuery.value;
     evt.target.elements.searchQuery.value = '';
   });
-
 }
 
 function createMainMarkup(dataArray) {
@@ -147,23 +102,72 @@ function createMainMarkup(dataArray) {
       posterSrc = no_image;
     }
 
-    return ` <li class="card-wraper" id="${obj.id}">
-       <a class="card-wraper_link" href="#"><img class="card-img" src="${posterSrc}" alt="${obj.title || obj.name}" /></a>
-       <div class="card-title">${obj.title || obj.name}</div>
-      <div class="wraper">
-         <div class="card-genre-wraper">
-           <div class="card-genre">${checkGenresById(obj)}</div>
-         </div>
-         <div class="card-year">${year.slice(0, 4)}</div>
-         <div class="card-rating-wraper"><div class="card-rating">${ratingValue}</div></div>
-       </div>
-     </li>`;
+    return `<li class="card-wraper" id="${obj.id}">
+                <a class="card-wraper_link" href="#">
+                  <img class="card-img" src="${posterSrc}" alt="${obj.title || obj.name}" />
+                </a>
+                <div class="card-title">${obj.title || obj.name}</div>
+                <div class="wraper">
+                  <div class="card-genre-wraper">
+                      <div class="card-genre">${checkGenresById(obj)}</div>
+                  </div>
+                  <div class="card-year">${year.slice(0, 4)}</div>
+                  <div class="card-rating-wraper">
+                      <div class="card-rating">${ratingValue}</div>
+                  </div>
+                </div>
+            </li>`;
   };
-
   const markup = dataArray.map(oneMarkup).join('');
   refs.divEl.insertAdjacentHTML('beforeend', markup);
 }
 
+// Функція натискання на кнопки пагінації
+function onClick(evt) {
+  if (evt.target.textContent == '...') {
+    return;
+  }
+  if (evt.target.nodeName !== 'P') {
+    return;
+  }
+  clearMarkup();
+  console.log(evt.target.textContent);
+  let currentPage = evt.target.textContent;
+  
+  if (evt.target.textContent == '>>') {
+    currentPage = Number(refs.targetPage.textContent);
+    currentPage += 1;
+  }
+
+  if (evt.target.textContent == '<<') {
+    currentPage = Number(refs.targetPage.textContent);
+    currentPage -= 1;
+  }
+
+  movieApiService.newCurrentPage = currentPage;
+
+  // перевіряємо, що ми шукаємо при натисканні на кнопки пагінації по МАЯКУ.
+  checkTargetByBtnPaginationClick();
+}
+
+// Функція перевірки, що ми шукаємо при натисканні на кнопки пагінації по МАЯКУ.
+function checkTargetByBtnPaginationClick() {
+    if (searchMarkPagination === 'trending') {
+    movieApiService.getTrendingMovies().then(data => {
+      saveMoviesToLocalStorage(data);
+      createMainMarkup(data.results);
+      paginationMarkUp(currentPage, data.total_pages);
+    });
+  }
+  if (searchMarkPagination === 'search') {
+    movieApiService.searchMovies().then(data => {
+      saveMoviesToLocalStorage(data);
+      createMainMarkup(data.results);
+      paginationMarkUp(currentPage, data.total_pages);
+    });
+  }
+}
+  
 // Функція збереження отриманих даних ЖАНРІВ фільмів в локалсторадж
 function saveGenresToLocalStorage() {
   movieApiService.getGenres().then(data => {
@@ -171,15 +175,12 @@ function saveGenresToLocalStorage() {
     localStorage.setItem('GENRES_DATA_KEY', JSON.stringify(data.genres));
   });
 }
+
 // Функція збереження отриманих даних фільмів в ТРЕНДІ в локалсторадж
-function saveTrendingToLocalStorage(data) {
+function saveMoviesToLocalStorage(data) {
   localStorage.setItem('TRENDING_DATA_KEY', JSON.stringify(data.results));
 }
 
-// // Функція збереження отриманих даних фільмів по ПОШУКУ в локалсторадж
-// function saveSearchResultToLocalStorage(data) {
-//   localStorage.setItem('SEARCH_RESULT_DATA_KEY', JSON.stringify(data.results));
-// }
 // Функція вибору потрібних жанрів  + умову на кількість жанрів
 export function checkGenresById(obj) {
   const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
