@@ -10,18 +10,6 @@
   filter: invert(0);
 }
 
-.switcher__radio {
-  filter: invert(0);
-}
-
-.switcher__radio:checked {
-  filter: invert(1);
-}
-
-.switcher__status {
-  filter: invert(0);
-}
-
 .rights-text {
   filter: invert(0);
 }
@@ -39,7 +27,7 @@
 }
 
 .modal-movie {
-  --modal-movie-color: #e2d2d2;
+  --modal-movie-color: rgba(226, 210, 210, 0.88)
 }
 
 .modal-movie-data__title {
@@ -62,6 +50,19 @@ p.modal-movie-data-about {
   color: #000000;
 }
 
-td {
+.modal-movie-data-table td p {
   color: #000000;
+}
+
+/* Switcher */
+.switcher__radio {
+  filter: invert(0);
+}
+
+.switcher__radio:checked {
+  filter: invert(1);
+}
+
+.switcher__status {
+  filter: invert(0);
 }
