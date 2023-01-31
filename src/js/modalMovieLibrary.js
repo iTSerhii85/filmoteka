@@ -1,4 +1,4 @@
-// import { checkGenresById } from "./markup_mainGallery";
+import { checkGenresById } from './checkGenresById';
 
 
 let watched = localStorageObject('WATCHED_LIST_DATA_KEY');
@@ -222,7 +222,7 @@ function mark(obj) {
                             <p>Genre</p>
                         </td>
                         <td>
-                            <p>Жанры</p>
+                            <p>${checkGenresById(obj)}</p>
                         </td>
                     </tr>
 
