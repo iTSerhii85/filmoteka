@@ -1,4 +1,4 @@
-import { checkGenresById } from "./markup_mainGallery";
+import { checkGenresById } from './checkGenresById';
 import no_image from '../images/no-image.jpg';
 
 

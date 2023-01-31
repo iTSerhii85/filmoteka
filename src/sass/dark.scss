@@ -32,7 +32,7 @@
 }
 
 .modal-movie {
-  --modal-movie-color: rgba(22, 21, 23, 0.85);
+  --modal-movie-color: rgba(22, 21, 23, 0.88);
 }
 
 .modal-movie-data__title {
@@ -51,17 +51,24 @@
   color: #ffffff
 }
 
+h3.modal-movie-data__about_title {
+  color: #ffffff
+}
 
 p.modal-movie-data__about {
   color: #ffffff
 }
 
-td {
+svg.button-close__icon-close {
+  stroke: #ffffff;
+}
+
+.modal-movie-data-table td p {
   color: #ffffff
 }
 
-svg.button-close__icon-close {
-  stroke: #ffffff;
+.pagination .targetPage {
+  color: #ff6b08;
 }
 
 /* Switcher */
@@ -75,9 +82,4 @@ svg.button-close__icon-close {
 
 .switcher__status {
   filter: invert(1);
-}
-
-.pagination .targetPage {
-  color: #ff6b08;
-
 }
