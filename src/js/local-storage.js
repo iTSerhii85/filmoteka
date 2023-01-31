@@ -28,7 +28,7 @@ window.addEventListener('load', function () {
 function localStorageObject(key) {
   const getObjectFromLs = localStorage.getItem(key);
   const parseObjectFromLs = JSON.parse(getObjectFromLs);
-  if (parseObjectFromLs === null) {
+  if (!parseObjectFromLs) {
     return;
   } else {
     maxPage = Math.ceil(parseObjectFromLs.length / 20);
@@ -38,16 +38,24 @@ function localStorageObject(key) {
 }
 
 // ключі від localStorage
-const watchedArray = localStorageObject('WATCHED_LIST_DATA_KEY');
-const queueArray = localStorageObject('QUEUE_LIST_DATA_KEY');
+let watchedArray = localStorageObject('WATCHED_LIST_DATA_KEY');
+let queueArray = localStorageObject('QUEUE_LIST_DATA_KEY');
 
 // Рендерить розмітку у бібліотеці по дефолту
-renderLibrary(watchedArray);
+let startPoint = (currentPage - 1) * 20;
+let stopPoint = (currentPage - 1) * 20 + 20;
+const beforeArrey = watchedArray;
+const watchedArr = beforeArrey.slice(startPoint, stopPoint);
+const beforeArreyQe = queueArray;
+const watchedArrQe = beforeArreyQe.slice(startPoint, stopPoint);
+
 watchedLibBtn.classList.add('btn-is-active');
+// paginationBox.addEventListener('click', Onclick);
 
 // Функція для рендуру розмітки
+
 function renderLibrary(arrayMovies) {
-  if (arrayMovies === null) {
+  if (!arrayMovies) {
     clearMarkup();
     return emptyGalleryBox.classList.remove('is-hidden');
   }
@@ -89,25 +97,15 @@ function renderLibrary(arrayMovies) {
 
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-  // currentPage = 1;
-  // maxPage = 1;
-  // let arr = localStorage.getItem('WATCHED_LIST_DATA_KEY');
-  // let parsedArr = JSON.parse(arr);
-  // console.log(parsedArr);
-  // maxPage = Math.ceil(parsedArr.length / 20);
-  // console.log(maxPage);
-  // paginationMarkUp(currentPage, maxPage);
-
   // -----------------------
 }
-
 
 watchedLibBtn.addEventListener('click', onClickWatched);
 queueLibBtn.addEventListener('click', onClickQueue);
 
 export function onClickWatched() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
-
+  currentPage = 1;
   let arr = localStorage.getItem('WATCHED_LIST_DATA_KEY');
   let parsedArr = JSON.parse(arr);
   maxPage = Math.ceil(parsedArr.length / 20);
@@ -118,12 +116,12 @@ export function onClickWatched() {
   watchedLibBtn.classList.add('btn-is-active');
   queueLibBtn.classList.remove('btn-is-active');
   emptyGalleryBox.classList.add('is-hidden');
-  renderLibrary(watchedArray);
+  renderLibrary(watchedArr);
 }
 
 export function onClickQueue() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
-
+  currentPage = 1;
   let arr = localStorage.getItem('QUEUE_LIST_DATA_KEY');
   let parsedArr = JSON.parse(arr);
   maxPage = Math.ceil(parsedArr.length / 20);
@@ -133,7 +131,7 @@ export function onClickQueue() {
   emptyGalleryBox.classList.add('is-hidden');
   queueLibBtn.classList.add('btn-is-active');
   watchedLibBtn.classList.remove('btn-is-active');
-  renderLibrary(queueArray);
+  renderLibrary(watchedArrQe);
 }
 
 function clearMarkup() {
@@ -141,15 +139,16 @@ function clearMarkup() {
 }
 
 // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
-paginationBox.addEventListener('click', Onclick);
+paginationBox.addEventListener('click', OnPagClick);
 
-function Onclick(evt) {
+function OnPagClick(evt) {
   if (evt.target.textContent == '...') {
     return;
   }
   if (evt.target.nodeName !== 'P') {
     return;
   }
+
   currentPage = evt.target.textContent;
 
   if (evt.target.textContent == '>>') {
@@ -161,22 +160,23 @@ function Onclick(evt) {
   }
 
   paginationMarkUp(currentPage, maxPage);
-  // for (i = (currentPage - 1) * 20; i < (currentPage - 1) * 20 + 20; i += 1) {
-  //   console.log(`i=${i}`);
+  reRendering(currentPage);
 
   // И вот тут отрисовываем карточки из массива по интексам   <<<<<-----------
 
-  let startPoint = (currentPage - 1) * 20 - 1;
-  let stopPoint = (currentPage - 1) * 20 + 20;
+  function reRendering(currentPage) {
+    let startPoint = (currentPage - 1) * 20;
+    let stopPoint = (currentPage - 1) * 20 + 20;
 
-  if (watchedLibBtn.classList.contains('btn-is-active')) {
-    const beforeArrey = watchedArray;
-    const watchedArr = beforeArrey.slice(startPoint, stopPoint);
-    // const arrMovies = middleArrey.slice(stopPoint - 1, beforeArrey.length);
-    console.log(beforeArrey);
-    console.log(watchedArr);
-    // console.log(arrMovies);
-    renderLibrary(watchedArr);
+    if (watchedLibBtn.classList.contains('btn-is-active')) {
+      const beforeArrey = watchedArray;
+      const watchedArr = beforeArrey.slice(startPoint, stopPoint);
+      renderLibrary(watchedArr);
+    } else {
+      const beforeArrey = queueArray;
+      const watchedArr = beforeArrey.slice(startPoint, stopPoint);
+      renderLibrary(watchedArr);
+    }
   }
 }
 // -----------------------
