@@ -28,7 +28,7 @@ function onOpenModal(e) {
           refs.backdropTrailer.classList.remove('is-hidden');
           return showTrailer(trailer[0].key);
         } else {
-          Notiflix.Notify.info('На жаль трейлера немає');
+          Notiflix.Notify.info("Oops, there's no trailer yet");
         }
       });
   }
