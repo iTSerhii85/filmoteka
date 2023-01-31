@@ -2,9 +2,9 @@ import no_image from '../images/no-image.jpg';
 
 // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-// import { paginationMarkUp } from './pagination.js';
-// const paginationBox = document.querySelector('.pagination');
-// let currentPage = 1;
+import { paginationMarkUp } from './pagination.js';
+const paginationBox = document.querySelector('.pagination');
+let currentPage = 1;
 // let maxPage = 1;
 
 // -----------------------
@@ -15,19 +15,24 @@ const libraryBox = document.querySelector('.js-library-gallery');
 const emptyGalleryBox = document.querySelector('.info-notify-box');
 const emptyGalleryText = document.querySelector('.info-notify-text');
 
+let movieArray = [];
+
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    watchedLibBtn.click();
+  }, 0);
+});
+
 // Функція розпарсить об'єкти з localStorage
 function localStorageObject(key) {
   const getObjectFromLs = localStorage.getItem(key);
   const parseObjectFromLs = JSON.parse(getObjectFromLs);
-  console.log(parseObjectFromLs);
-
-  // currentPage = 1;
-  // if (parseObjectFromLs === null) {
-  //   return
-  // } else { maxPage = Math.ceil(parseObjectFromLs.length / 20);
-
-  // paginationMarkUp(currentPage, maxPage)}
-
+  if (parseObjectFromLs === null) {
+    return;
+  } else {
+    maxPage = Math.ceil(parseObjectFromLs.length / 20);
+    paginationMarkUp(currentPage, maxPage);
+  }
   return parseObjectFromLs;
 }
 
@@ -84,7 +89,8 @@ function renderLibrary(arrayMovies) {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
   // currentPage = 1;
-  // let arr = localStorage.getItem('TRENDING_DATA_KEY');
+  // maxPage = 1;
+  // let arr = localStorage.getItem('WATCHED_LIST_DATA_KEY');
   // let parsedArr = JSON.parse(arr);
   // console.log(parsedArr);
   // maxPage = Math.ceil(parsedArr.length / 20);
@@ -126,11 +132,10 @@ queueLibBtn.addEventListener('click', onClickQueue);
 function onClickWatched() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-  // currentPage = 1;
-  // let arr = localStorage.getItem('TRENDING_DATA_KEY');
-  // let parsedArr = JSON.parse(arr);
-  // maxPage = Math.ceil(parsedArr.length / 20);
-  // paginationMarkUp(currentPage, maxPage);
+  let arr = localStorage.getItem('WATCHED_LIST_DATA_KEY');
+  let parsedArr = JSON.parse(arr);
+  maxPage = Math.ceil(parsedArr.length / 20);
+  paginationMarkUp(currentPage, maxPage);
 
   // -----------------------
 
@@ -143,11 +148,10 @@ function onClickWatched() {
 function onClickQueue() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
-  // currentPage = 1;
-  // let arr = localStorage.getItem('SEARCH_RESULT_DATA_KEY');
-  // let parsedArr = JSON.parse(arr);
-  // maxPage = Math.ceil(parsedArr.length / 20);
-  // paginationMarkUp(currentPage, maxPage);
+  let arr = localStorage.getItem('QUEUE_LIST_DATA_KEY');
+  let parsedArr = JSON.parse(arr);
+  maxPage = Math.ceil(parsedArr.length / 20);
+  paginationMarkUp(currentPage, maxPage);
   // -----------------------
 
   emptyGalleryBox.classList.add('is-hidden');
@@ -161,32 +165,42 @@ function clearMarkup() {
 }
 
 // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
+paginationBox.addEventListener('click', Onclick);
 
-// paginationBox.addEventListener('click', Onclick);
+function Onclick(evt) {
+  if (evt.target.textContent == '...') {
+    return;
+  }
+  if (evt.target.nodeName !== 'P') {
+    return;
+  }
+  currentPage = evt.target.textContent;
 
-// function Onclick(evt) {
-//   if (evt.target.textContent == '...') {
-//     return;
-//   }
-//   if (evt.target.nodeName !== 'P') {
-//     return;
-//   }
-//   currentPage = evt.target.textContent;
+  if (evt.target.textContent == '>>') {
+    currentPage = Number(targetPage.textContent) + 1;
+  }
 
-//   if (evt.target.textContent == '>>') {
-//     currentPage = Number(targetPage.textContent) + 1;
-//   }
+  if (evt.target.textContent == '<<') {
+    currentPage = Number(targetPage.textContent) - 1;
+  }
 
-//   if (evt.target.textContent == '<<') {
-//     currentPage = Number(targetPage.textContent) - 1;
-//   }
+  paginationMarkUp(currentPage, maxPage);
+  // for (i = (currentPage - 1) * 20; i < (currentPage - 1) * 20 + 20; i += 1) {
+  //   console.log(`i=${i}`);
 
-//   paginationMarkUp(currentPage, maxPage);
-//   for (i = (currentPage - 1) * 20; i < (currentPage - 1) * 20 + 20; i += 1) {
-//     console.log(`i=${i}`);
+  // И вот тут отрисовываем карточки из массива по интексам   <<<<<-----------
 
-//     // И вот тут отрисовываем карточки из массива по интексам   <<<<<-----------
-//   }
-// }
+  let startPoint = (currentPage - 1) * 20 - 1;
+  let stopPoint = (currentPage - 1) * 20 + 20;
 
+  if (watchedLibBtn.classList.contains('btn-is-active')) {
+    const beforeArrey = watchedArray;
+    const watchedArr = beforeArrey.slice(startPoint, stopPoint);
+    // const arrMovies = middleArrey.slice(stopPoint - 1, beforeArrey.length);
+    console.log(beforeArrey);
+    console.log(watchedArr);
+    // console.log(arrMovies);
+    renderLibrary(watchedArr);
+  }
+}
 // -----------------------
