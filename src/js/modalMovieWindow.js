@@ -1,19 +1,19 @@
 import { checkGenresById } from "./markup_mainGallery";
 
-
-let watched = localStorageObject('WATCHED_LIST_DATA_KEY');
-
 function saveWatchedListToLocalStorage(data) {
   localStorage.setItem('WATCHED_LIST_DATA_KEY', JSON.stringify(data));
 }
-
-let queue = localStorageObject('QUEUE_LIST_DATA_KEY');
 
 function saveQueueListToLocalStorage(data) {
   localStorage.setItem('QUEUE_LIST_DATA_KEY', JSON.stringify(data));
 }
 
-let currentId = null;
+let currentId;
+let toWatchedBtn ;
+let removeWatchedBtn ;
+let toQueueBtn;
+let removeQueueBtn;
+
 const cardList = document.querySelector('.js-main-gallery');
 const backdrop = document.querySelector('.backdrop-modal');
 const closeModalBtn = document.querySelector('.button-close');
@@ -33,31 +33,21 @@ function localStorageObject(key) {
 
 function openModal(event) {
   console.log('openModal');
+  toWatchedBtn = document.querySelector('.js-btn-to-watched');
+  removeWatchedBtn = document.querySelector('.js-btn-from-watched');
+  toQueueBtn = document.querySelector('.js-btn-to-queue');
+  removeQueueBtn = document.querySelector('.js-btn-from-queue');
 
-  if (watched === null) {
-    watched = new Array();
-  }
+  currentId = +toWatchedBtn.id;
+  console.log('buttonWatchRemove ', currentId);
+
   
-  if (queue === null) {
-    queue = new Array();
-  }
-
-
-
-  const toWatchedBtn = document.querySelector('.js-btn-to-watched');
-  const removeWatchedBtn = document.querySelector('.js-btn-from-watched');
-
-  const toQueueBtn = document.querySelector('.js-btn-to-queue');
-  const removeQueueBtn = document.querySelector('.js-btn-from-queue');
-
   toWatchedBtn.addEventListener('click', onToWatchedBtn);
   removeWatchedBtn.addEventListener('click', onRemoveWatchedBtn);
 
   toQueueBtn.addEventListener('click', onToQueueBtn);
   removeQueueBtn.addEventListener('click', onRemoveQueueBtn);
-
-
-
+  handlingButton();
   closeModalBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', event => closeModalBackdrop(event));
   document.addEventListener('keydown', event => closeModalEsc(event));
@@ -68,91 +58,99 @@ function openModal(event) {
   document.body.classList.add('modal-open');
 }
 
+function handlingButton() {
+  const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
+  const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
+  let alreadyWatchedExists = watchedFilms.find(item => item.id === currentId);
+  const alreadyOnQueue = queuedFilms.find(item => item.id === currentId);
+
+  if (watchedFilms.length === 0 || !alreadyWatchedExists) {
+    hide(removeWatchedBtn);
+  }
+  if (queuedFilms.length === 0 || !alreadyOnQueue) {
+    hide(removeQueueBtn);
+  }
+
+  if (alreadyWatchedExists) {
+    hide(toWatchedBtn);
+  }
+  if (alreadyOnQueue) {
+    hide(toQueueBtn);
+  }
+}
+  function hide(button) {
+    button.style.display = 'none';
+  }
+
+  function show(button) {
+    button.style.display = '';
+  }
+
 
 
 function onToWatchedBtn(event) {
-  const button = event.currentTarget;
-
-  console.log(button);
-  const movieId = +button.id;
-  console.log(movieId);
-  console.log('onToWatchedBt entered');
-  const data = findMovieById(movieId);
+  
+  const data = findMovieById(currentId);
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
   console.log(watchedFilms)
-  let alreadyExists = watchedFilms.find(item => item.id === movieId);
+  let alreadyExists = watchedFilms.find(item => item.id === currentId);
 
   if (!alreadyExists) {
     watchedFilms.push(data);
     saveWatchedListToLocalStorage(watchedFilms);
-    console.log(`${movieId} added to watched`);
- //   'toWatchedBtn'.classList.add('is-hidden-btn');
-    // 'removeWatchedBtn'.classList.remove('is-hidden-btn');
+    console.log(`${currentId} added to watched`);
+    hide(toWatchedBtn);
+    show(removeWatchedBtn);
   }
 }
 
 
 
-function onRemoveWatchedBtn(event) {
-  const button = event.currentTarget;
 
-  const movieId = +button.id;
-  console.log(movieId);
-  console.log('onRemoveWatchedBtn entered');
-  let isExist = watchedFilms.find(item => item.id === movieId);
 
+function onRemoveWatchedBtn() {
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
+  let isExist = watchedFilms.find(item => item.id === currentId);
 
   if (isExist) {
-    watched.remove();
-    const updatedFilms = watchedFilms.filter(item => item.id !== movieId);
+  const updatedFilms = watchedFilms.filter(item => item.id !== currentId);
     saveWatchedListToLocalStorage(updatedFilms);
-    console.log(`${movieId} remove from watched`);
+       hide(removeWatchedBtn);
+       show(toWatchedBtn);
+    console.log(`${currentId} remove from watched`);
   }
 }
 
 
 
 
-function onToQueueBtn(event) {
-  const button = event.currentTarget;
-
-  console.log(button);
-  const movieId = +button.id;
-  console.log(movieId);
-  console.log('onToQueueBtn entered');
-  const data = findMovieById(movieId);
+function onToQueueBtn() {
+  const data = findMovieById(currentId);
   const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
-  const alreadyOnQueue = queuedFilms.find(item => item.id === movieId);
+  const alreadyOnQueue = queuedFilms.find(item => item.id === currentId);
 
   if (!alreadyOnQueue) {
     queuedFilms.push(data);
     saveQueueListToLocalStorage(queuedFilms);
-    console.log(`${movieId} added to queue`);
-
-    // ('toQueueBtn');
-    // ('removeQueueBtn');
+    console.log(`${currentId} added to queue`);
+    hide(toQueueBtn);
+    show(removeQueueBtn);
   }
 }
 
 
 
-function onRemoveQueueBtn(event) {
-  const button = event.currentTarget;
-  const movieId = +button.id;
-  console.log(idMovie);
-  console.log('onRemoveQueueBtn entered');
+function onRemoveQueueBtn() {
+
   const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
-  const isExist = queuedFilms.find(item => item.id === movieId);
+  const isExist = queuedFilms.find(item => item.id === currentId);
 
   if (isExist) {
-    queue.remove(movieId);
-    const updatedFilms = watchedFilms.filter(item => item.id !== movieId);
+    const updatedFilms = queuedFilms.filter(item => item.id !== currentId);
     saveQueueListToLocalStorage(updatedFilms);
-    console.log(`${movieId} remove from queue`);
-
-    // ('toQueueBtn');
-    // ('removeQueueBtn');
+    console.log(`${currentId} remove from queue`);
+      hide(removeQueueBtn);
+      show(toQueueBtn);
   }
 }
 
@@ -280,7 +278,7 @@ function mark(obj) {
                     </button>
                     <button  id='${
                       obj.id
-                    }' class='modal-movie-data__btn modal-movie-data__btn-watched active is-hidden-btn js-btn-from-watched' type='button' data-action='${
+                    }' class='modal-movie-data__btn modal-movie-data__btn-watched active js-btn-from-watched' type='button' data-action='${
     obj.id
   }'>
                         REMOVE FROM WATCHED
@@ -296,7 +294,7 @@ function mark(obj) {
                     </button>
                     <button id='${
                       obj.id
-                    }' class='modal-movie-data__btn modal-movie-data__btn-queue active is-hidden-btn js-btn-from-queue' type='button' data-action='${
+                    }' class='modal-movie-data__btn modal-movie-data__btn-queue active js-btn-from-queue' type='button' data-action='${
     obj.id
   }'>
                         REMOVE FROM QUEUE
