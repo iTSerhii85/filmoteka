@@ -38,8 +38,8 @@ function localStorageObject(key) {
 }
 
 // ключі від localStorage
-const watchedArray = localStorageObject('WATCHED_LIST_DATA_KEY');
-const queueArray = localStorageObject('QUEUE_LIST_DATA_KEY');
+let watchedArray = localStorageObject('WATCHED_LIST_DATA_KEY');
+let queueArray = localStorageObject('QUEUE_LIST_DATA_KEY');
 
 // Рендерить розмітку у бібліотеці по дефолту
 let startPoint = (currentPage - 1) * 20;
@@ -103,7 +103,7 @@ function renderLibrary(arrayMovies) {
 watchedLibBtn.addEventListener('click', onClickWatched);
 queueLibBtn.addEventListener('click', onClickQueue);
 
-function onClickWatched() {
+export function onClickWatched() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
   currentPage = 1;
   let arr = localStorage.getItem('WATCHED_LIST_DATA_KEY');
@@ -119,7 +119,7 @@ function onClickWatched() {
   renderLibrary(watchedArr);
 }
 
-function onClickQueue() {
+export function onClickQueue() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
   currentPage = 1;
   let arr = localStorage.getItem('QUEUE_LIST_DATA_KEY');
@@ -139,9 +139,9 @@ function clearMarkup() {
 }
 
 // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
-paginationBox.addEventListener('click', Onclick);
+paginationBox.addEventListener('click', OnPagClick);
 
-function Onclick(evt) {
+function OnPagClick(evt) {
   if (evt.target.textContent == '...') {
     return;
   }
