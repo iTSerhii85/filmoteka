@@ -6,7 +6,7 @@ import { checkGenresById } from './checkGenresById';
 import { paginationMarkUp } from './pagination.js';
 const paginationBox = document.querySelector('.pagination');
 let currentPage = 1;
-// let maxPage = 1;
+let maxPage = 1;
 
 // -----------------------
 
