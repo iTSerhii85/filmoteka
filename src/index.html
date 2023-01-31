@@ -1,68 +1,64 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Filmoteka</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="./sass/index.scss" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-  </head>
-  <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <div class="page-wrapper">
-      <header>
-        <include src="./partials/home_header.html"></include>
-      </header>
-      <main>
-        <div class="container">
-          <include src="./partials/home_main.html"></include>
-        </div>
-        <include src="./partials/pagination.html"></include>
-        <div class="arow">
-          <a class="a" href="#1"
-            ><svg class="svg" width="20px" height="20px">
-              <use href="./images/svg/sprite.svg#icon-arrow-up"></use>
-            </svg>
-          </a>
-        </div>
-      </main>
-      <footer>
-        <include src="./partials/footer.html"></include>
-      </footer>
-    </div>
-    <div class="backdrop-modal-trailer is-hidden">
-      <iframe
-        class="trailer-player"
-        width="700"
-        height="420"
-        src="https://www.youtube.com/embed"
-        title=""
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
 
-      <button class="btnClose" type="button">
-        <svg class="button-close__icon-close" width="30" height="30">
-          <use href="./images/svg/sprite.svg#icon-close"></use>
-        </svg>
-      </button>
-    </div>
-    <include src="./partials/preloader.html"></include>
-    <include src="./partials/modal.html"></include>
-    <!-- <include src="./partials/trailer.html"></include> -->
-    <include src="./partials/footer_modal.html"></include>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filmoteka</title>
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#c7cbcc">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#273a43">
+  <link rel="stylesheet" href="/src/sass/light.scss" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/src/sass/dark.scss" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/src/sass/dark-light.scss">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="./sass/index.scss" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
 
-    <script type="module" src="./index.js"></script>
-  </body>
+<body class="body-theme">
+  <!-- ❗️❗️❗️ Add partials like so for every page -->
+  <include src="./partials/switcher.html"></include>
+  <div class="page-wrapper">
+    <header>
+      <include src="./partials/home_header.html"></include>
+    </header>
+    <main>
+      <div class="container">
+        <include src="./partials/home_main.html"></include>
+      </div>
+      <include src="./partials/pagination.html"></include>
+      <div class="arow">
+        <a class="a" href="#1"><svg class="svg" width="20px" height="20px">
+            <use href="./images/svg/sprite.svg#icon-arrow-up"></use>
+          </svg>
+        </a>
+      </div>
+    </main>
+    <footer class="footer-theme">
+      <include src="./partials/footer.html"></include>
+    </footer>
+  </div>
+  <div class="backdrop-modal-trailer is-hidden">
+    <iframe class="trailer-player" width="700" height="420" src="https://www.youtube.com/embed" title="" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+
+    <button class="btnClose" type="button">
+      <svg class="button-close__icon-close" width="30" height="30">
+        <use href="./images/svg/sprite.svg#icon-close"></use>
+      </svg>
+    </button>
+  </div>
+  <include src="./partials/preloader.html"></include>
+  <include src="./partials/modal.html"></include>
+  <!-- <include src="./partials/trailer.html"></include> -->
+  <include src="./partials/footer_modal.html"></include>
+
+  <script type="module" src="./index.js"></script>
+</body>
+
 </html>

@@ -1,0 +1,83 @@
+.body-theme {
+  --body-theme-color: #10181D;
+}
+
+.body-theme.modal-open {
+  --body-theme-color: #10181D;
+}
+
+.dark {
+  background-color: #3b3939;
+}
+
+
+.footer-theme {
+  --body-theme-color: #10181D;
+}
+
+.card-title {
+  filter: invert(1);
+}
+
+.rights-text {
+  filter: invert(1);
+}
+
+.dew-text {
+  filter: invert(1);
+}
+
+.students-text {
+  filter: invert(1);
+}
+
+.modal-movie {
+  --modal-movie-color: rgba(22, 21, 23, 0.85);
+}
+
+.modal-movie-data__title {
+  color: #ffffff
+}
+
+.modal-movie-data__list {
+  color: #ffffff
+}
+
+.modal-movie-data__right {
+  color: #ffffff
+}
+
+.modal-movie-data__vote {
+  color: #ffffff
+}
+
+
+p.modal-movie-data__about {
+  color: #ffffff
+}
+
+td {
+  color: #ffffff
+}
+
+svg.button-close__icon-close {
+  stroke: #ffffff;
+}
+
+/* Switcher */
+.switcher__radio {
+  filter: invert(1);
+}
+
+.switcher__radio:checked {
+  filter: invert(0);
+}
+
+.switcher__status {
+  filter: invert(1);
+}
+
+.pagination .targetPage {
+  color: #ff6b08;
+
+}
