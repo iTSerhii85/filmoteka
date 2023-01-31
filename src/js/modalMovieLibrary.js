@@ -1,20 +1,24 @@
-import no_image from '../images/no-image.jpg';
 import { checkGenresById } from './checkGenresById';
-
-
-let watched = localStorageObject('WATCHED_LIST_DATA_KEY');
+import { onClickWatched } from "./local-storage";
+import { onClickQueue } from "./local-storage";
+import no_image from '../images/no-image.jpg';
 
 function saveWatchedListToLocalStorage(data) {
   localStorage.setItem('WATCHED_LIST_DATA_KEY', JSON.stringify(data));
 }
 
-let queue = localStorageObject('QUEUE_LIST_DATA_KEY');
-
 function saveQueueListToLocalStorage(data) {
   localStorage.setItem('QUEUE_LIST_DATA_KEY', JSON.stringify(data));
 }
 
-let currentId = null;
+let currentId;
+let toWatchedBtn ;
+let removeWatchedBtn ;
+let toQueueBtn;
+let removeQueueBtn;
+
+const watchedLibBtn = document.querySelector('.js-watched-lib-btn');
+
 const cardList = document.querySelector('.js-library-gallery');
 const backdrop = document.querySelector('.backdrop-modal');
 const closeModalBtn = document.querySelector('.button-close');
@@ -28,37 +32,29 @@ cardList.addEventListener('click', event => {
 function localStorageObject(key) {
   const getObjectFromLs = localStorage.getItem(key);
   const parseObjectFromLs = JSON.parse(getObjectFromLs);
-//   console.log(parseObjectFromLs);
+  // console.log(parseObjectFromLs);
   return parseObjectFromLs;
 }
 
 function openModal(event) {
-//   console.log('openModal');
 
-  if (watched === null) {
-    watched = new Array();
-  }
+  console.log('openModal');
+  toWatchedBtn = document.querySelector('.js-btn-to-watched');
+  removeWatchedBtn = document.querySelector('.js-btn-from-watched');
+  toQueueBtn = document.querySelector('.js-btn-to-queue');
+  removeQueueBtn = document.querySelector('.js-btn-from-queue');
+
+
+  currentId = +toWatchedBtn.id;
+  console.log('buttonWatchRemove ', currentId);
+
   
-  if (queue === null) {
-    queue = new Array();
-  }
-
-
-
-  const toWatchedBtn = document.querySelector('.js-btn-to-watched');
-  const removeWatchedBtn = document.querySelector('.js-btn-from-watched');
-
-  const toQueueBtn = document.querySelector('.js-btn-to-queue');
-  const removeQueueBtn = document.querySelector('.js-btn-from-queue');
-
   toWatchedBtn.addEventListener('click', onToWatchedBtn);
   removeWatchedBtn.addEventListener('click', onRemoveWatchedBtn);
 
   toQueueBtn.addEventListener('click', onToQueueBtn);
   removeQueueBtn.addEventListener('click', onRemoveQueueBtn);
-
-
-
+  handlingButton();
   closeModalBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', event => closeModalBackdrop(event));
   document.addEventListener('keydown', event => closeModalEsc(event));
@@ -69,60 +65,99 @@ function openModal(event) {
   document.body.classList.add('modal-open');
 }
 
-function onToWatchedBtn(event) {
-  const button = event.currentTarget;
-
-  const movieId = +button.id;
-  const data = findMovieById(movieId);
+function handlingButton() {
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
-  const alreadyExists = watchedFilms.find(item => item.id === movieId);
+  const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
+  let alreadyWatchedExists = watchedFilms.find(item => item.id === currentId);
+  const alreadyOnQueue = queuedFilms.find(item => item.id === currentId);
+
+  if (watchedFilms.length === 0 || !alreadyWatchedExists) {
+    hide(removeWatchedBtn);
+  }
+  if (queuedFilms.length === 0 || !alreadyOnQueue) {
+    hide(removeQueueBtn);
+  }
+
+  if (alreadyWatchedExists) {
+    hide(toWatchedBtn);
+  }
+  if (alreadyOnQueue) {
+    hide(toQueueBtn);
+  }
+}
+  function hide(button) {
+    button.style.display = 'none';
+  }
+
+  function show(button) {
+    button.style.display = '';
+  }
+
+function onToWatchedBtn(event) {
+  
+  const data = findMovieById(currentId);
+  const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
+  console.log(watchedFilms)
+  let alreadyExists = watchedFilms.find(item => item.id === currentId);
+
 
   if (!alreadyExists) {
     watchedFilms.push(data);
     saveWatchedListToLocalStorage(watchedFilms);
+
+    console.log(`${currentId} added to watched`);
+    hide(toWatchedBtn);
+    show(removeWatchedBtn);
   }
+
 }
 
-function onRemoveWatchedBtn(event) {
-  const button = event.currentTarget;
-
-  const movieId = +button.id;
-  const isExist = watchedFilms.find(item => item.id === movieId);
-
+function onRemoveWatchedBtn() {
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
+  let isExist = watchedFilms.find(item => item.id === currentId);
 
   if (isExist) {
-    watched.remove();
-    const updatedFilms = watchedFilms.filter(item => item.id !== movieId);
+  const updatedFilms = watchedFilms.filter(item => item.id !== currentId);
     saveWatchedListToLocalStorage(updatedFilms);
+
+       hide(removeWatchedBtn);
+       show(toWatchedBtn);
+    console.log(`${currentId} remove from watched`);
   }
+  onClickWatched();
 }
 
-function onToQueueBtn(event) {
-  const button = event.currentTarget;
+function onToQueueBtn() {
+  const data = findMovieById(currentId);
 
-  const movieId = +button.id;
-  const data = findMovieById(movieId);
   const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
-  const alreadyOnQueue = queuedFilms.find(item => item.id === movieId);
+  const alreadyOnQueue = queuedFilms.find(item => item.id === currentId);
 
   if (!alreadyOnQueue) {
     queuedFilms.push(data);
     saveQueueListToLocalStorage(queuedFilms);
+
+    console.log(`${currentId} added to queue`);
+    hide(toQueueBtn);
+    show(removeQueueBtn);
   }
+
 }
 
-function onRemoveQueueBtn(event) {
-  const button = event.currentTarget;
-  const movieId = +button.id;
+function onRemoveQueueBtn() {
+
   const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
-  const isExist = queuedFilms.find(item => item.id === movieId);
+  const isExist = queuedFilms.find(item => item.id === currentId);
 
   if (isExist) {
-    queue.remove(movieId);
-    const updatedFilms = watchedFilms.filter(item => item.id !== movieId);
+    const updatedFilms = queuedFilms.filter(item => item.id !== currentId);
     saveQueueListToLocalStorage(updatedFilms);
+
+    console.log(`${currentId} remove from queue`);
+      hide(removeQueueBtn);
+      show(toQueueBtn);
   }
+  onClickQueue();
 }
 
 function closeModal(event) {
@@ -160,16 +195,17 @@ const renderModal = event => {
 };
 
 function findMovieById(idMovie) {
-  const savedTrendingFilms = localStorage.getItem('QUEUE_LIST_DATA_KEY');
-  const arrayMovies = JSON.parse(savedTrendingFilms);
-  const data = arrayMovies.find(arr => arr.id === Number(idMovie));
-  if (!data) {
-         const savedTrendingFilms = localStorage.getItem('WATCHED_LIST_DATA_KEY');
-         const arrayMovies = JSON.parse(savedTrendingFilms);
-         const obj = arrayMovies.find(arr => arr.id === Number(idMovie));
-         return obj;
+  if (watchedLibBtn.classList.contains('btn-is-active')){
+    const savedTrendingFilms = localStorage.getItem('WATCHED_LIST_DATA_KEY');
+    const arrayMovies = JSON.parse(savedTrendingFilms);
+    const data = arrayMovies.find(arr => arr.id === Number(idMovie));
+    return data;
+  } else {
+    const savedTrendingFilms = localStorage.getItem('QUEUE_LIST_DATA_KEY');
+    const arrayMovies = JSON.parse(savedTrendingFilms);
+    const data = arrayMovies.find(arr => arr.id === Number(idMovie));
+    return data;
   }
-  return data;
 }
 
 function renderMovieCard(obj) {
@@ -182,7 +218,6 @@ function renderMovieCard(obj) {
   }
   mark(obj);
 }
-
 function mark(obj) {
   const START_URL = 'https://image.tmdb.org/t/p/w500';
   let posterSrc = '';
@@ -191,76 +226,99 @@ function mark(obj) {
     } else {
       posterSrc = no_image;
   }
-
-    const markup = `
-            <div class='modal-movie-card__wrappe-img'>
-                <img id="${obj.id}" class="modal-movie-card__image" src="${posterSrc}" alt="${obj.title || obj.name}"/>
+  
+  const markup = `
+      <div class='modal-movie-card__wrappe-img'>
+                <img id="${
+                  obj.id
+                }" class="modal-movie-card__image" src="${
+    posterSrc}" alt="${obj.title || obj.name}" />
             </div>
             <div class='modal-movie-data'>
-                <h2 class='modal-movie-data__title'>${obj.title || obj.name}</h2>
-                <h3 class='modal-movie-data__about_title'>About</h3>
-
-                <table class='modal-movie-data-table'>
-                    <tr class='modal-movie-data-table__row'>
-                        <td>
-                            <p class='modal-movie-data__attribute'>Vote / Votes</p>
-                        </td>
-                        <td>
-                            <p><span class='modal-movie-data__vote'>${obj.vote_average.toFixed(1)}</span> / ${obj.vote_count}</p>
-                        </td>
-                    </tr>
-                    <tr class='modal-movie-data-table__row'>
-                        <td>
-                            <p>Popularity</p>
-                        </td>
-                        <td>
-                            <p>${obj.popularity.toFixed(1)}</p>
-                        </td>
-                    </tr>
-                    <tr class='modal-movie-data-table__row'>
-                        <td>
-                            <p>Original Title</p>
-                        </td>
-                        <td>
-                            <p>${obj.original_title}</p>
-                        </td>
-                    </tr>
-                    <tr class='modal-movie-data-table__row'>
-                        <td>
-                            <p>Genre</p>
-                        </td>
-                        <td>
-                            <p>${checkGenresById(obj)}</p>
-                        </td>
-                    </tr>
-
-                </table>
-                
-                <p class='modal-movie-data__about'>${obj.overview}</p>
-                <ul class='modal-movie-data__btn-list'>
-                    <li class='modal-movie-data__btn-item'  >
-                        <button id='${ obj.id}' class='modal-movie-data__btn modal-movie-data__btn-watched js-btn-to-watched' type='button' data-action='${ obj.id}'>
-                            ADD TO WATCHED
-                        </button>
-                        <button  id='${obj.id}' class='modal-movie-data__btn modal-movie-data__btn-watched active is-hidden-btn js-btn-from-watched' type='button' data-action='${obj.id}'>
-                            REMOVE FROM WATCHED
-                        </button>
-                    </li>
-                    <li class='modal-movie-data__button-item' >
-                        <button  id='${obj.id}' class='modal-movie-data__btn modal-movie-data__btn-queue js-btn-to-queue' type='button' data-action='${obj.id}'>
-                            ADD TO QUEUE
-                        </button>
-                        <button id='${obj.id}' class='modal-movie-data__btn modal-movie-data__btn-queue active is-hidden-btn js-btn-from-queue' type='button' data-action='${obj.id}'>
-                            REMOVE FROM QUEUE
-                        </button>
-                    </li>
-                </ul>
-                <div class="trailer-btn-wrapper">
-                    <button  id='${obj.id}' class='trailer-btn' type='button' data-action='${obj.id}'>
+                <h2 class='modal-movie-data__title'>${
+                  obj.title || obj.name
+                }</h2>
+            <table class='modal-movie-data-table'>
+                <tr class='modal-movie-data-table__row'>
+                    <td>
+                        <p class='modal-movie-data__attribute'>Vote / Votes</p>
+                    </td>
+                    <td>
+                        <p><span class='modal-movie-data__vote'>${
+                          obj.vote_average.toFixed(1)
+                        }</span> / ${obj.vote_count}</p>
+                    </td>
+                </tr>
+                <tr class='modal-movie-data-table__row'>
+                    <td>
+                        <p>Popularity</p>
+                    </td>
+                    <td>
+                        <p>${obj.popularity.toFixed(1)}</p>
+                    </td>
+                </tr>
+                <tr class='modal-movie-data-table__row'>
+                    <td>
+                        <p>Original Title</p>
+                    </td>
+                    <td>
+                        <p>${obj.original_title}</p>
+                    </td>
+                </tr>
+                <tr class='modal-movie-data-table__row'>
+                    <td>
+                        <p>Genre</p>
+                    </td>
+                    <td>
+                        <p>${checkGenresById(obj)}</p>
+                    </td>
+                </tr>
+            </table>
+            <h3 class='modal-movie-data__about_title'>About</h3>
+            <p class='modal-movie-data__about'>${obj.overview}</p>
+            <ul class='modal-movie-data__btn-list'>
+                <li class='modal-movie-data__btn-item'  >
+                    <button id='${
+                      obj.id
+                    }' class='modal-movie-data__btn modal-movie-data__btn-watched js-btn-to-watched' type='button' data-action='${
+    obj.id
+  }'   >
+                        ADD TO WATCHED
+                    </button>
+                    <button  id='${
+                      obj.id
+                    }' class='modal-movie-data__btn modal-movie-data__btn-watched active js-btn-from-watched' type='button' data-action='${
+    obj.id
+  }'>
+                        REMOVE FROM WATCHED
+                    </button>
+                </li>
+                <li class='modal-movie-data__button-item' >
+                    <button  id='${
+                      obj.id
+                    }' class='modal-movie-data__btn modal-movie-data__btn-queue js-btn-to-queue' type='button' data-action='${
+    obj.id
+  }'>
+                        ADD TO QUEUE
+                    </button>
+                    <button id='${
+                      obj.id
+                    }' class='modal-movie-data__btn modal-movie-data__btn-queue active js-btn-from-queue' type='button' data-action='${
+    obj.id
+  }'>
+                        REMOVE FROM QUEUE
+                    </button>
+                </li>
+            </ul>
+            <div class="trailer-btn-wrapper">
+            <button  id='${
+                      obj.id
+                    }' class='trailer-btn' type='button' data-action='${
+    obj.id
+  }'>
                         watch trailer
                     </button>
-                </div>
+            </div>
             </div>`;
-
   movieCard.innerHTML = markup;
 }

@@ -105,7 +105,7 @@ function renderLibrary(arrayMovies) {
 watchedLibBtn.addEventListener('click', onClickWatched);
 queueLibBtn.addEventListener('click', onClickQueue);
 
-function onClickWatched() {
+export function onClickWatched() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
   let arr = localStorage.getItem('WATCHED_LIST_DATA_KEY');
@@ -121,7 +121,7 @@ function onClickWatched() {
   renderLibrary(watchedArray);
 }
 
-function onClickQueue() {
+export function onClickQueue() {
   // !!!!!!!!!!добавил это  !!!!!!!!!!!!!!!!
 
   let arr = localStorage.getItem('QUEUE_LIST_DATA_KEY');
