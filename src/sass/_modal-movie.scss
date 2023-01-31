@@ -473,7 +473,7 @@ body.modal-open {
         transform: translate(-50%, -50%);
         animation: ring 1.5s infinite;
 
-        @media screen and(max-width: 420px) {
+        @media screen and(max-width: 767px) {
             animation: ring-m 1.5s infinite;
         }
 
