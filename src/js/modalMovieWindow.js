@@ -1,4 +1,5 @@
 import { checkGenresById } from "./markup_mainGallery";
+import no_image from '../images/no-image.jpg';
 
 
 let watched = localStorageObject('WATCHED_LIST_DATA_KEY');
@@ -218,14 +219,20 @@ function renderMovieCard(obj) {
   mark(obj);
 }
 function mark(obj) {
+  const START_URL = 'https://image.tmdb.org/t/p/w500';
+  let posterSrc = '';
+    if (obj.poster_path) {
+      posterSrc = `${START_URL}${obj.poster_path}`    
+    } else {
+      posterSrc = no_image;
+  }
+  
   const markup = `
       <div class='modal-movie-card__wrappe-img'>
                 <img id="${
                   obj.id
-                }" class="modal-movie-card__image" src="https://image.tmdb.org/t/p/w500${
-    obj.poster_path
-  }"
-                    alt="#" />
+                }" class="modal-movie-card__image" src="${
+    posterSrc}" alt="${obj.title || obj.name}" />
             </div>
             <div class='modal-movie-data'>
                 <h2 class='modal-movie-data__title'>${
