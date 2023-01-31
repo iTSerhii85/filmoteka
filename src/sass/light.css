@@ -1,0 +1,67 @@
+.body-theme {
+  --body-theme-color: #e2d2d2;
+}
+
+.footer-theme {
+  --body-theme-color: #e2d2d2;
+}
+
+.card-title {
+  filter: invert(0);
+}
+
+.switcher__radio {
+  filter: invert(0);
+}
+
+.switcher__radio:checked {
+  filter: invert(1);
+}
+
+.switcher__status {
+  filter: invert(0);
+}
+
+.rights-text {
+  filter: invert(0);
+}
+
+.dew-text {
+  filter: invert(0);
+}
+
+.students-text {
+  filter: invert(0);
+}
+
+.modal-movie-data__about {
+  color: #000000;
+}
+
+.modal-movie {
+  --modal-movie-color: #e2d2d2;
+}
+
+.modal-movie-data__title {
+  color: #000000;
+}
+
+.modal-movie-data__list {
+  color: #000000;
+}
+
+.modal-movie-data__right {
+  color: #000000;
+}
+
+.modal-movie-data__vote {
+  color: #000000;
+}
+
+p.modal-movie-data-about {
+  color: #000000;
+}
+
+td {
+  color: #000000;
+}/*# sourceMappingURL=light.css.map */

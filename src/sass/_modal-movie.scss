@@ -57,7 +57,7 @@ body.modal-open {
 .modal-movie {
     position: relative;
     animation: Opacity 1.5s ease alternate;
-    background-color: rgba(255, 255, 255, 0.88);
+    // background-color: rgba(255, 255, 255, 0.88);
     z-index: 1000;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -203,7 +203,7 @@ body.modal-open {
     &__about {
         @extend %modal-font;
         line-height: 1.67;
-        // color: var(--second-text-color);
+        color: var(--second-text-color);
         margin-bottom: 20px;
 
         &_title {

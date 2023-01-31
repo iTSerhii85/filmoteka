@@ -1,0 +1,106 @@
+:root {
+  color-scheme: light dark;
+}
+
+.body-theme {
+  background-color: var(--body-theme-color);
+}
+
+.footer-theme {
+  background-color: var(--body-theme-color);
+}
+
+.modal-movie {
+  background-color: var(--modal-movie-color);
+}
+
+.switcher {
+  // background-color: #e2d2d2;
+  background-color: inherit;
+  border-radius: 18px;
+  position: absolute;
+  top: 160px;
+  right: 18px;
+  padding: 2px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  border: none;
+
+  &__legend {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__radio {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 16px;
+    background-size: 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: filter 0.2s ease-in;
+    z-index: 1;
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &--light {
+      background-image: url('/src/images/svg/light.svg');
+
+    }
+
+    &--auto {
+      background-image: url('/src/images/svg/auto.svg');
+
+    }
+
+    &--dark {
+      background-image: url('/src/images/svg/dark.svg');
+
+    }
+  }
+
+  &__status {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 0 0 2px rgb(0 0 0 / 0.2);
+    border-radius: 16px;
+    background-color: #0000;
+    background-repeat: no-repeat;
+    background-image: url('/src/images/svg/status.svg');
+    background-size: 18px;
+    background-position: center;
+    transition: background-position 0.2s ease-in;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .switcher {
+    top: 150px;
+    right: 35px;
+  }
+}
+
+.switcher__radio:focus-visible~.switcher__status {
+  box-shadow: 0 0 0 2px black;
+}
+
+.switcher__radio--light:checked~.switcher__status {
+  background-position: top 2px center;
+}
+
+.switcher__radio--auto:checked~.switcher__status {
+  background-position: center center;
+}
+
+.switcher__radio--dark:checked~.switcher__status {
+  background-position: bottom 2px center;
+}

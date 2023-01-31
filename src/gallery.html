@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>my library</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="./sass/gallery.scss" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-    <script type="module" src="./gallery.js"></script>
-  </head>
-  <body>
-    <div class="arow">
-      <a class="a" href="#2"
-        ><svg class="svg" width="20px" height="20px">
-          <use href="./images/svg/sprite.svg#icon-arrow-up"></use>
-        </svg>
-      </a>
-    </div>
-    <include src="./partials/preloader.html"></include>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <div class="page-wrapper">
-      <header>
-        <include src="./partials/gallery_header.html"></include>
-      </header>
-      <main>
-        <div class="container">
-          <include src="./partials/gallery_main.html"></include>
-          <include src="./partials/library.html"></include>
-        </div>
-        <include src="./partials/pagination.html"></include>
-      </main>
-      <footer>
-        <include src="./partials/footer.html"></include>
-      </footer>
-    </div>
 
-    <include src="./partials/modal.html"></include>
-    <include src="./partials/footer_modal.html"></include>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>my library</title>
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#c7cbcc">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#273a43">
+  <link rel="stylesheet" href="/src/sass/light.scss" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/src/sass/dark.scss" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/src/sass/dark-light.scss">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="./sass/gallery.scss" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <script type="module" src="./gallery.js"></script>
+</head>
+
+<body class="body-theme">
+  <div class="arow">
+    <a class="a" href="#2"><svg class="svg" width="20px" height="20px">
+        <use href="./images/svg/sprite.svg#icon-arrow-up"></use>
+      </svg>
+    </a>
+  </div>
+  <include src="./partials/preloader.html"></include>
+  <!-- ❗️❗️❗️ Add partials like so for every page -->
+  <include src="./partials/switcher.html"></include>
+  <div class="page-wrapper">
+    <header>
+      <include src="./partials/gallery_header.html"></include>
+    </header>
+    <main>
+      <div class="container">
+        <include src="./partials/gallery_main.html"></include>
+        <include src="./partials/library.html"></include>
+      </div>
+      <include src="./partials/pagination.html"></include>
+    </main>
+    <footer class="footer-theme">
+      <include src="./partials/footer.html"></include>
+    </footer>
+  </div>
+
+  <include src="./partials/modal.html"></include>
+  <include src="./partials/footer_modal.html"></include>
+</body>
+
 </html>
