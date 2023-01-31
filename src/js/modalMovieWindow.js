@@ -1,4 +1,5 @@
-import { checkGenresById } from "./markup_mainGallery";
+import { checkGenresById } from './checkGenresById';
+import no_image from '../images/no-image.jpg';
 
 function saveWatchedListToLocalStorage(data) {
   localStorage.setItem('WATCHED_LIST_DATA_KEY', JSON.stringify(data));
@@ -27,16 +28,18 @@ cardList.addEventListener('click', event => {
 function localStorageObject(key) {
   const getObjectFromLs = localStorage.getItem(key);
   const parseObjectFromLs = JSON.parse(getObjectFromLs);
-  console.log(parseObjectFromLs);
+  // console.log(parseObjectFromLs);
   return parseObjectFromLs;
 }
 
 function openModal(event) {
+
   console.log('openModal');
   toWatchedBtn = document.querySelector('.js-btn-to-watched');
   removeWatchedBtn = document.querySelector('.js-btn-from-watched');
   toQueueBtn = document.querySelector('.js-btn-to-queue');
   removeQueueBtn = document.querySelector('.js-btn-from-queue');
+
 
   currentId = +toWatchedBtn.id;
   console.log('buttonWatchRemove ', currentId);
@@ -95,18 +98,17 @@ function onToWatchedBtn(event) {
   console.log(watchedFilms)
   let alreadyExists = watchedFilms.find(item => item.id === currentId);
 
+
   if (!alreadyExists) {
     watchedFilms.push(data);
     saveWatchedListToLocalStorage(watchedFilms);
+
     console.log(`${currentId} added to watched`);
     hide(toWatchedBtn);
     show(removeWatchedBtn);
+
   }
 }
-
-
-
-
 
 function onRemoveWatchedBtn() {
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
@@ -115,6 +117,7 @@ function onRemoveWatchedBtn() {
   if (isExist) {
   const updatedFilms = watchedFilms.filter(item => item.id !== currentId);
     saveWatchedListToLocalStorage(updatedFilms);
+
        hide(removeWatchedBtn);
        show(toWatchedBtn);
     console.log(`${currentId} remove from watched`);
@@ -124,19 +127,24 @@ function onRemoveWatchedBtn() {
 
 
 
+
 function onToQueueBtn() {
   const data = findMovieById(currentId);
+
   const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
   const alreadyOnQueue = queuedFilms.find(item => item.id === currentId);
 
   if (!alreadyOnQueue) {
     queuedFilms.push(data);
     saveQueueListToLocalStorage(queuedFilms);
+
     console.log(`${currentId} added to queue`);
     hide(toQueueBtn);
     show(removeQueueBtn);
+
   }
 }
+
 
 
 
@@ -148,9 +156,11 @@ function onRemoveQueueBtn() {
   if (isExist) {
     const updatedFilms = queuedFilms.filter(item => item.id !== currentId);
     saveQueueListToLocalStorage(updatedFilms);
+
     console.log(`${currentId} remove from queue`);
       hide(removeQueueBtn);
       show(toQueueBtn);
+
   }
 }
 
@@ -216,14 +226,20 @@ function renderMovieCard(obj) {
   mark(obj);
 }
 function mark(obj) {
+  const START_URL = 'https://image.tmdb.org/t/p/w500';
+  let posterSrc = '';
+    if (obj.poster_path) {
+      posterSrc = `${START_URL}${obj.poster_path}`    
+    } else {
+      posterSrc = no_image;
+  }
+  
   const markup = `
       <div class='modal-movie-card__wrappe-img'>
                 <img id="${
                   obj.id
-                }" class="modal-movie-card__image" src="https://image.tmdb.org/t/p/w500${
-    obj.poster_path
-  }"
-                    alt="#" />
+                }" class="modal-movie-card__image" src="${
+    posterSrc}" alt="${obj.title || obj.name}" />
             </div>
             <div class='modal-movie-data'>
                 <h2 class='modal-movie-data__title'>${
