@@ -3,7 +3,8 @@
 }
 
 .footer-theme {
-  --body-theme-color: #e2d2d2;
+  // --body-theme-color: #e2d2d2;
+  --body-theme-color: #e6cbcb;
 }
 
 .card-title {
@@ -65,4 +66,16 @@ p.modal-movie-data-about {
 
 .switcher__status {
   filter: invert(0);
+}
+
+.pagination-value {
+  color: #000000;
+}
+
+.pagination .targetPage {
+  color: #ff6b08;
+}
+
+.afterDots {
+  color: #000000;
 }
