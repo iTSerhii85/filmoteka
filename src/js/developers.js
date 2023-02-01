@@ -2,18 +2,21 @@ import image1 from '../images/haker.jpg';
 import tarasBogun from '../images/developers/taras_bogun.jpg';
 import yulia from '../images/developers/yulia.jpg';
 import evgeniy from '../images/developers/evgeniy.jpg';
+import serhii from '../images/developers/serhii.jpg';
+import shatohin from '../images/developers/shatohin.jpg';
+import serhiiP from '../images/developers/serhii_p.jpg';
 
 export const developers = [
     {
       name: 'Serhii Prokip',
-      text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
-      img: image1,
+      text: 'Team lead.',
+      img: serhiiP,
       linkedin: 'https://www.linkedin.com/in/serhii-prokip-422782250',
       github: 'https://github.com/iTSerhii85',
     },
     {
       name: 'Yulia Safonova',
-      text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+      text: 'Scrum master.',
       img: yulia,
       linkedin: '',
       github: 'https://github.com/Yulia-Safonova-85',
@@ -24,6 +27,27 @@ export const developers = [
       img: image1,
       linkedin: 'https://www.linkedin.com/in/roman-korzun-703b23262/',
       github: 'https://github.com/romancarpangler',
+    },
+    {
+      name: 'Andrew Shatohin',
+      text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+      img: shatohin,
+      linkedin: 'https://www.linkedin.com/in/andrii-shatokhin-016672264/',
+      github: 'https://github.com/Andrew-Shatokhin',
+    },
+    {
+      name: 'Serhii',
+      text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+      img: serhii,
+      linkedin: '#',
+      github: 'https://github.com/Serj-Melnyk',
+    },
+    {
+      name: 'Dmitriy',
+      text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+      img: image1,
+      linkedin: '#',
+      github: '#',
     },
     {
       name: 'Taras Bohun',
