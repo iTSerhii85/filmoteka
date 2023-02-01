@@ -1,4 +1,3 @@
-
 import { checkGenresByIdModal } from './checkGenresById';
 
 import { onClickQueue } from './local-storage';
@@ -7,7 +6,10 @@ import { onClickWatched } from './local-storage';
 import no_image from '../images/no-image.jpg';
 
 window.addEventListener('scroll', () => {
-  document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
+  document.documentElement.style.setProperty(
+    '--scroll-y',
+    `${window.scrollY}px`
+  );
 });
 
 function saveWatchedListToLocalStorage(data) {
@@ -19,8 +21,8 @@ function saveQueueListToLocalStorage(data) {
 }
 
 let currentId;
-let toWatchedBtn ;
-let removeWatchedBtn ;
+let toWatchedBtn;
+let removeWatchedBtn;
 let toQueueBtn;
 let removeQueueBtn;
 
@@ -49,7 +51,6 @@ function openModal(event) {
   removeQueueBtn = document.querySelector('.js-btn-from-queue');
 
   currentId = +toWatchedBtn.id;
-
 
   toWatchedBtn.addEventListener('click', onToWatchedBtn);
   removeWatchedBtn.addEventListener('click', onRemoveWatchedBtn);
@@ -87,16 +88,15 @@ function handlingButton() {
     hide(toQueueBtn);
   }
 }
-  function hide(button) {
-    button.style.display = 'none';
-  }
+function hide(button) {
+  button.style.display = 'none';
+}
 
-  function show(button) {
-    button.style.display = '';
-  }
+function show(button) {
+  button.style.display = '';
+}
 
 function onToWatchedBtn(event) {
-
   const data = findMovieById(currentId);
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
   let alreadyExists = watchedFilms.find(item => item.id === currentId);
@@ -115,19 +115,18 @@ function onRemoveWatchedBtn() {
   let isExist = watchedFilms.find(item => item.id === currentId);
 
   if (isExist) {
-  const updatedFilms = watchedFilms.filter(item => item.id !== currentId);
+    const updatedFilms = watchedFilms.filter(item => item.id !== currentId);
     saveWatchedListToLocalStorage(updatedFilms);
 
-       hide(removeWatchedBtn);
-       show(toWatchedBtn);
+    hide(removeWatchedBtn);
+    show(toWatchedBtn);
   }
 
-  if (watchedLibBtn.classList.contains('btn-is-active')){
-    onClickWatched()
+  if (watchedLibBtn.classList.contains('btn-is-active')) {
+    onClickWatched();
   } else {
-    return
+    return;
   }
-
 }
 
 function onToQueueBtn() {
@@ -146,7 +145,6 @@ function onToQueueBtn() {
 }
 
 function onRemoveQueueBtn() {
-
   const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
   const isExist = queuedFilms.find(item => item.id === currentId);
 
@@ -154,16 +152,15 @@ function onRemoveQueueBtn() {
     const updatedFilms = queuedFilms.filter(item => item.id !== currentId);
     saveQueueListToLocalStorage(updatedFilms);
 
-      hide(removeQueueBtn);
-      show(toQueueBtn);
+    hide(removeQueueBtn);
+    show(toQueueBtn);
   }
 
-  if (watchedLibBtn.classList.contains('btn-is-active')){
-    return
+  if (watchedLibBtn.classList.contains('btn-is-active')) {
+    return;
   } else {
     onClickQueue();
   }
-
 }
 
 function closeModal(event) {
@@ -196,7 +193,6 @@ function closeModalEsc(event) {
 }
 
 const renderModal = event => {
-
   const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
   const body = document.body;
   body.style.position = 'fixed';
@@ -213,7 +209,7 @@ const renderModal = event => {
 };
 
 function findMovieById(idMovie) {
-  if (watchedLibBtn.classList.contains('btn-is-active')){
+  if (watchedLibBtn.classList.contains('btn-is-active')) {
     const savedTrendingFilms = localStorage.getItem('WATCHED_LIST_DATA_KEY');
     const arrayMovies = JSON.parse(savedTrendingFilms);
     const data = arrayMovies.find(arr => arr.id === Number(idMovie));
@@ -240,28 +236,33 @@ function renderMovieCard(obj) {
 function mark(obj) {
   const START_URL = 'https://image.tmdb.org/t/p/w500';
   let posterSrc = '';
-    if (obj.poster_path) {
-      posterSrc = `${START_URL}${obj.poster_path}`
-    } else {
-      posterSrc = no_image;
+  if (obj.poster_path) {
+    posterSrc = `${START_URL}${obj.poster_path}`;
+  } else {
+    posterSrc = no_image;
   }
 
   const markup = `
       <div class='modal-movie-card__wrappe-img'>
-                <img id="${obj.id
-    }" class="modal-movie-card__image" src="${posterSrc}" alt="${obj.title || obj.name}" />
+                <img id="${
+                  obj.id
+                }" class="modal-movie-card__image" src="${posterSrc}" alt="${
+    obj.title || obj.name
+  }" />
             </div>
             <div class='modal-movie-data'>
-                <h2 class='modal-movie-data__title'>${obj.title || obj.name
-    }</h2>
+                <h2 class='modal-movie-data__title'>${
+                  obj.title || obj.name
+                }</h2>
             <table class='modal-movie-data-table'>
                 <tr class='modal-movie-data-table__row'>
                     <td>
                         <p class='modal-movie-data__attribute'>Vote / Votes</p>
                     </td>
                     <td>
-                        <p><span class='modal-movie-data__vote'>${obj.vote_average.toFixed(1)
-    }</span> / ${obj.vote_count}</p>
+                        <p><span class='modal-movie-data__vote'>${obj.vote_average.toFixed(
+                          1
+                        )}</span> / ${obj.vote_count}</p>
                     </td>
                 </tr>
                 <tr class='modal-movie-data-table__row'>
@@ -293,34 +294,42 @@ function mark(obj) {
             <p class='modal-movie-data__about'>${obj.overview}</p>
             <ul class='modal-movie-data__btn-list'>
                 <li class='modal-movie-data__btn-item'  >
-                    <button id='${obj.id
-    }' class='modal-movie-data__btn modal-movie-data__btn-watched js-btn-to-watched' type='button' data-action='${obj.id
-    }'   >
+                    <button id='${
+                      obj.id
+                    }' class='modal-movie-data__btn modal-movie-data__btn-watched js-btn-to-watched' type='button' data-action='${
+    obj.id
+  }'   >
                         ADD TO WATCHED
                     </button>
-                    <button  id='${obj.id
-    }' class='modal-movie-data__btn modal-movie-data__btn-watched active js-btn-from-watched' type='button' data-action='${obj.id
-    }'>
+                    <button  id='${
+                      obj.id
+                    }' class='modal-movie-data__btn modal-movie-data__btn-watched active js-btn-from-watched' type='button' data-action='${
+    obj.id
+  }'>
                         REMOVE FROM WATCHED
                     </button>
                 </li>
                 <li class='modal-movie-data__button-item' >
-                    <button  id='${obj.id
-    }' class='modal-movie-data__btn modal-movie-data__btn-queue js-btn-to-queue' type='button' data-action='${obj.id
-    }'>
+                    <button  id='${
+                      obj.id
+                    }' class='modal-movie-data__btn modal-movie-data__btn-queue js-btn-to-queue' type='button' data-action='${
+    obj.id
+  }'>
                         ADD TO QUEUE
                     </button>
-                    <button id='${obj.id
-    }' class='modal-movie-data__btn modal-movie-data__btn-queue active js-btn-from-queue' type='button' data-action='${obj.id
-    }'>
+                    <button id='${
+                      obj.id
+                    }' class='modal-movie-data__btn modal-movie-data__btn-queue active js-btn-from-queue' type='button' data-action='${
+    obj.id
+  }'>
                         REMOVE FROM QUEUE
                     </button>
                 </li>
             </ul>
             <div class="trailer-btn-wrapper">
-            <button  id='${obj.id
-    }' class='trailer-btn' type='button' data-action='${obj.id
-    }'>
+            <button  id='${
+              obj.id
+            }' class='trailer-btn' type='button' data-action='${obj.id}'>
                         watch trailer
                     </button>
             </div>
