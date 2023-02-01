@@ -1,6 +1,5 @@
 import { checkGenresById } from './checkGenresById';
-import { onClickWatched } from "./local-storage";
-import { onClickQueue } from "./local-storage";
+// import { renderLibrary } from "./local-storage";
 import no_image from '../images/no-image.jpg';
 
 window.addEventListener('scroll', () => {
@@ -118,7 +117,7 @@ function onRemoveWatchedBtn() {
        hide(removeWatchedBtn);
        show(toWatchedBtn);
   }
-  onClickWatched();
+
 }
 
 function onToQueueBtn() {
@@ -148,7 +147,7 @@ function onRemoveQueueBtn() {
       hide(removeQueueBtn);
       show(toQueueBtn);
   }
-  onClickQueue();
+
 }
 
 function closeModal(event) {
