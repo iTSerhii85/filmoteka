@@ -96,12 +96,13 @@ function show(button) {
   button.style.display = '';
 }
 
-function onToWatchedBtn(event) {
+function onToWatchedBtn() {
   const data = findMovieById(currentId);
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
   let alreadyExists = watchedFilms.find(item => item.id === currentId);
 
   if (!alreadyExists) {
+  
     watchedFilms.push(data);
     saveWatchedListToLocalStorage(watchedFilms);
 
@@ -124,6 +125,10 @@ function onRemoveWatchedBtn() {
 
   if (watchedLibBtn.classList.contains('btn-is-active')) {
     onClickWatched();
+
+    hide(toWatchedBtn);
+    show(removeWatchedBtn);
+
   } else {
     return;
   }
@@ -160,6 +165,9 @@ function onRemoveQueueBtn() {
     return;
   } else {
     onClickQueue();
+
+    hide(toQueueBtn);
+    show(removeQueueBtn);
   }
 }
 
