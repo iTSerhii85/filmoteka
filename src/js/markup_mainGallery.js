@@ -9,13 +9,13 @@ const refs = {
   searchBtn: document.querySelector('.search-btn'),
   paginationBox: document.querySelector('.pagination'),
   targetPage: document.querySelector('.targetPage'),
-  formMessage: document.querySelector('.header-form__message')
+  formMessage: document.querySelector('.header-form__message'),
 };
 const movieApiService = new MovieApiService();
 // МАЯК для кнопок пагінації, щоб знати, який фетч запускати: на тренти, чи по пошуку
 let searchMarkPagination = 'trending';
 // Змінна для ситуації, коли після пошуку воддиться недійсне значення і натискаються кнопки пагінації
-let lastInput = ''
+let lastInput = '';
 
 refs.formEl.addEventListener('submit', onSearch);
 refs.paginationBox.addEventListener('click', onClick);
@@ -26,7 +26,7 @@ movieApiService.getTrendingMovies().then(data => {
   movieApiService.resetCurrentPage();
   saveMoviesToLocalStorage(data);
   createMainMarkup(data.results);
- 
+
   // При запуску сторіник малюємо пагінацію з макс. к-стю сторінок data.total_pages
   paginationMarkUp(1, data.total_pages);
 });
@@ -35,9 +35,11 @@ function onSearch(evt) {
   evt.preventDefault();
   // Якщо нічого не введено, виводимо помилку, глушимо кнопку і зупиняємо функцію
   if (evt.currentTarget.elements.searchQuery.value.trim() === '') {
-    refs.formMessage.insertAdjacentHTML('beforeend',
-      'Sorry, you need to enter something');
-       refs.searchBtn.disabled = true;
+    refs.formMessage.insertAdjacentHTML(
+      'beforeend',
+      'Sorry, you need to enter something'
+    );
+    refs.searchBtn.disabled = true;
     setTimeout(() => {
       refs.formMessage.innerHTML = '';
       refs.searchBtn.disabled = false;
@@ -46,35 +48,36 @@ function onSearch(evt) {
   }
 
   // Оновлюємо значення поточної сторінки через сетер класу MovieApiService
-  movieApiService.resetCurrentPage(); 
+  movieApiService.resetCurrentPage();
 
   movieApiService.value = evt.currentTarget.elements.searchQuery.value;
-  
+
   movieApiService.searchMovies().then(data => {
-              
-      // Перевіряємо чи запит вернувся пустим
-              if (data.results.length === 0) {
-                refs.formMessage.insertAdjacentHTML('beforeend',
-                  'Search result not successfull.Enter the correct movie name');
-                  refs.searchBtn.disabled = true;
-                  // Очищуємо поле інпуту
-                  evt.target.elements.searchQuery.value = ''
-                // Сет таймаут для повідомлення 
-                setTimeout(() => {
-                  refs.formMessage.innerHTML = ''
-                  refs.searchBtn.disabled = false;;
-                }, 2000);
-                // Через те, що запит прийшов ПОРОЖНІМ movieApiService.value перезаписуємо 
-                // значенням lastInput, щоб якщо після помилки натиснути на кнопки пагінації, 
-                // запит ішов по останньому вдалому значенню інпута, тобто lastInput
-                movieApiService.value = lastInput;
-                // Зупиняємо функцію
-                return;
-              }
+    // Перевіряємо чи запит вернувся пустим
+    if (data.results.length === 0) {
+      refs.formMessage.insertAdjacentHTML(
+        'beforeend',
+        'Search result not successfull.Enter the correct movie name'
+      );
+      refs.searchBtn.disabled = true;
+      // Очищуємо поле інпуту
+      evt.target.elements.searchQuery.value = '';
+      // Сет таймаут для повідомлення
+      setTimeout(() => {
+        refs.formMessage.innerHTML = '';
+        refs.searchBtn.disabled = false;
+      }, 2000);
+      // Через те, що запит прийшов ПОРОЖНІМ movieApiService.value перезаписуємо
+      // значенням lastInput, щоб якщо після помилки натиснути на кнопки пагінації,
+      // запит ішов по останньому вдалому значенню інпута, тобто lastInput
+      movieApiService.value = lastInput;
+      // Зупиняємо функцію
+      return;
+    }
     // ЗАПИТ ПРИЙШОВ НЕ ПОРОЖНІМ
     // Змінюємо маяк на "пошук", щоб в мабутньому при натисканні на пагінацію, запит йшов по пошуку
     searchMarkPagination = 'search';
-     // Очищаємо розмітку
+    // Очищаємо розмітку
     clearMarkup();
     saveMoviesToLocalStorage(data);
     createMainMarkup(data.results);
@@ -98,14 +101,16 @@ function createMainMarkup(dataArray) {
     const START_URL = 'https://image.tmdb.org/t/p/w500';
     let posterSrc = '';
     if (obj.poster_path) {
-      posterSrc = `${START_URL}${obj.poster_path}`    
+      posterSrc = `${START_URL}${obj.poster_path}`;
     } else {
       posterSrc = no_image;
     }
 
     return `<li class="card-wraper" id="${obj.id}">
                 <a class="card-wraper_link" href="#">
-                  <img class="card-img" src="${posterSrc}" alt="${obj.title || obj.name}" />
+                  <img class="card-img" src="${posterSrc}" alt="${
+      obj.title || obj.name
+    }" />
                 </a>
                 <div class="card-title">${obj.title || obj.name}</div>
                 <div class="wraper">
@@ -134,7 +139,7 @@ function onClick(evt) {
   clearMarkup();
   // console.log(evt.target.textContent);
   let currentPage = evt.target.textContent;
-  
+
   if (evt.target.textContent == '>>') {
     currentPage = Number(refs.targetPage.textContent);
     currentPage += 1;
@@ -153,7 +158,7 @@ function onClick(evt) {
 
 // Функція перевірки, що ми шукаємо при натисканні на кнопки пагінації по МАЯКУ.
 function checkTargetByBtnPaginationClick(currentPage) {
-    if (searchMarkPagination === 'trending') {
+  if (searchMarkPagination === 'trending') {
     movieApiService.getTrendingMovies().then(data => {
       saveMoviesToLocalStorage(data);
       createMainMarkup(data.results);
@@ -168,7 +173,7 @@ function checkTargetByBtnPaginationClick(currentPage) {
     });
   }
 }
-  
+
 // Функція збереження отриманих даних ЖАНРІВ фільмів в локалсторадж
 function saveGenresToLocalStorage() {
   movieApiService.getGenres().then(data => {

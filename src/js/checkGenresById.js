@@ -44,9 +44,9 @@ function checkGenresByIdModal(obj) {
   if (genresArr.length === 0) {
     genresStr = 'Unknown genre';
   } else {
-    genresStr = genresArr.join(', ') ;
+    genresStr = genresArr.join(', ');
   }
   return genresStr;
 }
 
-export {checkGenresById, checkGenresByIdModal}
+export { checkGenresById, checkGenresByIdModal };

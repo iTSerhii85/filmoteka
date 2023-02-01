@@ -7,6 +7,7 @@ const refs = {
   btnClose: document.querySelector('.btnClose'),
 };
 refs.btnOpen.addEventListener('click', onOpenModal);
+
 function onOpenModal(e) {
   if (e.target.classList.value != 'trailer-btn') {
     return;
