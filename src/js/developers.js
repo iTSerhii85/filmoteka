@@ -9,6 +9,7 @@ import svitlana from '../images/developers/svetlana.jpg';
 import andreiv from '../images/developers/andreiv.jpg';
 import dima from '../images/developers/dima.jpg';
 import rostislav from '../images/developers/rostislav.jpg';
+import roman from '../images/developers/roman.jpg';
 
 export const developers = [
     {
@@ -35,8 +36,8 @@ export const developers = [
     {
       name: 'Roman Korzun',
       text: 'Developer. Headers, up button, stiles',
-      img: image1,
-      linkedin: 'Button stiles',
+      img: roman,
+      linkedin: 'https://www.linkedin.com/in/roman-korzun/',
       github: 'https://github.com/romancarpangler',
     },
     {
