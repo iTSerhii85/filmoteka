@@ -1,5 +1,5 @@
 
-import { checkGenresById } from './checkGenresById';
+import { checkGenresByIdModal } from './checkGenresById';
 
 import { onClickQueue } from './local-storage';
 import { onClickWatched } from './local-storage';
