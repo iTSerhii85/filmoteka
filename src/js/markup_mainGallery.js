@@ -36,7 +36,7 @@ function onSearch(evt) {
   // Якщо нічого не введено, виводимо помилку, глушимо кнопку і зупиняємо функцію
   if (evt.currentTarget.elements.searchQuery.value.trim() === '') {
     refs.formMessage.insertAdjacentHTML('beforeend',
-      '<p>Sorry, you need to enter something</p>');
+      'Sorry, you need to enter something');
        refs.searchBtn.disabled = true;
     setTimeout(() => {
       refs.formMessage.innerHTML = '';
@@ -132,7 +132,7 @@ function onClick(evt) {
     return;
   }
   clearMarkup();
-  console.log(evt.target.textContent);
+  // console.log(evt.target.textContent);
   let currentPage = evt.target.textContent;
   
   if (evt.target.textContent == '>>') {

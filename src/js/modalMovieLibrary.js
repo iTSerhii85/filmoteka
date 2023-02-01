@@ -1,5 +1,9 @@
-import { checkGenresByIdModal } from './checkGenresById';
-// import { renderLibrary } from "./local-storage";
+
+import { checkGenresById } from './checkGenresById';
+
+import { onClickQueue } from './local-storage';
+import { onClickWatched } from './local-storage';
+
 import no_image from '../images/no-image.jpg';
 
 window.addEventListener('scroll', () => {
@@ -118,6 +122,12 @@ function onRemoveWatchedBtn() {
        show(toWatchedBtn);
   }
 
+  if (watchedLibBtn.classList.contains('btn-is-active')){
+    onClickWatched()
+  } else {
+    return
+  }
+
 }
 
 function onToQueueBtn() {
@@ -146,6 +156,12 @@ function onRemoveQueueBtn() {
 
       hide(removeQueueBtn);
       show(toQueueBtn);
+  }
+
+  if (watchedLibBtn.classList.contains('btn-is-active')){
+    return
+  } else {
+    onClickQueue();
   }
 
 }
