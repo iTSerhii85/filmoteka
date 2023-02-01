@@ -7,17 +7,20 @@
   margin-bottom: 60px;
 
   @media screen and (min-width: 320px) {
-    
+
     margin-top: 40px;
-      margin-bottom: 40px;
+    margin-bottom: 40px;
   }
 }
+
 .pagination-value {
   cursor: pointer;
 }
+
 .dots {
   cursor: auto;
 }
+
 .targetPage {
   color: darkslategrey;
   font-weight: bold;
