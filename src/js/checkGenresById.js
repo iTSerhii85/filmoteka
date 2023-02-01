@@ -1,5 +1,5 @@
 // Функція вибору потрібних жанрів  + умову на кількість жанрів
-export function checkGenresById(obj) {
+function checkGenresById(obj) {
   const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
   const parseGenresData = JSON.parse(savedGenresData);
   let genresArr = [];
@@ -26,7 +26,7 @@ export function checkGenresById(obj) {
 }
 
 // Функція вибору потрібних жанрів для модалки
-export function checkGenresByIdModal(obj) {
+function checkGenresByIdModal(obj) {
   const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
   const parseGenresData = JSON.parse(savedGenresData);
   let genresArr = [];
