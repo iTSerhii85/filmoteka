@@ -24,3 +24,29 @@ export function checkGenresById(obj) {
   }
   return genresStr;
 }
+
+// Функція вибору потрібних жанрів для модалки
+export function checkGenresByIdModal(obj) {
+  const savedGenresData = localStorage.getItem('GENRES_DATA_KEY');
+  const parseGenresData = JSON.parse(savedGenresData);
+  let genresArr = [];
+
+  const genresIds = obj.genre_ids;
+
+  for (const parseGenre of parseGenresData) {
+    if (genresIds.includes(parseGenre.id)) {
+      genresArr.push(parseGenre.name);
+    }
+  }
+  // console.log(genresArr)
+
+  let genresStr = '';
+  if (genresArr.length === 0) {
+    genresStr = 'Unknown genre';
+  } else {
+    genresStr = genresArr.join(', ') ;
+  }
+  return genresStr;
+}
+
+export {checkGenresById, checkGenresByIdModal}
