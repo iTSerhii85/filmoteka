@@ -6,6 +6,7 @@ import serhii from '../images/developers/serhii.jpg';
 import shatohin from '../images/developers/shatohin.jpg';
 import serhiiP from '../images/developers/serhii_p.jpg';
 import svitlana from '../images/developers/svetlana.jpg';
+import andreiv from '../images/developers/andreiv.jpg';
 
 export const developers = [
     {
@@ -21,6 +22,13 @@ export const developers = [
       img: yulia,
       linkedin: '',
       github: 'https://github.com/Yulia-Safonova-85',
+    },
+    {
+      name: 'Andrii Voznyi',
+      text: 'Developer. Main gallery, fetch function',
+      img: andreiv,
+      linkedin: 'https://www.linkedin.com/in/andrii-voznyi-8a95a6264/',
+      github: 'https://github.com/DWIJIx',
     },
     {
       name: 'Roman Korzun',
