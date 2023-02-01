@@ -47,6 +47,7 @@ function openModal(event) {
 
   currentId = +toWatchedBtn.id;
 
+
   toWatchedBtn.addEventListener('click', onToWatchedBtn);
   removeWatchedBtn.addEventListener('click', onRemoveWatchedBtn);
 
@@ -92,7 +93,7 @@ function handlingButton() {
   }
 
 function onToWatchedBtn(event) {
-  
+
   const data = findMovieById(currentId);
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
   let alreadyExists = watchedFilms.find(item => item.id === currentId);
@@ -225,11 +226,11 @@ function mark(obj) {
   const START_URL = 'https://image.tmdb.org/t/p/w500';
   let posterSrc = '';
     if (obj.poster_path) {
-      posterSrc = `${START_URL}${obj.poster_path}`    
+      posterSrc = `${START_URL}${obj.poster_path}`
     } else {
       posterSrc = no_image;
   }
-  
+
   const markup = `
       <div class='modal-movie-card__wrappe-img'>
                 <img id="${
