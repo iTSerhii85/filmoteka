@@ -7,6 +7,7 @@ import shatohin from '../images/developers/shatohin.jpg';
 import serhiiP from '../images/developers/serhii_p.jpg';
 import svitlana from '../images/developers/svetlana.jpg';
 import andreiv from '../images/developers/andreiv.jpg';
+import dima from '../images/developers/dima.jpg';
 
 export const developers = [
     {
@@ -54,9 +55,9 @@ export const developers = [
     {
       name: 'Dmitriy',
       text: 'Developer. Main and library modal stiles.',
-      img: image1,
-      linkedin: '#',
-      github: '#',
+      img: dima,
+      linkedin: 'https://www.linkedin.com/in/dmytro-novitskyi-576390264/',
+      github: 'https://github.com/Dmytro1001',
     },
     {
       name: 'Taras Bohun',
