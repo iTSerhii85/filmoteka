@@ -3,6 +3,10 @@ import { onClickWatched } from "./local-storage";
 import { onClickQueue } from "./local-storage";
 import no_image from '../images/no-image.jpg';
 
+window.addEventListener('scroll', () => {
+  document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
+});
+
 function saveWatchedListToLocalStorage(data) {
   localStorage.setItem('WATCHED_LIST_DATA_KEY', JSON.stringify(data));
 }
@@ -32,21 +36,16 @@ cardList.addEventListener('click', event => {
 function localStorageObject(key) {
   const getObjectFromLs = localStorage.getItem(key);
   const parseObjectFromLs = JSON.parse(getObjectFromLs);
-  // console.log(parseObjectFromLs);
   return parseObjectFromLs;
 }
 
 function openModal(event) {
-
-  console.log('openModal');
   toWatchedBtn = document.querySelector('.js-btn-to-watched');
   removeWatchedBtn = document.querySelector('.js-btn-from-watched');
   toQueueBtn = document.querySelector('.js-btn-to-queue');
   removeQueueBtn = document.querySelector('.js-btn-from-queue');
 
-
   currentId = +toWatchedBtn.id;
-  console.log('buttonWatchRemove ', currentId);
 
 
   toWatchedBtn.addEventListener('click', onToWatchedBtn);
@@ -97,19 +96,15 @@ function onToWatchedBtn(event) {
 
   const data = findMovieById(currentId);
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
-  console.log(watchedFilms)
   let alreadyExists = watchedFilms.find(item => item.id === currentId);
-
 
   if (!alreadyExists) {
     watchedFilms.push(data);
     saveWatchedListToLocalStorage(watchedFilms);
 
-    console.log(`${currentId} added to watched`);
     hide(toWatchedBtn);
     show(removeWatchedBtn);
   }
-
 }
 
 function onRemoveWatchedBtn() {
@@ -122,7 +117,6 @@ function onRemoveWatchedBtn() {
 
        hide(removeWatchedBtn);
        show(toWatchedBtn);
-    console.log(`${currentId} remove from watched`);
   }
   onClickWatched();
 }
@@ -137,11 +131,9 @@ function onToQueueBtn() {
     queuedFilms.push(data);
     saveQueueListToLocalStorage(queuedFilms);
 
-    console.log(`${currentId} added to queue`);
     hide(toQueueBtn);
     show(removeQueueBtn);
   }
-
 }
 
 function onRemoveQueueBtn() {
@@ -153,7 +145,6 @@ function onRemoveQueueBtn() {
     const updatedFilms = queuedFilms.filter(item => item.id !== currentId);
     saveQueueListToLocalStorage(updatedFilms);
 
-    console.log(`${currentId} remove from queue`);
       hide(removeQueueBtn);
       show(toQueueBtn);
   }
@@ -168,6 +159,12 @@ function closeModal(event) {
   document.removeEventListener('keydown', event => closeModalEsc(event));
   document.body.classList.remove('modal-open');
   backdrop.style.background = '';
+
+  const body = document.body;
+  const scrollY = body.style.top;
+  body.style.position = '';
+  body.style.top = '';
+  window.scrollTo(0, parseInt(scrollY || '0') * -1);
 }
 
 function closeModalBackdrop(event) {
@@ -184,6 +181,12 @@ function closeModalEsc(event) {
 }
 
 const renderModal = event => {
+
+  const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+  const body = document.body;
+  body.style.position = 'fixed';
+  body.style.top = `-${scrollY}`;
+
   const cardId = event.target.closest('li');
   const idMovie = cardId.id;
   const data = findMovieById(idMovie);
@@ -218,6 +221,7 @@ function renderMovieCard(obj) {
   }
   mark(obj);
 }
+
 function mark(obj) {
   const START_URL = 'https://image.tmdb.org/t/p/w500';
   let posterSrc = '';
