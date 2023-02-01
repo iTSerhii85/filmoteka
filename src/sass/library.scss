@@ -12,7 +12,7 @@
   text-align: center;
   text-transform: uppercase;
   color: red;
-  text-shadow: -2px 3px 3px rgba(29, 27, 27, 0.72);
+  text-shadow: -2px 2px 2px rgba(29, 31, 31, 0.72);
 }
 
 .is-hidden {
@@ -47,7 +47,7 @@
 
 .box-shadow {
   position: relative;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 1px 4px rgb(14, 13, 13), 0 0 30px rgba(17, 17, 17, 0.973) inset;
   border-radius: 10px;
 }
 .box-shadow:before,
@@ -110,7 +110,7 @@
 .marquee span {
   display: inline-block;
   padding-left: 100%;
-  -webkit-animation: scroll 5s infinite linear;
-  -moz-animation: scroll 5s infinite linear;
-  animation: scroll 5s infinite linear;
+  -webkit-animation: scroll 10s infinite linear;
+  -moz-animation: scroll 10s infinite linear;
+  animation: scroll 10s infinite linear;
 }
