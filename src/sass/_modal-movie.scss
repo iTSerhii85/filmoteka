@@ -524,7 +524,18 @@ body.modal-open {
     }
 }
 
-// .card-wraper {
-//     cursor: pointer;
-// }
-
+.disabled {
+    @extend %modal-font;
+        line-height: 1.33;
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 5px;
+        border: 1px solid var(--second-text-color);
+            height: 50px;
+            width: 114px;
+        
+            @media screen and(min-width: $tablet) {
+                height: 50px;
+                width: 170px;
+            }
+}

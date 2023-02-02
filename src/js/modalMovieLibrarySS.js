@@ -20,13 +20,19 @@ function saveQueueListToLocalStorage(data) {
   localStorage.setItem('QUEUE_LIST_DATA_KEY', JSON.stringify(data));
 }
 
+function saveWatchedListSessionStorage(data) {
+  sessionStorage.setItem('WATCHED_MODAL_DATA_KEY', JSON.stringify(data));
+}
+
+function saveQueueListToSessionStorage(data) {
+  sessionStorage.setItem('QUEUE_MODAL_DATA_KEY', JSON.stringify(data));
+}
+
 let currentId;
 let toWatchedBtn;
 let removeWatchedBtn;
 let toQueueBtn;
 let removeQueueBtn;
-let disabledWatched;
-let disabledQueue;
 
 const watchedLibBtn = document.querySelector('.js-watched-lib-btn');
 
@@ -46,13 +52,17 @@ function localStorageObject(key) {
   return parseObjectFromLs;
 }
 
+function sessionStorageObject(key) {
+  const getObjectFromLs = sessionStorage.getItem(key);
+  const parseObjectFromLs = JSON.parse(getObjectFromLs);
+  return parseObjectFromLs;
+}
+
 function openModal(event) {
   toWatchedBtn = document.querySelector('.js-btn-to-watched');
   removeWatchedBtn = document.querySelector('.js-btn-from-watched');
   toQueueBtn = document.querySelector('.js-btn-to-queue');
   removeQueueBtn = document.querySelector('.js-btn-from-queue');
-  disabledWatched = document.querySelector('.js-btn-disabled-watched');
-  disabledQueue = document.querySelector('.js-btn-disabled-queue');
 
   currentId = +toWatchedBtn.id;
 
@@ -65,7 +75,8 @@ function openModal(event) {
   closeModalBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', event => closeModalBackdrop(event));
   document.addEventListener('keydown', event => closeModalEsc(event));
-  backdrop.classList.remove('is-hidden');
+    backdrop.classList.remove('is-hidden');
+    
   setTimeout(() => {
     backdrop.firstElementChild.classList.remove('is-hidden');
   }, 350);
@@ -80,20 +91,16 @@ function handlingButton() {
 
   if (watchedFilms.length === 0 || !alreadyWatchedExists) {
     hide(removeWatchedBtn);
-    hide(disabledWatched);
   }
   if (queuedFilms.length === 0 || !alreadyOnQueue) {
     hide(removeQueueBtn);
-    hide(disabledQueue);
   }
 
   if (alreadyWatchedExists) {
     hide(toWatchedBtn);
-    hide(disabledWatched);
   }
   if (alreadyOnQueue) {
     hide(toQueueBtn);
-    hide(disabledQueue);
   }
 }
 function hide(button) {
@@ -105,40 +112,39 @@ function show(button) {
 }
 
 function onToWatchedBtn() {
-  const data = findMovieById(currentId);
-  const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
-  let alreadyExists = watchedFilms.find(item => item.id === currentId);
+    const data = findMovieById(currentId) || findMovieByIdModal(currentId);
+    const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [] || sessionStorageObject('WATCHED_MODAL_DATA_KEY');
+    let alreadyExists = watchedFilms.find(item => item.id === currentId);
 
-  if (!alreadyExists) {
-  
+    if (!alreadyExists) {  
     watchedFilms.push(data);
     saveWatchedListToLocalStorage(watchedFilms);
 
     hide(toWatchedBtn);
-    hide(disabledWatched);
     show(removeWatchedBtn);
   }
 }
 
 function onRemoveWatchedBtn() {
+  const data = findMovieById(currentId) || findMovieByIdModal(currentId);    
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
   let isExist = watchedFilms.find(item => item.id === currentId);
 
-  if (isExist) {
+    if (isExist) {
     const updatedFilms = watchedFilms.filter(item => item.id !== currentId);
-    saveWatchedListToLocalStorage(updatedFilms);
+    saveWatchedListToLocalStorage(updatedFilms);   
+    watchedFilms.push(data);
+    saveWatchedListSessionStorage(watchedFilms);
 
     hide(removeWatchedBtn);
-    hide(disabledWatched);
     show(toWatchedBtn);
   }
 
   if (watchedLibBtn.classList.contains('btn-is-active')) {
     onClickWatched();
 
-    hide(toWatchedBtn);
     hide(removeWatchedBtn);
-    show(disabledWatched);
+    show(toWatchedBtn);
 
   } else {
     return;
@@ -146,9 +152,8 @@ function onRemoveWatchedBtn() {
 }
 
 function onToQueueBtn() {
-  const data = findMovieById(currentId);
-
-  const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
+  const data = findMovieById(currentId) || findMovieByIdModal(currentId);
+  const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [] || sessionStorageObject('QUEUE_MODAL_DATA_KEY');
   const alreadyOnQueue = queuedFilms.find(item => item.id === currentId);
 
   if (!alreadyOnQueue) {
@@ -156,21 +161,22 @@ function onToQueueBtn() {
     saveQueueListToLocalStorage(queuedFilms);
 
     hide(toQueueBtn);
-    hide(disabledQueue);
     show(removeQueueBtn);
   }
 }
 
 function onRemoveQueueBtn() {
+  const data = findMovieById(currentId) || findMovieByIdModal(currentId);
   const queuedFilms = localStorageObject('QUEUE_LIST_DATA_KEY') || [];
   const isExist = queuedFilms.find(item => item.id === currentId);
 
-  if (isExist) {
+    if (isExist) {    
     const updatedFilms = queuedFilms.filter(item => item.id !== currentId);
-    saveQueueListToLocalStorage(updatedFilms);
+        saveQueueListToLocalStorage(updatedFilms);
+        queuedFilms.push(data);
+    saveQueueListToSessionStorage(queuedFilms);
 
     hide(removeQueueBtn);
-    hide(disabledQueue);
     show(toQueueBtn);
   }
 
@@ -179,12 +185,10 @@ function onRemoveQueueBtn() {
   } else {
     onClickQueue();
 
-    hide(toQueueBtn);
     hide(removeQueueBtn);
-    show(disabledQueue);
-    
-    }
+    show(toQueueBtn);
   }
+}
 
 function closeModal(event) {
   backdrop.classList.add('is-hidden');
@@ -244,6 +248,21 @@ function findMovieById(idMovie) {
     return data;
   }
 }
+
+function findMovieByIdModal(idMovie) {
+    if (watchedLibBtn.classList.contains('btn-is-active')) {
+        const savedTrendingFilms = sessionStorage.getItem('WATCHED_MODAL_DATA_KEY');
+        const arrayMovies = JSON.parse(savedTrendingFilms);
+        const data = arrayMovies.find(arr => arr.id === Number(idMovie));
+        return data;
+    } else {
+        const savedTrendingFilms = sessionStorage.getItem('QUEUE_MODAL_DATA_KEY');
+        const arrayMovies = JSON.parse(savedTrendingFilms);
+        const data = arrayMovies.find(arr => arr.id === Number(idMovie));
+        return data;
+    }
+}
+
 
 function renderMovieCard(obj) {
   const backdropImage = obj.backdrop_path;
@@ -331,11 +350,6 @@ function mark(obj) {
   }'>
                         REMOVE FROM WATCHED
                     </button>
-                    <button class='disabled js-btn-disabled-watched' type='button' data-action='${
-    obj.id
-  }' disabled>
-                        deletion successful
-                    </button>
                 </li>
                 <li class='modal-movie-data__button-item' >
                     <button  id='${
@@ -352,11 +366,6 @@ function mark(obj) {
   }'>
                         REMOVE FROM QUEUE
                     </button>
-                    <button class='disabled  js-btn-disabled-queue' type='button' data-action='${
-    obj.id
-  }' disabled>
-                        deletion successful
-                    </button>
                 </li>
             </ul>
             <div class="trailer-btn-wrapper">
@@ -369,3 +378,10 @@ function mark(obj) {
             </div>`;
   movieCard.innerHTML = markup;
 }
+
+
+
+
+    
+
+
