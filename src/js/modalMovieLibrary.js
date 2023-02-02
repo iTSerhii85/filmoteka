@@ -1,4 +1,4 @@
-import { checkGenresById } from './checkGenresById';
+import { checkGenresByIdModal } from './checkGenresById';
 
 import { onClickQueue } from './local-storage';
 import { onClickWatched } from './local-storage';
@@ -93,16 +93,18 @@ function hide(button) {
   button.style.display = 'none';
 }
 
+
 function show(button) {
   button.style.display = '';
 }
 
-function onToWatchedBtn(event) {
+function onToWatchedBtn() {
   const data = findMovieById(currentId);
   const watchedFilms = localStorageObject('WATCHED_LIST_DATA_KEY') || [];
   let alreadyExists = watchedFilms.find(item => item.id === currentId);
 
   if (!alreadyExists) {
+  
     watchedFilms.push(data);
     saveWatchedListToLocalStorage(watchedFilms);
 
@@ -124,7 +126,13 @@ function onRemoveWatchedBtn() {
   }
 
   if (watchedLibBtn.classList.contains('btn-is-active')) {
+
     onClickWatched((modalDel = 1));
+
+    hide(toWatchedBtn);
+    show(removeWatchedBtn);
+
+
   } else {
     return;
   }
@@ -161,6 +169,10 @@ function onRemoveQueueBtn() {
     return;
   } else {
     onClickQueue((modalDel = 1));
+
+    hide(toQueueBtn);
+    show(removeQueueBtn);
+
   }
 }
 
@@ -287,7 +299,7 @@ function mark(obj) {
                         <p>Genre</p>
                     </td>
                     <td>
-                        <p>${checkGenresById(obj)}</p>
+                        <p>${checkGenresByIdModal(obj)}</p>
                     </td>
                 </tr>
             </table>

@@ -8,6 +8,8 @@ import serhiiP from '../images/developers/serhii_p.jpg';
 import svitlana from '../images/developers/svetlana.jpg';
 import andreiv from '../images/developers/andreiv.jpg';
 import dima from '../images/developers/dima.jpg';
+import rostislav from '../images/developers/rostislav.jpg';
+import roman from '../images/developers/roman.jpg';
 
 export const developers = [
     {
@@ -34,8 +36,8 @@ export const developers = [
     {
       name: 'Roman Korzun',
       text: 'Developer. Headers, up button, stiles',
-      img: image1,
-      linkedin: 'Button stiles',
+      img: roman,
+      linkedin: 'https://www.linkedin.com/in/roman-korzun/',
       github: 'https://github.com/romancarpangler',
     },
     {
@@ -79,5 +81,12 @@ export const developers = [
       img: evgeniy,
       linkedin: 'https://www.linkedin.com/in/%D1%94%D0%B2%D0%B3%D0%B5%D0%BD%D1%96%D0%B9-%D0%BA%D0%BB%D0%B8%D1%81%D0%B0%D0%BA-72a5978a/',
       github: 'https://github.com/Simon507?tab=repositories',
+    },
+    {
+      name: 'Rostislav',
+      text: 'Developer. Trailer show function.',
+      img: rostislav,
+      linkedin: 'https://www.linkedin.com/in/rostyslav-kryvovyaz/',
+      github: 'https://github.com/RostyslavKr',
     }
   ];

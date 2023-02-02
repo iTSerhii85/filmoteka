@@ -1,4 +1,4 @@
-import { checkGenresById } from './checkGenresById';
+import { checkGenresByIdModal } from './checkGenresById';
 import no_image from '../images/no-image.jpg';
 
 window.addEventListener('scroll', () => {
@@ -259,7 +259,7 @@ function mark(obj) {
                         <p>Genre</p>
                     </td>
                     <td>
-                        <p>${checkGenresById(obj)}</p>
+                        <p>${checkGenresByIdModal(obj)}</p>
                     </td>
                 </tr>
             </table>
@@ -308,6 +308,18 @@ function mark(obj) {
                         watch trailer
                     </button>
             </div>
-            </div>`;
+            </div>
+            <div class="backdrop-modal-trailer is-hidden">
+    <div class="trailer-player-wrapper">
+      <iframe class="trailer-player" width="320" height="240" src="https://www.youtube.com/embed" title="" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+      <button class="btnClose" type="button">
+        <svg class="btnClose__icon-close" width="30" height="30" aria-label=" button close">
+          <use href="./images/svg/sprite.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>`;
   movieCard.innerHTML = markup;
 }
