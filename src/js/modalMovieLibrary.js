@@ -129,10 +129,7 @@ function onRemoveWatchedBtn() {
 
     onClickWatched((modalDel = 1));
 
-    hide(toWatchedBtn);
-    show(removeWatchedBtn);
-
-
+    closeModal();
   } else {
     return;
   }
@@ -170,9 +167,7 @@ function onRemoveQueueBtn() {
   } else {
     onClickQueue((modalDel = 1));
 
-    hide(toQueueBtn);
-    show(removeQueueBtn);
-
+    closeModal();
   }
 }
 
