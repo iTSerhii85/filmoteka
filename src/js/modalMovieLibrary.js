@@ -25,6 +25,7 @@ let toWatchedBtn;
 let removeWatchedBtn;
 let toQueueBtn;
 let removeQueueBtn;
+let modalDel = '';
 
 const watchedLibBtn = document.querySelector('.js-watched-lib-btn');
 
@@ -92,6 +93,7 @@ function hide(button) {
   button.style.display = 'none';
 }
 
+
 function show(button) {
   button.style.display = '';
 }
@@ -124,10 +126,12 @@ function onRemoveWatchedBtn() {
   }
 
   if (watchedLibBtn.classList.contains('btn-is-active')) {
-    onClickWatched();
+
+    onClickWatched((modalDel = 1));
 
     hide(toWatchedBtn);
     show(removeWatchedBtn);
+
 
   } else {
     return;
@@ -164,10 +168,11 @@ function onRemoveQueueBtn() {
   if (watchedLibBtn.classList.contains('btn-is-active')) {
     return;
   } else {
-    onClickQueue();
+    onClickQueue((modalDel = 1));
 
     hide(toQueueBtn);
     show(removeQueueBtn);
+
   }
 }
 
